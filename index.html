@@ -1,0 +1,66 @@
+< !DOCTYPE html >
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Event Listings</title>
+                    <style>
+                        .event {
+                            border: 1px solid #ddd;
+                        padding: 10px;
+                        margin: 10px 0;
+    }
+                        .event img {
+                            max - width: 200px;
+    }
+                    </style>
+                </head>
+                <body>
+
+                    <h1>Upcoming Events</h1>
+                    <div id="events"></div>
+
+                    <script>
+                 
+
+    // URL from your published Google Sheet as CSV
+                        const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+
+                        // Function to fetch and display events
+                        async function fetchEvents() {
+      const response = await fetch(googleSheetURL);
+                        const data = await response.text();
+
+      // Convert CSV to an array of objects
+      const rows = data.split('\n').map(row => row.split(','));
+                        const headers = rows[0]; // First row are the headers
+      const events = rows.slice(1).map(row => {
+                            let event = { };
+        headers.forEach((header, index) => {
+                            event[header.trim()] = row[index].trim();
+        });
+                        return event;
+      });
+
+                        // Display the events
+                        const eventsContainer = document.getElementById('events');
+      events.forEach(event => {
+        const eventDiv = document.createElement('div');
+                        eventDiv.classList.add('event');
+                        eventDiv.innerHTML = `
+                        <h2>${event.Name}</h2>
+                        <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
+                        <p><strong>Discord:</strong> ${event.Discord}</p>
+                        <p>${event.Description}</p>
+                        <img src="${event['Image URL']}" alt="${event.Name}">
+                            `;
+                            eventsContainer.appendChild(eventDiv);
+      });
+    }
+
+                            // Fetch events when the page loads
+                            window.onload = fetchEvents;
+                    </script>
+
+                </body>
+            </html>
