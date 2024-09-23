@@ -18,6 +18,13 @@
             margin-bottom: 20px;
         }
 
+        .event-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(250px, 1fr)); /* Default to 1 column */
+            gap: 15px; /* Spacing between boxes */
+        }
+
+
         .event {
             background: white;
             border: 1px solid #ccc;
@@ -25,46 +32,36 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px; /* Reduced padding */
             margin: 10px 0; /* Reduced margin */
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            max-width: 600px; /* Limit width for better alignment */
+     
+            max-width: 400px; /* Set a max width for consistent sizing */
         }
 
-            .event h2 {
-                margin: 0 0 5px;
-                font-size: 1.3em; /* Smaller title */
+        .more-info {
+            max-height: 0; /* Start with no height */
+            overflow: hidden; /* Hide overflow */
+            transition: max-height 0.3s ease; /* Smooth transition */
+            margin-top: 10px; /* Space above the additional info */
+        }
+
+            .more-info.show {
+                max-height: 100px; /* Adjust this based on your content */
             }
 
-            .event .details {
-                display: flex;
-                justify-content: space-between; /* Better spacing */
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .event p {
-                margin: 2px 0; /* Reduced margin for paragraphs */
-                color: black;
-            }
-
-            .event a {
-                color: blue; /* Only the handbook link is blue */
-                text-decoration: none;
-            }
-
-                .event a:hover {
-                    text-decoration: underline; /* Underline on hover for links */
-                }
+        .toggle-button {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Current Events</h1>
-    <div id="current-events"></div>
+    <h1>Ongoing Tournaments</h1>
+    <div id="current-events" class="event-container"></div>
 
-    <h1>Upcoming Events</h1>
-    <div id="upcoming-events"></div>
+    <h1>Upcoming Tournaments</h1>
+    <div id="upcoming-events" class="event-container"></div>
 
     <script>
         const currentEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
@@ -90,13 +87,28 @@
                 eventDiv.classList.add('event');
                 eventDiv.innerHTML = `
                         <h2>${event.Name}</h2>
-                        <div class="details">
+                     
                             <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
-                            <p><strong>Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></strong></p>
+                        <div>
+                            <p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
                         </div>
-                        <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
+                        <p>${event.Description}</p>
+                        <span class="toggle-button">Show More ▼</span>
+                        <div class="more-info">
+                            <p><strong>Group Style:</strong> ${event.GroupStyle}</p>
+                            <p><strong>Players:</strong> ${event.Players}</p>
+                            <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
+                        </div>
                     `;
                 eventsContainer.appendChild(eventDiv);
+
+                // Add click event to toggle more info
+                const toggleButton = eventDiv.querySelector('.toggle-button');
+                const moreInfo = eventDiv.querySelector('.more-info');
+                toggleButton.addEventListener('click', () => {
+                    const isVisible = moreInfo.classList.toggle('show');
+                    toggleButton.textContent = isVisible ? 'Show Less ▲' : 'Show More ▼';
+                });
             });
         }
 
