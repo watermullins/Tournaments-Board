@@ -20,21 +20,27 @@
 
         .event-container {
             display: grid;
-            grid-template-columns: repeat(2, minmax(250px, 1fr)); /* Default to 1 column */
-            gap: 15px; /* Spacing between boxes */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Use auto-fit correctly */
+            gap: 15px;
+            width: 100%; /* Ensure container takes full width */
+            max-width: 1200px; /* Optional max-width to limit excessive stretching */
+            margin: 0 auto; /* Center the container */
         }
-
 
         .event {
             background: white;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 15px; /* Reduced padding */
-            margin: 10px 0; /* Reduced margin */
-     
-            max-width: 400px; /* Set a max width for consistent sizing */
+            padding: 15px;
+            max-width: 100%; /* Ensure event boxes are responsive */
         }
+
+            .event img {
+                width: 100%; /* Make image fill the container */
+                height: auto; /* Maintain aspect ratio */
+                border-radius: 5px; /* Optional: match event box style */
+            }
 
         .more-info {
             max-height: 0; /* Start with no height */
@@ -86,25 +92,27 @@
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
                 eventDiv.innerHTML = `
-                        <h2>${event.Name}</h2>
-                     
+                            <img src="${event['Image']}" alt="${event.Name}">
+                            <h2>${event.Name}</h2>
+
                             <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
-                        <div>
-                            <p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
-                        </div>
-                        <p>${event.Description}</p>
-                        <span class="toggle-button">Show More ▼</span>
-                        <div class="more-info">
-                            <p><strong>Group Style:</strong> ${event.GroupStyle}</p>
-                            <p><strong>Players:</strong> ${event.Players}</p>
-                            <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
-                        </div>
-                    `;
+                            <div>
+                                <p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
+                            </div>
+                            <p>${event.Description}</p>
+                            <span class="toggle-button">Show More ▼</span>
+                            <div class="more-info">
+                                <p><strong>Group Style:</strong> ${event.GroupStyle}</p>
+                                <p><strong>Players:</strong> ${event.Players}</p>
+                                <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
+                            </div>
+                        `;
                 eventsContainer.appendChild(eventDiv);
 
-                // Add click event to toggle more info
-                const toggleButton = eventDiv.querySelector('.toggle-button');
-                const moreInfo = eventDiv.querySelector('.more-info');
+                // Add click event to toggle more info for this specific event
+                let toggleButton = eventDiv.querySelector('.toggle-button');
+                let moreInfo = eventDiv.querySelector('.more-info');
+
                 toggleButton.addEventListener('click', () => {
                     const isVisible = moreInfo.classList.toggle('show');
                     toggleButton.textContent = isVisible ? 'Show Less ▲' : 'Show More ▼';
