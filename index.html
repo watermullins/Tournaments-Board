@@ -1,66 +1,110 @@
-< !DOCTYPE html >
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Event Listings</title>
-                    <style>
-                        .event {
-                            border: 1px solid #ddd;
-                        padding: 10px;
-                        margin: 10px 0;
-    }
-                        .event img {
-                            max - width: 200px;
-    }
-                    </style>
-                </head>
-                <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9; /* Light background for contrast */
+        }
 
-                    <h1>Upcoming Events</h1>
-                    <div id="events"></div>
+        h1 {
+            text-align: center;
+            font-size: 1.8em; /* Slightly smaller heading */
+            margin-bottom: 20px;
+        }
 
-                    <script>
-                 
+        .event {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 15px; /* Reduced padding */
+            margin: 10px 0; /* Reduced margin */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 600px; /* Limit width for better alignment */
+        }
 
-    // URL from your published Google Sheet as CSV
-                        const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+            .event h2 {
+                margin: 0 0 5px;
+                font-size: 1.3em; /* Smaller title */
+            }
 
-                        // Function to fetch and display events
-                        async function fetchEvents() {
-      const response = await fetch(googleSheetURL);
-                        const data = await response.text();
+            .event .details {
+                display: flex;
+                justify-content: space-between; /* Better spacing */
+                width: 100%;
+                margin-bottom: 10px;
+            }
 
-      // Convert CSV to an array of objects
-      const rows = data.split('\n').map(row => row.split(','));
-                        const headers = rows[0]; // First row are the headers
-      const events = rows.slice(1).map(row => {
-                            let event = { };
-        headers.forEach((header, index) => {
-                            event[header.trim()] = row[index].trim();
-        });
-                        return event;
-      });
+            .event p {
+                margin: 2px 0; /* Reduced margin for paragraphs */
+                color: black;
+            }
 
-                        // Display the events
-                        const eventsContainer = document.getElementById('events');
-      events.forEach(event => {
-        const eventDiv = document.createElement('div');
-                        eventDiv.classList.add('event');
-                        eventDiv.innerHTML = `
+            .event a {
+                color: blue; /* Only the handbook link is blue */
+                text-decoration: none;
+            }
+
+                .event a:hover {
+                    text-decoration: underline; /* Underline on hover for links */
+                }
+    </style>
+</head>
+<body>
+
+    <h1>Current Events</h1>
+    <div id="current-events"></div>
+
+    <h1>Upcoming Events</h1>
+    <div id="upcoming-events"></div>
+
+    <script>
+        const currentEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+        const upcomingEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?gid=1168885681&output=csv';
+
+        async function fetchEvents(url, containerId) {
+            const response = await fetch(url);
+            const data = await response.text();
+
+            const rows = data.split('\n').map(row => row.split(','));
+            const headers = rows[0];
+            const events = rows.slice(1).map(row => {
+                let event = {};
+                headers.forEach((header, index) => {
+                    event[header.trim()] = row[index].trim();
+                });
+                return event;
+            });
+
+            const eventsContainer = document.getElementById(containerId);
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('event');
+                eventDiv.innerHTML = `
                         <h2>${event.Name}</h2>
-                        <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
-                        <p><strong>Discord:</strong> ${event.Discord}</p>
-                        <p>${event.Description}</p>
-                        
-                            `;
-                            eventsContainer.appendChild(eventDiv);
-      });
-    }
+                        <div class="details">
+                            <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
+                            <p><strong>Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></strong></p>
+                        </div>
+                        <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
+                    `;
+                eventsContainer.appendChild(eventDiv);
+            });
+        }
 
-                            // Fetch events when the page loads
-                            window.onload = fetchEvents;
-                    </script>
+        window.onload = () => {
+            fetchEvents(currentEventsURL, 'current-events');
+            fetchEvents(upcomingEventsURL, 'upcoming-events');
+        };
+    </script>
 
-                </body>
-            </html>
+</body>
+</html>
