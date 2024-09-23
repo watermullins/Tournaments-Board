@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Listings</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: url('https://i.imgur.com/92pxffu.jpeg') no-repeat center center fixed;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/4/4d/AtaculdeNoapte.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: #533005; /* Change text color for better visibility */
+            color: black; /* Change text color for better visibility */
         }
 
         h1 {
             text-align: center;
-            font-size: 1.8em; /* Slightly smaller heading */
+            font-size: 1.8em;
             margin-bottom: 20px;
+            color: white;
         }
+
+        h2 a {
+            text-decoration: none; /* Remove underline */
+        }
+
+            h2 a:visited {
+                color: black; /* Keep the same color for visited links */
+            }
+
+        p a {
+            text-decoration: none;
+        }
+
 
         .event-container {
             display: grid;
@@ -43,6 +58,7 @@
             .event img {
                 width: 100%; /* Make image fill the container */
                 height: auto; /* Maintain aspect ratio */
+                max-height: 50%;
                 border-radius: 5px; /* Optional: match event box style */
             }
 
@@ -105,7 +121,7 @@
                 }
 
                 if (event.Name) {
-                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
+                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}<i class="bi bi-box-arrow-in-up-right"></i></a></h2>`;
                 }
 
                 if (event.SignupDeadline) {
