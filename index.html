@@ -9,7 +9,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f9f9f9; /* Light background for contrast */
+            background: url('https://i.imgur.com/92pxffu.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: #533005; /* Change text color for better visibility */
         }
 
         h1 {
@@ -34,6 +36,8 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
             max-width: 100%; /* Ensure event boxes are responsive */
+            display: flex;
+            flex-direction: column; /* Ensure the content stacks vertically */
         }
 
             .event img {
@@ -47,10 +51,11 @@
             overflow: hidden; /* Hide overflow */
             transition: max-height 0.3s ease; /* Smooth transition */
             margin-top: 10px; /* Space above the additional info */
+            flex-grow: 0; /* Prevent the more-info section from stretching */
         }
 
             .more-info.show {
-                max-height: 100px; /* Adjust this based on your content */
+                max-height: 500px; /* Set a higher max-height to accommodate more content */
             }
 
         .toggle-button {
@@ -91,32 +96,34 @@
             events.forEach(event => {
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
-                eventDiv.innerHTML = `
-                            <img src="${event['Image']}" alt="${event.Name}">
-                            <h2>${event.Name}</h2>
 
-                            <p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>
-                            <div>
-                                <p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
-                            </div>
-                            <p>${event.Description}</p>
-                            <span class="toggle-button">Show More ▼</span>
-                            <div class="more-info">
-                                <p><strong>Group Style:</strong> ${event.GroupStyle}</p>
-                                <p><strong>Players:</strong> ${event.Players}</p>
-                                <p><strong><a href="${event.Handbook}" target="_blank">Handbook Document</a></strong></p>
-                            </div>
-                        `;
+                // Check if columns have values and conditionally add them
+                let eventHTML = '';
+
+                if (event['Image']) {
+                    eventHTML += `<img src="${event['Image']}" alt="${event.Name}">`;
+                }
+
+                if (event.Name) {
+                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
+                }
+
+                if (event.SignupDeadline) {
+                    eventHTML += `<p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>`;
+                }
+
+                if (event.DiscordLink && event.Discord) {
+                    eventHTML += `<div><p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p></div>`;
+                }
+
+                if (event.Description) {
+                    eventHTML += `<p>${event.Description}</p>`;
+                }
+
+                
+
+                eventDiv.innerHTML = eventHTML;
                 eventsContainer.appendChild(eventDiv);
-
-                // Add click event to toggle more info for this specific event
-                let toggleButton = eventDiv.querySelector('.toggle-button');
-                let moreInfo = eventDiv.querySelector('.more-info');
-
-                toggleButton.addEventListener('click', () => {
-                    const isVisible = moreInfo.classList.toggle('show');
-                    toggleButton.textContent = isVisible ? 'Show Less ▲' : 'Show More ▼';
-                });
             });
         }
 
