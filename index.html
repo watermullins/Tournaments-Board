@@ -49,7 +49,7 @@
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            max-width: 400px;
+            max-width: 275px;
             display: flex;
             flex-direction: column;
         }
@@ -60,6 +60,14 @@
                 max-height: 50%;
                 border-radius: 5px;
             }
+
+        .elo-box {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
 
         .more-info {
             max-height: 0;
@@ -79,9 +87,42 @@
             text-decoration: underline;
             margin-top: 10px;
         }
+
+        .filter-container {
+            text-align: left; /* Left align the filter section */
+            margin-bottom: 20px;
+            color: white; /* Set filter text color to white */
+        }
+
+            .filter-container label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .filter-container input {
+                margin-right: 10px;
+            }
+
+        .color-box {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
+
+    <div class="filter-container">
+        <label>Filter by ELO:</label>
+        <label><input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800</label>
+        <label><input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000</label>
+        <label><input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200</label>
+        <label><input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800</label>
+        <label><input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+</label>
+        <label><input type="checkbox" value="Open" data-color="#A4ABB6"> <span class="color-box" style="background-color: #A4ABB6;"></span> Open</label>
+    </div>
 
     <h1>Ongoing Tournaments</h1>
     <div id="current-events" class="event-container"></div>
@@ -107,11 +148,34 @@
             const eventsContainer = document.getElementById(containerId);
             eventsContainer.innerHTML = '';
 
+            const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+
             events.forEach(event => {
+                const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
+
+                // Check if any selected ELO is in the event's ELO ranges
+                const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.some(selectedElo => eventEloRanges.includes(selectedElo));
+
+                if (!eloMatch) {
+                    return;
+                }
+
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
 
                 let eventHTML = '';
+
+                // Create a colored box based on the ELO ranges
+                const colors = eventEloRanges.map(range => {
+                    const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
+                    return checkbox ? checkbox.getAttribute('data-color') : null;
+                }).filter(color => color);
+
+                // Add colored boxes at the top of the event
+                if (colors.length > 0) {
+                    eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
+                }
 
                 if (event['Image']) {
                     eventHTML += `<img src="${event['Image']}" alt="${event.Name}">`;
@@ -140,11 +204,17 @@
             });
         }
 
+        document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                fetchEvents(currentEventsURL, 'current-events');
+                fetchEvents(upcomingEventsURL, 'upcoming-events');
+            });
+        });
+
         window.onload = () => {
             fetchEvents(currentEventsURL, 'current-events');
             fetchEvents(upcomingEventsURL, 'upcoming-events');
         };
     </script>
-
 </body>
 </html>
