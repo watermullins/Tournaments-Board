@@ -89,9 +89,9 @@
         }
 
         .filter-container {
-            text-align: left; /* Left align the filter section */
+            text-align: left;
             margin-bottom: 20px;
-            color: white; /* Set filter text color to white */
+            color: white;
         }
 
             .filter-container label {
@@ -132,11 +132,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        const currentEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
-        const upcomingEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?gid=1168885681&output=csv';
+        const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
 
-        async function fetchEvents(url, containerId) {
-            const response = await fetch(url);
+        async function fetchEvents() {
+            const response = await fetch(eventsURL);
             const data = await response.text();
 
             const parsed = Papa.parse(data, {
@@ -145,14 +144,18 @@
             });
 
             const events = parsed.data;
-            const eventsContainer = document.getElementById(containerId);
-            eventsContainer.innerHTML = '';
+            const ongoingContainer = document.getElementById('current-events');
+            const upcomingContainer = document.getElementById('upcoming-events');
+
+            ongoingContainer.innerHTML = '';
+            upcomingContainer.innerHTML = '';
 
             const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
                 .map(checkbox => checkbox.value);
 
             events.forEach(event => {
                 const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
+                const status = event['Status'] ? event['Status'].trim() : '';
 
                 // Check if any selected ELO is in the event's ELO ranges
                 const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.some(selectedElo => eventEloRanges.includes(selectedElo));
@@ -200,20 +203,24 @@
                 }
 
                 eventDiv.innerHTML = eventHTML;
-                eventsContainer.appendChild(eventDiv);
+
+                // Append to the appropriate container based on status
+                if (status === 'Ongoing') {
+                    ongoingContainer.appendChild(eventDiv);
+                } else if (status === 'Upcoming') {
+                    upcomingContainer.appendChild(eventDiv);
+                }
             });
         }
 
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', () => {
-                fetchEvents(currentEventsURL, 'current-events');
-                fetchEvents(upcomingEventsURL, 'upcoming-events');
+                fetchEvents();
             });
         });
 
         window.onload = () => {
-            fetchEvents(currentEventsURL, 'current-events');
-            fetchEvents(upcomingEventsURL, 'upcoming-events');
+            fetchEvents();
         };
     </script>
 </body>
