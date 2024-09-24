@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archived Tournaments</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/4/4d/AtaculdeNoapte.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        h2 a {
+            text-decoration: none;
+            color: black;
+        }
+
+            h2 a:visited {
+                color: black;
+            }
+
+        p a {
+            text-decoration: none;
+        }
+
+        .event-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            max-width: 275px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .elo-box {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .filter-container {
+            text-align: left;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .color-box {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Archived Tournaments</h1>
+    <div id="archived-events" class="event-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+
+        async function fetchArchivedEvents() {
+            const response = await fetch(eventsURL);
+            const data = await response.text();
+
+            const parsed = Papa.parse(data, {
+                header: true,
+                skipEmptyLines: true
+            });
+
+            const events = parsed.data;
+            const archivedContainer = document.getElementById('archived-events');
+
+            archivedContainer.innerHTML = '';
+
+            events.forEach(event => {
+                const status = event['Status'] ? event['Status'].trim() : '';
+
+                if (status === 'Archive') {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event');
+
+                    let eventHTML = '';
+
+                    if (event['Image']) {
+                        eventHTML += `<img src="${event['Image']}" alt="${event.Name}">`;
+                    }
+
+                    if (event.Name) {
+                        eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}<i class="bi bi-box-arrow-in-up-right"></i></a></h2>`;
+                    }
+
+                    if (event.SignupDeadline) {
+                        eventHTML += `<p><strong>Signup Deadline:</strong> ${event.SignupDeadline}</p>`;
+                    }
+
+                    if (event.DiscordLink && event.Discord) {
+                        eventHTML += `<div><p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p></div>`;
+                    }
+
+                    if (event.Description) {
+                        eventHTML += `<p>${event.Description}</p>`;
+                    } else {
+                        eventHTML += `<p>Details to come</p>`;
+                    }
+
+                    eventDiv.innerHTML = eventHTML;
+                    archivedContainer.appendChild(eventDiv);
+                }
+            });
+        }
+
+        window.onload = () => {
+            fetchArchivedEvents();
+        };
+    </script>
+</body>
+</html>
