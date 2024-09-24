@@ -21,29 +21,30 @@
         }
 
         .event-detail {
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             padding: 15px;
             width: 80%;
             max-width: 800px;
             margin: auto;
-            color: #000; /* Text color inside the detail box */
+            color: #000;
         }
 
-        .draft-links {
+        .important-links {
             background: #f0f8ff;
             border: 1px solid #a0c4ff;
             border-radius: 5px;
             padding: 15px;
             margin-top: 15px;
+            max-width: 30%;
         }
 
-            .draft-links h3 {
+            .important-links h3 {
                 margin-top: 0;
             }
 
-        .draft-link {
+        .important-link {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
@@ -51,7 +52,7 @@
 
         .event-detail img {
             display: block;
-            width: 60%; /* Make image fill container */
+            width: 60%;
             height: auto;
             margin-left: auto;
             margin-right: auto;
@@ -73,13 +74,13 @@
         async function fetchEventDetails() {
             const response = await fetch(eventsURL);
             const data = await response.text();
-            const rows = data.split('\n').map(row => row.split(','));
+            const rows = data.split('\n').map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
             const headers = rows[0];
 
             const events = rows.slice(1).map(row => {
                 let event = {};
                 headers.forEach((header, index) => {
-                    event[header.trim()] = row[index].trim();
+                    event[header.trim()] = row[index].trim().replace(/(^"|"$)/g, '');
                 });
                 return event;
             });
@@ -89,11 +90,14 @@
 
             if (event) {
                 let eventDetailsHTML = `
-            <h2>${event.Name}</h2>
-            ${event['Image'] ? `<img src="${event['Image']}" alt="${event.Name}">` : ''}`;
+                    <h2>${event.Name}</h2>
+                    ${event['Image'] ? `<img src="${event['Image']}" alt="${event.Name}">` : ''}`;
 
                 if (event.SignupDeadline) {
                     eventDetailsHTML += `<p><strong>Signup Deadline:</strong> <i class="bi bi-calendar fs-5"></i> ${event.SignupDeadline}</p>`;
+                }
+                if (event.StartDate) {
+                    eventDetailsHTML += `<p><strong>Start Date:</strong> <i class="bi bi-calendar fs-5"></i> ${event.StartDate}</p>`;
                 }
 
                 if (event.DiscordLink) {
@@ -103,40 +107,39 @@
                 if (event.Description) {
                     eventDetailsHTML += `<p><strong>Description:</strong> ${event.Description}</p>`;
                 }
+                if (event.Prize) {
+                    eventDetailsHTML += `<p><strong>Prize Pool:</strong> ${event.Prize}</p>`;
+                }
 
                 if (event.GroupStyle) {
                     eventDetailsHTML += `<p><strong>Group Style:</strong> ${event.GroupStyle}</p>`;
                 }
 
-                // Draft Links Section
-                if (event['Groups Map Draft Link'] || event['Groups Civ Draft Link'] || event['KO Map Draft Link'] || event['KO Civ Draft Link']) {
-                    eventDetailsHTML += `<div class="draft-links"><h3>Draft Links</h3>`;
-                    if (event['Groups Map Draft Link']) {
-                        eventDetailsHTML += `<div class="draft-link"><a href="${event['Groups Map Draft Link']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
-                    }
-
-                    if (event['Groups Civ Draft Link']) {
-                        eventDetailsHTML += `<div class="draft-link"><a href="${event['Groups Civ Draft Link']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
-                    }
-
-                    if (event['KO Map Draft Link']) {
-                        eventDetailsHTML += `<div class="draft-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
-                    }
-
-                    if (event['KO Civ Draft Link']) {
-                        eventDetailsHTML += `<div class="draft-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
-                    }
-                    eventDetailsHTML += `</div>`; // Closing draft links div
+                eventDetailsHTML += `<div class="important-links"><h3>Important Links</h3>`;
+                if (event['GroupMap']) {
+                    eventDetailsHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
                 }
 
-                // Non-Draft Links
+                if (event['GroupCiv']) {
+                    eventDetailsHTML += `<div class="important-link"><a href="${event['GroupCiv']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
+                }
+
+                if (event['KO Map Draft Link']) {
+                    eventDetailsHTML += `<div class="important-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
+                }
+
+                if (event['KO Civ Draft Link']) {
+                    eventDetailsHTML += `<div class="important-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
+                }
+
                 if (event.Handbook) {
-                    eventDetailsHTML += `<div class="draft-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
+                    eventDetailsHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
                 }
 
                 if (event.Players) {
                     eventDetailsHTML += `<p><strong>Players:</strong> <a href="${event.Players}" target="_blank">Link</a></p>`;
                 }
+                eventDetailsHTML += `</div>`;
 
                 if (event['DivisionElo Range']) {
                     eventDetailsHTML += `<p><strong>Division Elo Range:</strong> ${event['DivisionElo Range']}</p>`;
@@ -151,7 +154,6 @@
                 eventDetailContainer.innerHTML = `<p>No details available for this event.</p>`;
             }
         }
-
 
         window.onload = fetchEventDetails;
     </script>
