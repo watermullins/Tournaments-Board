@@ -130,6 +130,8 @@
     <h1>Upcoming Tournaments</h1>
     <div id="upcoming-events" class="event-container"></div>
 
+    <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
@@ -212,6 +214,7 @@
                 }
             });
         }
+
 
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', () => {
