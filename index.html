@@ -12,7 +12,6 @@
             padding: 20px;
             background: url('https://upload.wikimedia.org/wikipedia/commons/4/4d/AtaculdeNoapte.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: black; /* Change text color for better visibility */
         }
 
         h1 {
@@ -23,11 +22,11 @@
         }
 
         h2 a {
-            text-decoration: none; /* Remove underline */
+            text-decoration: none;
         }
 
             h2 a:visited {
-                color: black; /* Keep the same color for visited links */
+                color: black;
             }
 
         p a {
@@ -37,11 +36,11 @@
 
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Use auto-fit correctly */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
-            width: 100%; /* Ensure container takes full width */
-            max-width: 1200px; /* Optional max-width to limit excessive stretching */
-            margin: 0 auto; /* Center the container */
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .event {
@@ -50,28 +49,28 @@
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            max-width: 100%; /* Ensure event boxes are responsive */
+            max-width: 100%;
             display: flex;
-            flex-direction: column; /* Ensure the content stacks vertically */
+            flex-direction: column;
         }
 
             .event img {
-                width: 100%; /* Make image fill the container */
-                height: auto; /* Maintain aspect ratio */
+                width: 100%;
+                height: auto;
                 max-height: 50%;
-                border-radius: 5px; /* Optional: match event box style */
+                border-radius: 5px;
             }
 
         .more-info {
-            max-height: 0; /* Start with no height */
-            overflow: hidden; /* Hide overflow */
-            transition: max-height 0.3s ease; /* Smooth transition */
-            margin-top: 10px; /* Space above the additional info */
-            flex-grow: 0; /* Prevent the more-info section from stretching */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 10px;
+            flex-grow: 0;
         }
 
             .more-info.show {
-                max-height: 500px; /* Set a higher max-height to accommodate more content */
+                max-height: 500px;
             }
 
         .toggle-button {
