@@ -33,7 +33,6 @@
             text-decoration: none;
         }
 
-
         .event-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -49,7 +48,7 @@
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            max-width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
         }
@@ -89,6 +88,7 @@
     <h1>Upcoming Tournaments</h1>
     <div id="upcoming-events" class="event-container"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         const currentEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
         const upcomingEventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?gid=1168885681&output=csv';
@@ -97,22 +97,19 @@
             const response = await fetch(url);
             const data = await response.text();
 
-            const rows = data.split('\n').map(row => row.split(','));
-            const headers = rows[0];
-            const events = rows.slice(1).map(row => {
-                let event = {};
-                headers.forEach((header, index) => {
-                    event[header.trim()] = row[index].trim();
-                });
-                return event;
+            const parsed = Papa.parse(data, {
+                header: true,
+                skipEmptyLines: true
             });
 
+            const events = parsed.data;
             const eventsContainer = document.getElementById(containerId);
+            eventsContainer.innerHTML = '';
+
             events.forEach(event => {
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
 
-                // Check if columns have values and conditionally add them
                 let eventHTML = '';
 
                 if (event['Image']) {
@@ -133,12 +130,9 @@
 
                 if (event.Description) {
                     eventHTML += `<p>${event.Description}</p>`;
-                }
-                else {
+                } else {
                     eventHTML += `<p>Details to come</p>`;
                 }
-
-                
 
                 eventDiv.innerHTML = eventHTML;
                 eventsContainer.appendChild(eventDiv);
