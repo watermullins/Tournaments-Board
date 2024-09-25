@@ -101,21 +101,26 @@
                 }
 
                 if (event.DiscordLink) {
-                    eventDetailsHTML += `<p><strong>Host Discord:</strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>`;
+                    eventDetailsHTML += `<p><a href="${event.DiscordLink}" target="_blank">${event.Discord} Discord</a></p>`;
                 }
 
                 if (event.Description) {
-                    eventDetailsHTML += `<p><strong>Description:</strong> ${event.Description}</p>`;
+                    eventDetailsHTML += `<p>${event.Description}</p>`;
                 }
-                if (event.Prize) {
-                    eventDetailsHTML += `<p><strong>Prize Pool:</strong> ${event.Prize}</p>`;
-                }
+                
+                
 
                 if (event.GroupStyle) {
                     eventDetailsHTML += `<p><strong>Group Style:</strong> ${event.GroupStyle}</p>`;
                 }
 
-                eventDetailsHTML += `<div class="important-links"><h3>Important Links</h3>`;
+                if (event.Liquid) {
+                    eventDetailsHTML += `<p><a href="${event.Liquid}" target="_blank">Liquidpedia Page</a></p>`;
+                }
+                if (event.Prize) {
+                    eventDetailsHTML += `<p><strong>Prize Pool:</strong> ${event.Prize}</p>`;
+                    eventDetailsHTML += `<div class="important-links"><h3>Important Links</h3>`;
+                }
                 if (event['GroupMap']) {
                     eventDetailsHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
                 }
