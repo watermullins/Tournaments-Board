@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Listings</title>
+    <title>Useful Sites</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <style>
@@ -76,6 +76,10 @@
     <h1>Useful Sites</h1>
     <div id="events-container" class="event-container"></div>
 
+    <p><a href="index.html" target="_blank" style="color:white; text-decoration: underline;">View Current Tournaments</a></p>
+    <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         const linkURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=385203062';
@@ -100,12 +104,12 @@
                 let eventHTML = '';
 
                 // Add Image if available
-                
+
                 if (event['Image']) {
-    eventHTML += `<a href="${event.Link}" target="_blank">
-    <img src="${event['Image']}" alt="${event.Link}">
-  </a>`;
-}
+                    eventHTML += `<a href="${event.Link}" target="_blank">
+        <img src="${event['Image']}" alt="${event.Link}">
+      </a>`;
+                }
 
                 // Add Event Title and Link
                 if (event.Title && event.Link) {

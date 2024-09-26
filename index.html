@@ -27,6 +27,7 @@
         h2 a {
             text-decoration: none;
             color: black;
+            
         }
 
             h2 a:visited {
@@ -39,21 +40,22 @@
 
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
             gap: 15px;
+            
             width: 100%;
-            max-width: 1200px;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
         .event {
             /*Pergament background for each box*/
-            background: url('https://i.imgur.com/8KS5rvq.jpeg') no-repeat center center; 
+            background: url('https://i.imgur.com/RXpU7q5.png') no-repeat center center;
             background-size: cover;
             border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            https: //t3.ftcdn.net/jpg/01/63/03/28/360_F_163032871_POKPXHe43CZJvGvQGdfmcNlKYuynE0tU.jpg box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            max-width: 275px;
+            max-width: 300px;
             display: flex;
             flex-direction: column;
             color: black;
@@ -63,11 +65,13 @@
                 margin-top: 10px;
                 margin-bottom: 5px;
                 font-size: 1.5em;
+                text-align: center;
             }
 
             .event p {
                 margin-top: 5px;
                 margin-bottom: 5px;
+                margin-left: 20px;
                 line-height: 1.2;
             }
 
@@ -197,14 +201,21 @@
                 if (event.Name) {
                     eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
                 }
+                if (event.Description) {
+                    eventHTML += `<p>${event.Description}</p>`;
+                }
 
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
-                    eventHTML += `<p><strong>Signup Deadline:</strong> ${formattedDeadline}</p>`;
+                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i>Signup Deadline:  ${formattedDeadline}</p>`;
+                }
+                else {
+                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:TBA</p>`;
                 }
 
                 if (event.DiscordLink && event.Discord) {
-                    eventHTML += `<p><a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>`;
+                    eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
+</div>`;
                 }
 
                 eventDiv.innerHTML = eventHTML;
