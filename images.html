@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+            .gallery-container img {
+                width: 100%;
+                height: auto;
+                cursor: pointer;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: transform 0.2s ease;
+            }
+
+                .gallery-container img:hover {
+                    transform: scale(1.05);
+                }
+
+        /* Modal (for fullscreen image) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Infographic Gallery</h1>
+        <p>by watermullins</p>
+    </header>
+
+    <div class="gallery-container" id="gallery"></div>
+
+    <!-- Fullscreen Image View -->
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <footer>
+        <p>Images by watermullins</p>
+        
+    </footer>
+
+    <script>
+        // Fetch the CSV from the Google Sheets link
+        fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split("\n").slice(1); // Remove header
+                const galleryContainer = document.getElementById('gallery');
+
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    const imageLink = columns[0];
+
+                    if (imageLink) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = imageLink.trim();
+                        imgElement.alt = "Gallery Image";
+                        imgElement.addEventListener('click', () => openModal(imageLink.trim()));
+                        galleryContainer.appendChild(imgElement);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching CSV:', error));
+
+        // Modal functionality for fullscreen view
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close')[0];
+
+        function openModal(imageSrc) {
+            modal.style.display = 'flex';
+            modalImage.src = imageSrc;
+        }
+
+        closeModal.onclick = function () {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
