@@ -19,15 +19,15 @@
 
         h1 {
             text-align: center;
-            font-size: 1.8em;
+            font-size: 2em;
             margin-bottom: 20px;
+            margin-top: 50px;
             color: white;
         }
 
         h2 a {
             text-decoration: none;
             color: black;
-            
         }
 
             h2 a:visited {
@@ -38,22 +38,47 @@
             text-decoration: none;
         }
 
+        .main-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .filter-container {
+            width: 200px;
+            color: white;
+        }
+
+            .filter-container label {
+                display: block;
+                margin-bottom: 0px;
+            }
+
+            .filter-container input {
+                margin-right: 10px;
+            }
+
+        .color-box {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+            
+        }
+
         .event-container {
             display: grid;
-            grid-template-columns: repeat(4, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
-            
             width: 100%;
             max-width: 1500px;
             margin: 0 auto;
         }
 
         .event {
-            /*Pergament background for each box*/
             background: url('https://i.imgur.com/RXpU7q5.png') no-repeat center center;
             background-size: cover;
             border-radius: 5px;
-            https: //t3.ftcdn.net/jpg/01/63/03/28/360_F_163032871_POKPXHe43CZJvGvQGdfmcNlKYuynE0tU.jpg box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
             max-width: 300px;
             display: flex;
@@ -90,53 +115,34 @@
             border-radius: 3px;
             margin-right: 5px;
         }
-
-
-        .filter-container {
-            text-align: left;
-            margin-bottom: 0px;
-            color: white;
-        }
-
-            .filter-container label {
-                display: block;
-                margin-bottom: 0px;
-            }
-
-            .filter-container input {
-                margin-right: 10px;
-            }
-
-        .color-box {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
+    <div class="main-content">
+        <div class="filter-container">
+            <label>Filter by ELO:</label>
+            <label><input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800</label>
+            <label><input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000</label>
+            <label><input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200</label>
+            <label><input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800</label>
+            <label><input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+</label>
+            <label><input type="checkbox" value="All ELOs" data-color="white"> <span class="color-box" style="background-color: white;"></span> All ELOs</label>
+            <label><input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; " ></span>Invite Only</label>
+        </div>
 
-    <div class="filter-container">
-        <label>Filter by ELO:</label>
-        <label><input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800</label>
-        <label><input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000</label>
-        <label><input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200</label>
-        <label><input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800</label>
-        <label><input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+</label>
-        <label><input type="checkbox" value="Open" data-color="#A4ABB6"> <span class="color-box" style="background-color: #A4ABB6;"></span> Open</label>
+        <div class="event-sections">
+            <h1>Ongoing Tournaments</h1>
+            <div id="current-events" class="event-container"></div>
+
+            <h1>Upcoming Tournaments</h1>
+            <div id="upcoming-events" class="event-container"></div>
+        </div>
     </div>
-
-    <h1>Ongoing Tournaments</h1>
-    <div id="current-events" class="event-container"></div>
-
-    <h1>Upcoming Tournaments</h1>
-    <div id="upcoming-events" class="event-container"></div>
 
     <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
     <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
     <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Suggested Links</a></p>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
@@ -194,8 +200,8 @@
 
                 if (event['Image']) {
                     eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                        <img src="${event['Image']}" alt="${event.Name}">
-                      </a>`;
+                            <img src="${event['Image']}" alt="${event.Name}">
+                          </a>`;
                 }
 
                 if (event.Name) {
@@ -207,7 +213,7 @@
 
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
-                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i>Signup Deadline:  ${formattedDeadline}</p>`;
+                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:  ${formattedDeadline}</p>`;
                 }
                 else {
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:TBA</p>`;
