@@ -67,7 +67,6 @@
                 margin-bottom: 10px;
                 width: 100%;
                 height: auto;
-                max-height: 50%;
                 border-radius: 5px;
             }
     </style>
@@ -103,14 +102,14 @@
                 // Add Image if available
                 
                 if (event['Image']) {
-    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Title)}" target="_blank">
-    <img src="${event['Image']}" alt="${event.Title}">
+    eventHTML += `<a href="${event.Link}" target="_blank">
+    <img src="${event['Image']}" alt="${event.Link}">
   </a>`;
 }
 
                 // Add Event Title and Link
                 if (event.Title && event.Link) {
-                    eventHTML += `<h2><a href="${event.Link}" target="_blank">${event.Title}<i class="bi bi-box-arrow-in-up-right"></i></a></h2>`;
+                    eventHTML += `<h2><a href="${event.Link}" target="_blank">${event.Title}</a></h2>`;
                 }
 
                 // Add Event Description
