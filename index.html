@@ -47,7 +47,8 @@
         }
 
         .event {
-            background: white;
+            background: url('https://i.imgur.com/8KS5rvq.jpeg') no-repeat center center;
+            background-size: cover;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -55,28 +56,28 @@
             max-width: 275px;
             display: flex;
             flex-direction: column;
+            color: black;
         }
+
             .event h2 {
-                margin-top: 10px; /* Reduce space above the event title */
-                margin-bottom: 5px; /* Reduce space below the event title */
-                font-size: 1.5em; /* Adjust the font size if needed */
+                margin-top: 10px;
+                margin-bottom: 5px;
+                font-size: 1.5em;
             }
 
             .event p {
-                margin-top: 5px; /* Reduce space between paragraphs */
-                margin-bottom: 5px; /* Reduce space between paragraphs */
-                line-height: 1.2; /* Adjust line height to reduce vertical spacing within the paragraph */
+                margin-top: 5px;
+                margin-bottom: 5px;
+                line-height: 1.2;
             }
 
             .event img {
                 width: 100%;
                 height: auto;
                 object-fit: contain;
-                max-height: 200px; /* Adjust the height limit as necessary */
+                max-height: 200px;
                 border-radius: 5px;
             }
-
-            
 
         .elo-box {
             width: 20px;
@@ -149,20 +150,16 @@
 
     <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
     <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
-    <!---<p><a href="servers.html" target="_blank" style="color:white; text-decoration: underline;">Active Tournament Servers</a></p>*-->
+    <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Suggested Links</a></p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         function formatDateToMonthDay(dateString) {
             const dateParts = dateString.split('/');
-            // Rearranging date parts: MM/DD/YYYY -> YYYY, MM-1, DD
-            const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Month is 0-based in JavaScript
-
-            const options = { month: 'long', day: 'numeric' }; // Format options
-
-            return date.toLocaleDateString('en-US', options); // Format to "Month day"
+            const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+            const options = { month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
         }
-
 
         const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
 
@@ -189,7 +186,6 @@
                 const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
                 const status = event['Status'] ? event['Status'].trim() : '';
 
-                // Check if any selected ELO is in the event's ELO ranges
                 const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.some(selectedElo => eventEloRanges.includes(selectedElo));
 
                 if (!eloMatch) {
@@ -201,23 +197,20 @@
 
                 let eventHTML = '';
 
-                // Create a colored box based on the ELO ranges
                 const colors = eventEloRanges.map(range => {
                     const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
                     return checkbox ? checkbox.getAttribute('data-color') : null;
                 }).filter(color => color);
 
-                // Add colored boxes at the top of the event
                 if (colors.length > 0) {
                     eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
                 }
 
                 if (event['Image']) {
                     eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                    <img src="${event['Image']}" alt="${event.Name}">
-                  </a>`;
+                        <img src="${event['Image']}" alt="${event.Name}">
+                      </a>`;
                 }
-
 
                 if (event.Name) {
                     eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
@@ -228,21 +221,12 @@
                     eventHTML += `<p><strong>Signup Deadline:</strong> ${formattedDeadline}</p>`;
                 }
 
-
                 if (event.DiscordLink && event.Discord) {
-                    eventHTML += `<div><p><strong><i class="bi bi-discord"></i></strong> <a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
-</div>`;
-                }
-
-                if (event.Description) {
-                    eventHTML += `<p>${event.Description}</p>`;
-                } else {
-                    eventHTML += `<p>Details to come</p>`;
+                    eventHTML += `<p><a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>`;
                 }
 
                 eventDiv.innerHTML = eventHTML;
 
-                // Append to the appropriate container based on status
                 if (status === 'Ongoing') {
                     ongoingContainer.appendChild(eventDiv);
                 } else if (status === 'Upcoming') {
@@ -251,16 +235,11 @@
             });
         }
 
-
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                fetchEvents();
-            });
+            checkbox.addEventListener('change', fetchEvents);
         });
 
-        window.onload = () => {
-            fetchEvents();
-        };
+        fetchEvents();
     </script>
 </body>
 </html>
