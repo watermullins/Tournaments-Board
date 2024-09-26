@@ -56,6 +56,7 @@
             display: flex;
             flex-direction: column;
         }
+
             .event h2 {
                 margin-top: 10px; /* Reduce space above the event title */
                 margin-bottom: 5px; /* Reduce space below the event title */
@@ -69,105 +70,33 @@
             }
 
             .event img {
+                margin-bottom: 10px; /* Reduce space between the image and the text below */
                 width: 100%;
                 height: auto;
-                object-fit: contain;
-                max-height: 200px; /* Adjust the height limit as necessary */
+                max-height: 50%;
                 border-radius: 5px;
             }
-
-            
-
-        .elo-box {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            border-radius: 3px;
-            margin-right: 5px;
-        }
-
-        .more-info {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            margin-top: 10px;
-            flex-grow: 0;
-        }
-
-            .more-info.show {
-                max-height: 500px;
-            }
-
-        .toggle-button {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-            margin-top: 10px;
-        }
-
-        .filter-container {
-            text-align: left;
-            margin-bottom: 0px;
-            color: white;
-        }
-
-            .filter-container label {
-                display: block;
-                margin-bottom: 0px;
-            }
-
-            .filter-container input {
-                margin-right: 10px;
-            }
-
-        .color-box {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
 
-    <div class="filter-container">
-        <label>Filter by ELO:</label>
-        <label><input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800</label>
-        <label><input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000</label>
-        <label><input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200</label>
-        <label><input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800</label>
-        <label><input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+</label>
-        <label><input type="checkbox" value="Open" data-color="#A4ABB6"> <span class="color-box" style="background-color: #A4ABB6;"></span> Open</label>
-    </div>
-
-    <h1>Ongoing Tournaments</h1>
+    <h1>Player Data</h1>
     <div id="current-events" class="event-container"></div>
 
-    <h1>Upcoming Tournaments</h1>
+    <h1>Other Tools</h1>
     <div id="upcoming-events" class="event-container"></div>
 
     <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
-    <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
-    <!---<p><a href="servers.html" target="_blank" style="color:white; text-decoration: underline;">Active Tournament Servers</a></p>*-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        function formatDateToMonthDay(dateString) {
-            const dateParts = dateString.split('/');
-            // Rearranging date parts: MM/DD/YYYY -> YYYY, MM-1, DD
-            const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Month is 0-based in JavaScript
+        
 
-            const options = { month: 'long', day: 'numeric' }; // Format options
-
-            return date.toLocaleDateString('en-US', options); // Format to "Month day"
-        }
+        const linkURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=385203062';
 
 
-        const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
-
-        async function fetchEvents() {
-            const response = await fetch(eventsURL);
+        async function fetchLinks() {
+            const response = await fetch(linkURL);
             const data = await response.text();
 
             const parsed = Papa.parse(data, {
@@ -213,14 +142,11 @@
                 }
 
                 if (event['Image']) {
-                    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                    <img src="${event['Image']}" alt="${event.Name}">
-                  </a>`;
+                    eventHTML += `<img src="${event['Image']}" alt="${event.Name}">`;
                 }
 
-
                 if (event.Name) {
-                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
+                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}<i class="bi bi-box-arrow-in-up-right"></i></a></h2>`;
                 }
 
                 if (event.SignupDeadline) {
@@ -254,12 +180,12 @@
 
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', () => {
-                fetchEvents();
+                fetchLinks();
             });
         });
 
         window.onload = () => {
-            fetchEvents();
+            fetchLinks();
         };
     </script>
 </body>
