@@ -139,7 +139,7 @@
             <label><input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800</label>
             <label><input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+</label>
             <label><input type="checkbox" value="All ELOs" data-color="white"> <span class="color-box" style="background-color: white;"></span> All ELOs</label>
-            <label><input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; " ></span>Invite Only</label>
+            <label><input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only</label>
         </div>
 
         <div class="event-sections">
@@ -154,6 +154,7 @@
     <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
     <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
     <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Suggested Links</a></p>
+    <p><a href="images.html" target="_blank" style="color:white; text-decoration: underline;">Images</a></p>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -212,8 +213,8 @@
 
                 if (event['Image']) {
                     eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                            <img src="${event['Image']}" alt="${event.Name}">
-                          </a>`;
+                                <img src="${event['Image']}" alt="${event.Name}">
+                              </a>`;
                 }
 
                 if (event.Name) {
@@ -223,13 +224,13 @@
                     eventHTML += `<p>${event.Description}</p>`;
                 }
 
-                
+
 
 
 
 
                 if (event.DiscordLink && event.Discord) {
-                    eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank">${event.Discord}</a></p>
+                    eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p>
 </div>`;
                 }
                 if (event.SignupDeadline) {
@@ -238,12 +239,12 @@
                 } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')) {
                     // If "Invite Only" is one of the ELO inputs, do not show 'TBA'
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline: TBA</p>`;
-                } 
+                }
                 if (event.StartDate) {
                     const formattedStart = formatDateToMonthDay(event.StartDate);
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: ${formattedStart}</p>`;
-                } else{
-                   
+                } else {
+
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: TBA</p>`;
                 }
                 eventDiv.innerHTML = eventHTML;
