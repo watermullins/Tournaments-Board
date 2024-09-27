@@ -41,7 +41,7 @@
         .main-content {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap; /* Allow content to wrap when necessary */
+            flex-wrap: wrap;
         }
 
         .filter-container {
@@ -51,13 +51,13 @@
 
         @media (max-width: 200px) {
             .filter-container {
-                width: 100%; /* Full width when moved to the bottom */
-                order: 1; /* Move to the bottom */
+                width: 100%;
+                order: 1;
             }
 
             .event-sections {
-                order: 0; /* Ensure the event sections remain above */
-                width: 100%; /* Ensure full width for the event sections */
+                order: 0;
+                width: 100%;
             }
         }
 
@@ -87,16 +87,16 @@
                 margin: 0 auto;
             }
 
-            .event {
-                background: url('https://i.imgur.com/RXpU7q5.png') no-repeat center center;
-                background-size: cover;
-                border-radius: 5px;
-                padding: 15px;
-                max-width: 300px;
-                display: flex;
-                flex-direction: column;
-                color: black;
-            }
+        .event {
+            background: url('https://i.imgur.com/LSpF89n.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 5px;
+            padding: 15px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            color: black;
+        }
 
                 .event h2 {
                     margin-top: 10px;

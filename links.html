@@ -41,7 +41,7 @@
         }
 
         .event {
-            background: url('https://i.imgur.com/8KS5rvq.jpeg') no-repeat center center;
+            background: url('https://img.freepik.com/free-photo/grunge-paper-background_1048-10791.jpg') no-repeat center center;
             background-size: cover;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -105,7 +105,7 @@
 
                 let eventHTML = '';
 
-                // Add Image if available
+                // Add Image
 
                 if (event['Image']) {
                     eventHTML += `<a href="${event.Link}" target="_blank">
@@ -125,7 +125,7 @@
                     eventHTML += `<p>Details to come</p>`;
                 }
 
-                // Add Category if available
+                // Add Category
                 if (event.Category) {
                     eventHTML += `<p><strong>Category:</strong> ${event.Category}</p>`;
                 }

@@ -33,7 +33,7 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
             gap: 15px;
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1800px;
             width: 100%;
         }
 
@@ -50,7 +50,7 @@
                     transform: scale(1.05);
                 }
 
-        /* Modal (for fullscreen image) */
+        
         .modal {
             display: none;
             position: fixed;
@@ -99,7 +99,7 @@
 
     <div class="gallery-container" id="gallery"></div>
 
-    <!-- Fullscreen Image View -->
+    
     <div id="modal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
@@ -115,7 +115,7 @@
         fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
             .then(response => response.text())
             .then(data => {
-                const rows = data.split("\n").slice(1); // Remove header
+                const rows = data.split("\n").slice(1);
                 const galleryContainer = document.getElementById('gallery');
 
                 rows.forEach(row => {
