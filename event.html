@@ -21,12 +21,13 @@
             margin-bottom: 20px;
         }
 
-        .event-detail {
+        .event-detail-box {
             background: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             padding: 15px;
             width: 80%;
+
             max-width: 800px;
             margin: auto;
             color: #000;
@@ -38,20 +39,24 @@
             border-radius: 5px;
             padding: 15px;
             margin-top: 15px;
+
             max-width: 30%;
         }
 
             .important-links h3 {
                 margin-top: 0;
+
             }
 
         .important-link {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
+
+
         }
 
-        .event-detail img {
+        .event-detail-box img {
             display: block;
             width: 60%;
             height: auto;
@@ -59,12 +64,18 @@
             margin-right: auto;
             border-radius: 5px;
         }
+
+         p {
+
+                    margin-left: 20px;
+
+                }
     </style>
 </head>
 <body>
 
     <h1>Event Details</h1>
-    <div class="event-detail" id="event-detail"></div>
+    <div class="event-detail-box" id="event-detail-box"></div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -86,7 +97,7 @@
                 return event;
             });
 
-            const eventDetailContainer = document.getElementById('event-detail');
+            const eventDetailContainer = document.getElementById('event-detail-box');
             const event = events.find(e => e.Name === eventName);
 
             if (event) {
