@@ -1,0 +1,3 @@
+ [submodule "Tournaments-Board"]
+    path = Tournaments-Board
+    url = https://github.com/watermullins/Tournaments-Board-submodule.git

@@ -1,0 +1,27 @@
+[33m83b9b32[m[33m ([m[1;36mHEAD -> [m[1;32mTournaments-Board[m[33m)[m adjusted image tab, still needs a lot of work
+[33md08a77b[m new perg blend, reformatted images
+[33m21c1fcc[m added images site
+[33mf3e08c8[m fixed responsiveness hopefully
+[33m3d4a066[m added invite only, repositioned filter
+[33mc05dd53[m changed event backgrounds again
+[33mcbbb505[m adjusted images for links, removed link symbol
+[33m97d386e[m removed border, added styling for links
+[33m6fd52e9[m added links and pergament background
+[33m0ffc90f[m images are links too, removed link symbol
+[33m7d64fb3[m added font
+[33m4db416b[m added more link types
+[33m15f1e8f[m changed background
+[33maba3948[m added archive section
+[33m6389ec2[m fixed sorting, now all data is pulled from one sheet
+[33m4cd03e7[m added elo filtering
+[33mba42016[m keep titles black
+[33m924361e[m fixed comma bug
+[33m3cdc14e[m found image issue caused by details containing ,
+[33m440383d[m default note
+[33m17558c7[m improved links and backgrounds
+[33ma2ce858[m reworked bg, added event details file
+[33me90a76c[m added image support back in
+[33m5b5e07f[m stuck on making boxes not all expanded together on same row
+[33m9e4ac36[m expanded basic details
+[33m3f15659[m rm image
+[33ma5ae1ab[m copied index
