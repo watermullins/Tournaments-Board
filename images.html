@@ -10,20 +10,21 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background: url('https://i.imgur.com/lGLRr3f.jpeg') no-repeat center center fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         header {
-            background-color: #4CAF50;
+            background: url('https://wallpapercave.com/wp/wp10068644.jpg') no-repeat center;
             color: white;
             padding: 20px 0;
             text-align: center;
             width: 100%;
             position: fixed;
             top: 0;
+            z-index: 100;
         }
 
         h1 {
@@ -86,7 +87,7 @@
         footer {
             text-align: center;
             padding: 20px;
-            background-color: #4CAF50;
+            background: url('https://wallpapercave.com/wp/wp10068644.jpg') no-repeat center;
             color: white;
             width: 100%;
             bottom: 0;
@@ -124,12 +125,12 @@
 
     <footer>
         <p>Images by watermullins</p>
-       
+
         <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Suggested Links</a></p>
         <p><a href="index.html" target="_blank" style="color:white; text-decoration: underline;">Tournaments</a></p>
 
     </footer>
-   
+
     <script>
         // Fetch the CSV from the Google Sheets link
         fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
