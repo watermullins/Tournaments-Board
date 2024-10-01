@@ -131,6 +131,8 @@
 </head>
 <body>
     <div class="main-content">
+
+
         <div class="filter-container">
             <label>Filter by ELO:</label>
             <label><input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800</label>
@@ -142,6 +144,8 @@
             <label><input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only</label>
         </div>
 
+
+
         <div class="event-sections">
             <h1>Ongoing Tournaments</h1>
             <div id="current-events" class="event-container"></div>
@@ -149,12 +153,13 @@
             <h1>Upcoming Tournaments</h1>
             <div id="upcoming-events" class="event-container"></div>
         </div>
+        <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
+            <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">Archived Tournaments</a></p>
+            <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Useful Links</a></p>
+            <p><a href="images.html" target="_blank" style="color:white; text-decoration: underline;">Infographic Gallery</a></p>
     </div>
 
-    <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
-    <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
-    <p><a href="links.html" target="_blank" style="color:white; text-decoration: underline;">Suggested Links</a></p>
-    <p><a href="images.html" target="_blank" style="color:white; text-decoration: underline;">Images</a></p>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -166,96 +171,92 @@
             return date.toLocaleDateString('en-US', options);
         }
 
+
+
         const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+async function fetchEvents() {
+    const response = await fetch(eventsURL);
+    const data = await response.text();
 
-        async function fetchEvents() {
-            const response = await fetch(eventsURL);
-            const data = await response.text();
+    const parsed = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    });
 
-            const parsed = Papa.parse(data, {
-                header: true,
-                skipEmptyLines: true
-            });
+    const events = parsed.data;
+    const ongoingContainer = document.getElementById('current-events');
+    const upcomingContainer = document.getElementById('upcoming-events');
 
-            const events = parsed.data;
-            const ongoingContainer = document.getElementById('current-events');
-            const upcomingContainer = document.getElementById('upcoming-events');
+    ongoingContainer.innerHTML = '';
+    upcomingContainer.innerHTML = '';
 
-            ongoingContainer.innerHTML = '';
-            upcomingContainer.innerHTML = '';
+    const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
 
-            const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
-                .map(checkbox => checkbox.value);
+    events.forEach(event => {
+        const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
+        const status = event['Status'] ? event['Status'].trim() : '';
 
-            events.forEach(event => {
-                const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
-                const status = event['Status'] ? event['Status'].trim() : '';
+        // Change the logic here to check if the event matches all selected ELO ranges
+        const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.every(selectedElo => eventEloRanges.includes(selectedElo));
 
-                const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.some(selectedElo => eventEloRanges.includes(selectedElo));
-
-                if (!eloMatch) {
-                    return;
-                }
-
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-
-                let eventHTML = '';
-
-                const colors = eventEloRanges.map(range => {
-                    const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
-                    return checkbox ? checkbox.getAttribute('data-color') : null;
-                }).filter(color => color);
-
-                if (colors.length > 0) {
-                    eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
-                }
-
-                if (event['Image']) {
-                    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                                <img src="${event['Image']}" alt="${event.Name}">
-                              </a>`;
-                }
-
-                if (event.Name) {
-                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
-                }
-                if (event.Description) {
-                    eventHTML += `<p>${event.Description}</p>`;
-                }
-
-
-
-
-
-
-                if (event.DiscordLink && event.Discord) {
-                    eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p>
-</div>`;
-                }
-                if (event.SignupDeadline) {
-                    const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
-                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:  ${formattedDeadline}</p>`;
-                } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')) {
-                    // If "Invite Only" is one of the ELO inputs, do not show 'TBA'
-                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline: TBA</p>`;
-                }
-                if (event.StartDate) {
-                    const formattedStart = formatDateToMonthDay(event.StartDate);
-                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: ${formattedStart}</p>`;
-                } else {
-
-                    eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: TBA</p>`;
-                }
-                eventDiv.innerHTML = eventHTML;
-
-                if (status === 'Ongoing') {
-                    ongoingContainer.appendChild(eventDiv);
-                } else if (status === 'Upcoming') {
-                    upcomingContainer.appendChild(eventDiv);
-                }
-            });
+        if (!eloMatch) {
+            return;
         }
+
+        const eventDiv = document.createElement('div');
+        eventDiv.classList.add('event');
+
+        let eventHTML = '';
+
+        const colors = eventEloRanges.map(range => {
+            const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
+            return checkbox ? checkbox.getAttribute('data-color') : null;
+        }).filter(color => color);
+
+        if (colors.length > 0) {
+            eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
+        }
+
+        if (event['Image']) {
+            eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
+                            <img src="${event['Image']}" alt="${event.Name}">
+                          </a>`;
+        }
+
+        if (event.Name) {
+            eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
+        }
+        if (event.Description) {
+            eventHTML += `<p>${event.Description}</p>`;
+        }
+
+        if (event.DiscordLink && event.Discord) {
+            eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
+        }
+        if (event.SignupDeadline) {
+            const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
+            eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:  ${formattedDeadline}</p>`;
+        } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')) {
+            eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline: TBA</p>`;
+        }
+        if (event.StartDate) {
+            const formattedStart = formatDateToMonthDay(event.StartDate);
+            eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: ${formattedStart}</p>`;
+        } else {
+            eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: TBA</p>`;
+        }
+        eventDiv.innerHTML = eventHTML;
+
+        if (status === 'Ongoing') {
+            ongoingContainer.appendChild(eventDiv);
+        } else if (status === 'Upcoming') {
+            upcomingContainer.appendChild(eventDiv);
+        }
+
+    });
+}
+
 
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', fetchEvents);
