@@ -98,7 +98,7 @@
             margin-top: auto;
         }
 
-        /* Media queries for smaller screens */
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 5vw;
@@ -135,7 +135,6 @@
     </footer>
 
     <script>
-        // Fetch the CSV from the Google Sheets link
         fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
             .then(response => response.text())
             .then(data => {
@@ -157,7 +156,6 @@
             })
             .catch(error => console.error('Error fetching CSV:', error));
 
-        // Modal functionality for fullscreen view
         const modal = document.getElementById('modal');
         const modalImage = document.getElementById('modalImage');
         const closeModal = document.getElementsByClassName('close')[0];
