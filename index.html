@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+        // Only redirect when the current URL is the Netlify site
+        const currentUrl = window.location.href;
+        const targetUrl = "https://aoe2tournaments.netlify.app/";
+
+        if (currentUrl === targetUrl) {
+            window.location.href = "https://aoe2tournaments.com/";
+        }
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W20SH2LQT9"></script>
     <script>
@@ -204,11 +214,24 @@ async function fetchEvents() {
     const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.value);
 
-    events.forEach(event => {
+    // Sort events based on SignupDeadline first, then StartDate, if neither is present push to the end
+    const sortedEvents = events.sort((a, b) => {
+        const dateA = a.SignupDeadline || a.StartDate || '';
+        const dateB = b.SignupDeadline || b.StartDate || '';
+
+        if (!dateA && !dateB) return 0;
+        if (!dateA) return 1;
+        if (!dateB) return -1;
+
+        const formattedDateA = new Date(dateA);
+        const formattedDateB = new Date(dateB);
+
+        return formattedDateA - formattedDateB;
+    });
+
+    sortedEvents.forEach(event => {
         const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
         const status = event['Status'] ? event['Status'].trim() : '';
-
-        // Change the logic here to check if the event matches all selected ELO ranges
         const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.every(selectedElo => eventEloRanges.includes(selectedElo));
 
         if (!eloMatch) {
@@ -245,18 +268,21 @@ async function fetchEvents() {
         if (event.DiscordLink && event.Discord) {
             eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
         }
+
         if (event.SignupDeadline) {
             const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
             eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:  ${formattedDeadline}</p>`;
         } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')) {
             eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline: TBA</p>`;
         }
+
         if (event.StartDate) {
             const formattedStart = formatDateToMonthDay(event.StartDate);
             eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: ${formattedStart}</p>`;
         } else {
             eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Begins: TBA</p>`;
         }
+
         eventDiv.innerHTML = eventHTML;
 
         if (status === 'Ongoing') {
@@ -264,9 +290,9 @@ async function fetchEvents() {
         } else if (status === 'Upcoming') {
             upcomingContainer.appendChild(eventDiv);
         }
-
     });
 }
+
 
 
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
