@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://brandedfruit.com/cdn/shop/products/watermelon_540x.png?v=1563408141">
+    <title>Useful Sites</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Eczar", serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/8/8c/Batalia_cu_facle.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        h2 a {
+            text-decoration: none;
+            color: black;
+        }
+
+        p a {
+            text-decoration: none;
+        }
+
+        .event-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event {
+            background: url('https://i.imgur.com/8KS5rvq.jpeg') no-repeat center center;
+            background-size: cover;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            max-width: 275px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .event h2 {
+                margin-top: 10px;
+                margin-bottom: 5px;
+                font-size: 1.5em;
+            }
+
+            .event p {
+                margin-top: 5px;
+                margin-bottom: 5px;
+                line-height: 1.2;
+            }
+
+
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                }
+
+            .event img {
+                 align-items: center;
+                margin-bottom: 10px;
+                max-width: 250px;
+                height: auto;
+                max-height: 200px;
+                border-radius: 5px;
+            }
+    </style>
+</head>
+<body>
+
+    <h1>Useful Sites</h1>
+    <div id="events-container" class="event-container"></div>
+
+    <p><a href="index.html" target="_blank" style="color:white; text-decoration: underline;">View Current Tournaments</a></p>
+    <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        const linkURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=385203062';
+
+        async function fetchLinks() {
+            const response = await fetch(linkURL);
+            const data = await response.text();
+
+            const parsed = Papa.parse(data, {
+                header: true,
+                skipEmptyLines: true
+            });
+
+            const events = parsed.data;
+            const container = document.getElementById('events-container');
+            container.innerHTML = '';
+
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('event');
+
+                let eventHTML = '';
+
+                // Add Image
+
+                if (event['Image']) {
+                    eventHTML += `<a href="${event.Link}" target="_blank">
+        <img src="${event['Image']}" alt="${event.Link}">
+      </a>`;
+                }
+
+                // Add Event Title and Link
+                if (event.Title && event.Link) {
+                    eventHTML += `<h2><a href="${event.Link}" target="_blank">${event.Title}</a></h2>`;
+                }
+
+                // Add Event Description
+                if (event.Description) {
+                    eventHTML += `<p>${event.Description}</p>`;
+                } else {
+                    eventHTML += `<p>Details to come</p>`;
+                }
+
+                // Add Category
+                if (event.Category) {
+                    eventHTML += `<p><strong>Category:</strong> ${event.Category}</p>`;
+                }
+
+                eventDiv.innerHTML = eventHTML;
+                container.appendChild(eventDiv);
+            });
+        }
+
+        window.onload = () => {
+            fetchLinks();
+        };
+    </script>
+</body>
+</html>
