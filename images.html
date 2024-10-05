@@ -1,28 +1,121 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-    <head> 
-        <meta charset="UTF-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link rel="icon" type="image/x-icon" href="https://brandedfruit.com/cdn/shop/products/watermelon_540x.png?v=1563408141"> 
-        <title>Infographics</title>         
-        <link href="css/theme.css" rel="stylesheet" type="text/css"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
-        <style>body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background: url('https://wallpapers.com/images/high/burgundy-background-9iror0ql5a44up28.webp') no-repeat center center fixed; background-position: center top; background-size: 100% auto; display: flex; flex-direction: column; align-items: center; } header { background: url('https://worldofprintables.com/wp-content/uploads/2023/06/Wooden-Planks-Wood-Background.jpg') no-repeat center; color: black; padding: 20px 0; text-align: center; width: 100%; min-height: 120px; position: relative; top: 0; z-index: 100; } h1 { margin: 0; font-size: 64px; color: white; } .gallery-container { margin: 10px auto 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 300px)); gap: 20px; padding: 20px; width: 90%; max-width: 1800px; } .gallery-container img { width: 100%; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease; } .gallery-container img:hover { transform: scale(1.05); } .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; } .modal-content { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); } .close { position: absolute; top: 20px; right: 35px; color: black; font-size: 30px; cursor: pointer; } footer { text-align: center; padding: 20px; background: url('https://worldofprintables.com/wp-content/uploads/2023/06/Wooden-Planks-Wood-Background.jpg') no-repeat bottom center; color: black; width: 100%; height: 180px; background-position: bottom; bottom: 0; position: relative; margin-top: auto; } @media (max-width: 600px) { h1 {  font-size: 5vw; }  .gallery-container {  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));  padding: 10px; } } .topnav { display: flex; justify-content: center; background-color: rgba(0, 0, 0, 0.5); margin: 20px auto; padding: 0 20px; max-width: 1000px;  /* Max width ensures it doesn't exceed this */ width: 100%;  /* Full width with max-width constraint */ height: 60px; } .topnav a { color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px;  /* display: inline-block */ } .topnav a:hover { background-color: #ddd; color: black; } /* Add a color to the active/current link */.topnav a.active { background-color: #04AA6D; color: white; }</style>         
-    </head>     
-    <body> 
-        <header> 
-            <nav class="topnav"> <a href="index.html">Tournaments</a> <a href="https://forms.gle/yHM5ecGqhnZP33KF8" style="display: grid;grid-template-columns: 1fr;grid-template-rows: 100px;">Submission Form</a> <a class="active" href="images.html">Images</a> <a href="links.html">Links</a> <a href="archive.html">Archive</a> <a href="about.html">About</a> 
-            </nav>             
-            <h1>Infographic Gallery</h1> 
-        </header>         
-        <div class="gallery-container" id="gallery"></div>         
-        <div id="modal" class="modal"> <span class="close">&times;</span> 
-            <img class="modal-content" id="modalImage"> 
-        </div>         
-        <footer> 
-            <p style="color:white;">Images by watermullins</p> 
-        </footer>         
-        <script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://brandedfruit.com/cdn/shop/products/watermelon_540x.png?v=1563408141">
+    <title>Infographics</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: url('https://wallpapers.com/images/high/burgundy-background-9iror0ql5a44up28.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+        h1 {
+            font-size: 64px;
+        }
+
+        .gallery-container {
+            margin: 10px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+            gap: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 1800px;
+        }
+
+            .gallery-container img {
+                width: 100%;
+                height: auto;
+                cursor: pointer;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: transform 0.2s ease;
+            }
+
+                .gallery-container img:hover {
+                    transform: scale(1.05);
+                }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: black;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: url('https://worldofprintables.com/wp-content/uploads/2023/06/Wooden-Planks-Wood-Background.jpg') no-repeat bottom center;
+            color: black;
+            width: 100%;
+            height: 180px;
+            background-position: bottom;
+            bottom: 0;
+            position: relative;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 5vw;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topnav">
+    <a href="index.html">Tournaments</a>
+    <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Submission Form</a>
+    <a class="active" href="images.html">Images</a>
+    <a href="links.html">Links</a>
+    <a href="archive.html">Archive</a>
+    <a href="about.html">About</a>
+</nav>
+    <header>
+        
+        <h1>Infographic Gallery</h1>
+    </header>
+    <div class="gallery-container" id="gallery"></div>
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    <footer>
+        <p style="color:white;">Images by watermullins</p>
+    </footer>
+    <script>
         fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
             .then(response => response.text())
             .then(data => {
@@ -62,6 +155,7 @@
                 modal.style.display = 'none';
             }
         }
-    </script>         
-    </body>     
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8cd8b6009a131786","version":"2024.8.0","r":1,"token":"89789415774f49b3aef1883ab323a135","serverTiming":{"name":{"cfExtPri":true,"cfL4":true}}}' crossorigin="anonymous"></script>
+</body>
 </html>

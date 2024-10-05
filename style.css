@@ -1,0 +1,147 @@
+body {
+    font-family: "Eczar", serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/8/8c/Batalia_cu_facle.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background: url('https://worldofprintables.com/wp-content/uploads/2023/06/Wooden-Planks-Wood-Background.jpg') no-repeat center;
+    color: black;
+    text-align: center;
+    width: 100%;
+    min-height: 120px;
+    position: relative;
+    top: 0;
+    z-index: 100;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    color: white;
+}
+
+h2 a {
+    text-decoration: none;
+    color: black;
+}
+
+    h2 a:visited {
+        color: black;
+    }
+
+p a {
+    text-decoration: none;
+}
+
+.event-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.event {
+    background: url('https://live.staticflickr.com/65535/54041019607_758ef91b92_m.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+    .event h2 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .event p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 20px;
+        line-height: 1.2;
+    }
+
+    .event img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        max-height: 200px;
+        border-radius: 5px;
+    }
+
+.main-content {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1500px;
+}
+
+.topnav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+    .topnav a {
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+
+        .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+/* phone bp */
+@media (max-width: 480px) {
+
+    .event {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        padding: 15px;
+        color: black;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .topnav {
+        margin-top: 0px;
+    }
+
+        .topnav a {
+            font-size: .65rem;
+            display: inline-block;
+        }
+}
