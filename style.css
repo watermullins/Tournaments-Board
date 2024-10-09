@@ -156,7 +156,7 @@ p a {
     }
 
         .topnav a {
-            font-size: .65rem;
+            font-size: 1rem;
             display: inline-block;
         }
 }
