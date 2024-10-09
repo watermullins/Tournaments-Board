@@ -24,12 +24,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <style>
 
-
         .filter-container {
             padding: 25px;
             width: 250px;
             color: white;
             flex-shrink: 0;
+			align-self: flex-start;
+			
            }
 
         .filter-container label {
@@ -56,24 +57,28 @@
             border-radius: 3px;
             margin-right: 5px;
         }
+		
+		
 
 
    
     </style>
 </head>
 <body>
-    <div class="main-content">
-        
+    <div class="navalign">
         <!--Topnav-->
-        <div class="navcontainer">
+        <div class = "navcontainer">
+			
             <nav class="topnav">
                 <a class="active" href="index.html">Tournaments</a>
-                <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Submission Form</a>
+  
                 <a href="images.html">Images</a>
                 <a href="links.html">Links</a>
-                <a href="archive.html">Archive</a>
+               
                 <a href="about.html">About</a>
             </nav>
+			</div>
+			</div>
             <!--Filter-->
             <div class="filter-container">
                 <label>Filter by ELO:</label>
@@ -106,8 +111,11 @@
                 <h1>Upcoming Tournaments</h1>
                 <div id="upcoming-events" class="event-container"></div>
             </div>
-        </div>
-    </div>
+			
+        
+	<p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
+    <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         //date formatting function

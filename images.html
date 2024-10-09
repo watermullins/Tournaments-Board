@@ -12,9 +12,7 @@
             background: url('https://wallpapers.com/images/high/burgundy-background-9iror0ql5a44up28.webp') no-repeat center center fixed;
             background-size: cover;
         }
-        h1 {
-            font-size: 64px;
-        }
+     
 
         .gallery-container {
             margin: 10px auto 0;
@@ -95,26 +93,31 @@
     </style>
 </head>
 <body>
+<div class="navalign">
+<div class = "navcontainer">
     <nav class="topnav">
     <a href="index.html">Tournaments</a>
-    <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Submission Form</a>
     <a class="active" href="images.html">Images</a>
     <a href="links.html">Links</a>
-    <a href="archive.html">Archive</a>
     <a href="about.html">About</a>
 </nav>
+</div>
+</div class = "notnav">
     <header>
         
         <h1>Infographic Gallery</h1>
     </header>
-    <div class="gallery-container" id="gallery"></div>
+    <div class="gallery-container" id="gallery">
     <div id="modal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
+	</div>
     <footer>
         <p style="color:white;">Images by watermullins</p>
     </footer>
+	</div>
+	</div>
     <script>
         fetch('https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=1282969506')
             .then(response => response.text())
