@@ -135,9 +135,7 @@ p a {
 .event-container{
 
     grid-template-columns: 100%;
-
     width: 100%;
-
     margin: 0 auto;
 }
     .event {
