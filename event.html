@@ -112,17 +112,27 @@
                     eventDetailsHTML += `<p>${event.Description}</p>`;
                 }
 
-
-
-                if (event.GroupStyle) {
-                    eventDetailsHTML += `<p><strong>Group Style:</strong> ${event.GroupStyle}</p>`;
+				if (event.Liquid) {
+                    eventDetailsHTML += `<p><a href="${event.Liquid}" target="_blank">Liquidpedia Page</a></p>`;
                 }
 
-                if (event.Liquid) {
-                    eventDetailsHTML += `<p><a href="${event.Liquid}" target="_blank">Liquidpedia Page</a></p>`;
+                if (event.Signup) {
+                    eventDetailsHTML += `<p><a href="${event.Signup}" target="_blank">Sign up here</a></p>`;
+                }
+				if (event.Twitch) {
+                    eventDetailsHTML += `<p><a href="${event.Twicth}" target="_blank">Watch the event on Twitch here</a></p>`;
+                }
+				if (event.Sponsor) {
+                    eventDetailsHTML += `<p><strong>Sponsor: </strong> ${event.Sponsor}</p>`;
                 }
                 if (event.Prize) {
                     eventDetailsHTML += `<p><strong>Prize Pool:</strong> ${event.Prize}</p>`;
+                }
+				if (event.Host) {
+                    eventDetailsHTML += `<p><strong>Host:</strong> ${event.Host}</p>`;
+                }
+				if (event.Admins) {
+                    eventDetailsHTML += `<p><strong>Admins:</strong> ${event.Admins}</p>`;
                 }
                 eventDetailsHTML += `<div class="important-links"><h3>Important Links</h3>`;
                 if (event['GroupMap']) {

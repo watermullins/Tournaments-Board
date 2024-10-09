@@ -106,13 +106,16 @@
             </div>
             <!-- Events -->
             <div class="event-sections">
-                <h1>Ongoing Tournaments</h1>
-                <div id="current-events" class="event-container"></div>
+                
                 <h1>Upcoming Tournaments</h1>
                 <div id="upcoming-events" class="event-container"></div>
+				<h1>Ongoing Tournaments</h1>
+                <div id="current-events" class="event-container"></div>
             </div>
-			
+			</div>
+			</div>
         
+
 	<p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank" style="color:white; text-decoration: underline;">Submit a Tournament</a></p>
     <p><a href="archive.html" target="_blank" style="color:white; text-decoration: underline;">View Archived Tournaments</a></p>
 
@@ -200,10 +203,10 @@
                     eventHTML += `<div><p><i class="bi bi-discord"></i><a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
                 }
 
-                if (event.SignupDeadline) {
+                if (event.SignupDeadline && status=== 'Upcoming') {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline:  ${formattedDeadline}</p>`;
-                } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')) {
+                } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only')&&(status === 'Upcoming')) {
                     eventHTML += `<p><i class="bi bi-calendar fs-5"></i> Signup Deadline: TBA</p>`;
                 }
 
