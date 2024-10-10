@@ -1,8 +1,11 @@
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+
+
 body {
     font-family: "Eczar", serif;
     margin: 0;
     padding: 0;
-    background: url('https://ik.imagekit.io/aoe2tournaments/Batalia_cu_facle.jpg') no-repeat center center fixed;
+    background: url('https://ik.imagekit.io/aoe2tournaments/AoZY96i.webp') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -10,16 +13,7 @@ body {
     margin-bottom: 75px;
 }
 
-header {
-    background: url('https://worldofprintables.com/wp-content/uploads/2023/06/Wooden-Planks-Wood-Background.jpg') no-repeat center;
-    color: black;
-    text-align: center;
-    width: 100%;
-    min-height: 120px;
-    position: relative;
-    top: 0;
-    z-index: 100;
-}
+
 
 h1 {
     text-align: center;
@@ -49,12 +43,10 @@ p a {
     gap: 15px;
     width: 100%;
     max-width: 1500px;
-    margin: 0 auto;
-	
 }
 
 .event {
-    background: url('https://live.staticflickr.com/65535/54041019607_758ef91b92_m.jpg') no-repeat center center;
+    background: url('https://ik.imagekit.io/aoe2tournaments/eventbg.webp') no-repeat center center;
     background-size: cover;
     border-radius: 5px;
     padding: 15px;
