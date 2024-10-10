@@ -185,11 +185,12 @@
                     eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
                 }
 
-                if (event['Image']) {
-                    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                                <img src="${event['Image']}" alt="${event.Name}">
-                              </a>`;
-                }
+               if (event['Image']) {
+					eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
+                    <img src="${event['Image']}?tr=w-auto,h-400" alt="${event.Name}" >
+                  </a>`;
+}
+
 
                 if (event.Name) {
                     eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">${event.Name}</a></h2>`;
