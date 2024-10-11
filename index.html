@@ -17,7 +17,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/watermelon_540x.webp">
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/Watermelon%20(5).webp">
     <title>Event Listings</title>
 	
     
@@ -64,9 +64,14 @@
             border-radius: 3px;
             margin-right: 5px;
         }
+		
+		img{
+		
+		}
     </style>
 </head>
 <body>
+<!-- <img src="https://ik.imagekit.io/aoe2tournaments/New%20Project.webp" width="256" height="64" style="position: absolute; top: 0px; left: 0px; z-index: 1;> -->
     <div class="navalign">
         <!--Topnav-->
         <div class = "navcontainer">
@@ -187,7 +192,7 @@
 
                if (event['Image']) {
 					eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}" target="_blank">
-                    <img src="${event['Image']}?tr=w-auto,h-400" alt="${event.Name}" >
+                    <img src="${event['Image']}?tr=w-auto,h-400" alt="${event.Name}" fetchpriority="high">
                   </a>`;
 }
 
