@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/watermelon_540x.webp">
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/Watermelon%20(4).webp">
     <title>Event Details</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <style>
-        body {
-            
-            color: rgba(255, 255, 255, 0.8)
-        }
-
+    
+		h2 {
+			
+			text-align: center;
+			font-size: 32px;
+		}
 
         .event-detail-box {
+			
             background: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -55,8 +57,10 @@
         }
 
         p {
+		
             margin-left: 20px;
         }
+		
     </style>
 </head>
 <body>
@@ -100,9 +104,10 @@
 
             if (event) {
                 let eventDetailsHTML = `
-                        <h2>${event.Name}</h2>
-                        ${event['Image'] ? `<img src="${event['Image']}" alt="${event.Name}">` : ''}`;
-
+                        
+                        ${event['Image'] ? `<img src="${event['Image']}" alt="${event.Name}">` : ''}
+						<h2>${event.Name}</h2>`;
+					
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
                     eventDetailsHTML += `<p><strong>Signup Deadline:</strong> <i class="bi bi-calendar fs-5"></i> ${formattedDeadline}</p>`;
@@ -128,7 +133,7 @@
                     eventDetailsHTML += `<p><a href="${event.Signup}" target="_blank">Sign up here</a></p>`;
                 }
 				if (event.Twitch) {
-                    eventDetailsHTML += `<p><a href="${event.Twicth}" target="_blank">Watch the event on Twitch here</a></p>`;
+                    eventDetailsHTML += `<p><a href="${event.Twicth}" target="_blank">Watch the event here</a></p>`;
                 }
 				if (event.Sponsor) {
                     eventDetailsHTML += `<p><strong>Sponsor: </strong> ${event.Sponsor}</p>`;
