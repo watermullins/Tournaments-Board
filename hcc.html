@@ -16,101 +16,107 @@
 		.event { background: url('https://ik.imagekit.io/aoe2tournaments/cc973196174201f4cd05e70de85b450d.webp') no-repeat center center; background-size: cover; border-radius: 5px; padding: 15px; max-width: 300px; display: flex; flex-direction: column; color: white; text-align: center; flex: 1 1 20%; } .alias { background: url('https://i.imgur.com/zZyJFLn.jpeg') no-repeat center center;  /* Override for alias events */ background-size: cover; } .event h2 { margin-top: 10px; margin-bottom: 5px; font-size: 1.5em; } .event p { font-family: Arial, Helvetica, sans-serif; margin-top: 5px; margin-bottom: 5px; line-height: 1.2; } .event img { width: 100%; height: auto; object-fit: contain; max-height: 180px; max-width: 60%; border-radius: 5px; } .links-container { margin-top: 20px; text-align: center; } .links-container a { color: white; text-decoration: underline; margin: 0 10px; }</style>         
     </head>     
     <body> 
-        <div class="main-content"> 
-            <h1>The Players</h1> 
-            <div id="player-events" class="event-container"></div>             
-            <h1>The Aliases</h1> 
-            <div id="alias-events" class="event-container"></div>             
-        </div>         
-        <div class="links-container"> 
-            <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank">Submit a Guess!</a></p> 
-            <p><a href="index.html" target="_blank">View Other Tournaments</a></p> 
-        </div>         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>         
-        <script>
-        const eventsURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=766240151';
+        <div class="main-content">
+            <div class="links-container">
+                <p><a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank">Submit a Guess!</a></p>
+            </div>
+                <h1>The Players</h1>
+                <div id="player-events" class="event-container"></div>
+                <h1>The Aliases</h1>
+                <div id="alias-events" class="event-container"></div>
+            </div>
+            <div class="links-container">
+                <p><a href="index.html" target="_blank">View Other Tournaments</a></p>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+            <script>
+                const eventsURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=766240151';
 
-        async function fetchEvents() {
-            const response = await fetch(eventsURL);
-            if (!response.ok) {
-                console.error('Failed to fetch data');
-                return;
-            }
-            const data = await response.text();
+                async function fetchEvents() {
+                    const response = await fetch(eventsURL);
+                    if (!response.ok) {
+                        console.error('Failed to fetch data');
+                        return;
+                    }
+                    const data = await response.text();
 
-            // Parse the CSV data using PapaParse
-            const parsed = Papa.parse(data, {
-                header: true,
-                skipEmptyLines: true
-            });
+                    // Parse the CSV data using PapaParse
+                    const parsed = Papa.parse(data, {
+                        header: true,
+                        skipEmptyLines: true
+                    });
 
-            const events = parsed.data;
-            const playerContainer = document.getElementById('player-events');
-            const aliasContainer = document.getElementById('alias-events');
+                    const events = parsed.data;
+                    const playerContainer = document.getElementById('player-events');
+                    const aliasContainer = document.getElementById('alias-events');
 
-            playerContainer.innerHTML = '';
-            aliasContainer.innerHTML = '';
+                    playerContainer.innerHTML = '';
+                    aliasContainer.innerHTML = '';
 
-            events.forEach(event => {
-                const name = event['Name'];
-                const bio = event['Bio'];
-                const civ = event['Civ'];
-				const elo = event['ELO'];
-				const ca = event['CA'];
-				const cb = event['CB'];
-				const cc = event['CC'];
+                    events.forEach(event => {
+                        const name = event['Name'];
+                        const bio = event['Bio'];
+                        const civ = event['Civ'];
+                        const curelo = event['CurELO'];
+                        const highelo = event['HighELO'];
+                        const ca = event['CA'];
+                        const cb = event['CB'];
+                        const cc = event['CC'];
 
-                const image = event['Image'];
-                const type = event['Type'] ? event['Type'].toLowerCase() : '';
+                        const image = event['Image'];
+                        const type = event['Type'] ? event['Type'].toLowerCase() : '';
 
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
+                        const eventDiv = document.createElement('div');
+                        eventDiv.classList.add('event');
 
-                if (type === 'alias') {
-                    eventDiv.classList.add('alias');
+                        if (type === 'alias') {
+                            eventDiv.classList.add('alias');
+                        }
+
+                        let eventHTML = '';
+                        if (image) {
+                            eventHTML += `<a>
+                                                <img src="${image}" alt="${name}">
+                                              </a>`;
+                        }
+                        if (name) {
+                            eventHTML += `<h2>${name}</h2>`;
+                        }
+                        if (type === 'player') {
+                            if (bio) {
+                                eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
+                            }
+                            if (civ) {
+                                eventHTML += `<p><strong>Civ:</strong> ${civ}</p>`;
+                            }
+                            if (highelo) {
+                                eventHTML += `<p><strong>Max ELO:</strong> ${highelo}</p>`;
+                            }
+                            if (curelo) {
+                                eventHTML += `<p><strong>Current ELO:</strong> ${curelo}</p>`;
+                            }
+                            if (ca) {
+                                eventHTML += `<p><strong>•</strong> ${ca}</p>`;
+                            }
+                            if (cb) {
+                                eventHTML += `<p><strong>•</strong> ${cb}</p>`;
+                            }
+                            if (cc) {
+                                eventHTML += `<p><strong>•</strong> ${cc}</p>`;
+                            }
+                        }
+
+                        eventDiv.innerHTML = eventHTML;
+
+                        if (type === 'player') {
+                            playerContainer.appendChild(eventDiv);
+                        } else if (type === 'alias') {
+                            aliasContainer.appendChild(eventDiv);
+                        }
+                    });
                 }
 
-                let eventHTML = '';
-                if (image) {
-                    eventHTML += `<a>
-                                    <img src="${image}" alt="${name}">
-                                  </a>`;
-                }
-                if (name) {
-                    eventHTML += `<h2>${name}</h2>`;
-                }
-                if (type === 'player') {
-                    if (bio) {
-                        eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
-                    }
-                    if (civ) {
-                        eventHTML += `<p><strong>Civ:</strong> ${civ}</p>`;
-                    }
-					if (elo) {
-                        eventHTML += `<p><strong>Current/Max ELO:</strong> ${elo}</p>`;
-                    }
-					if (ca) {
-                        eventHTML += `<p><strong>•</strong> ${ca}</p>`;
-                    }
-					if (cb) {
-                        eventHTML += `<p><strong>•</strong> ${cb}</p>`;
-                    }
-					if (cc) {
-                        eventHTML += `<p><strong>•</strong> ${cc}</p>`;
-                    }
-                }
-
-                eventDiv.innerHTML = eventHTML;
-
-                if (type === 'player') {
-                    playerContainer.appendChild(eventDiv);
-                } else if (type === 'alias') {
-                    aliasContainer.appendChild(eventDiv);
-                }
-            });
-        }
-
-        fetchEvents();
-    </script>         
-    </body>     
+                fetchEvents();
+            </script>
+</body>     
 </html>
