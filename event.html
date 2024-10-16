@@ -33,7 +33,7 @@
             border: 1px solid #a0c4ff;
             border-radius: 5px;
             padding: 15px;
-            margin-top: px;
+            margin-top: 0px;
             max-width: 30%;
         }
 
@@ -75,6 +75,7 @@
     <h1>Event Details</h1>
     <div class="event-detail-box" id="event-detail-box"></div>
     <script>
+
         const urlParams = new URLSearchParams(window.location.search);
         const eventName = urlParams.get('event');
 
@@ -88,7 +89,12 @@
         async function fetchEventDetails() {
             const response = await fetch(eventsURL);
             const data = await response.text();
-            const rows = data.split('\n').map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+            console.log(data);
+            const rows = data.split('\n').map(row => {
+                console.log(row);
+                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+            });
+            console.log("row");
             const headers = rows[0];
 
             const events = rows.slice(1).map(row => {
@@ -103,11 +109,10 @@
             const event = events.find(e => e.Name === eventName);
 
             if (event) {
+                console.log("here");
                 let eventDetailsHTML = `
-                        
-                        ${event['Image'] ? `<img src="${event['Image']}" alt="${event.Name}">` : ''}
-						<h2>${event.Name}</h2>`;
-					
+                <img src="${event.Image ? event.Image : 'https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp'}" alt="${event.Name}">
+                <h2>${event.Name}</h2>`;
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
                     eventDetailsHTML += `<p><strong>Signup Deadline:</strong> <i class="bi bi-calendar fs-5"></i> ${formattedDeadline}</p>`;
@@ -133,7 +138,7 @@
                     eventDetailsHTML += `<p><a href="${event.Signup}" target="_blank">Sign up here</a></p>`;
                 }
 				if (event.Twitch) {
-                    eventDetailsHTML += `<p><a href="${event.Twicth}" target="_blank">Watch the event here</a></p>`;
+                    eventDetailsHTML += `<p><a href="${event.Twitch}" target="_blank">Watch the event here</a></p>`;
                 }
 				if (event.Sponsor) {
                     eventDetailsHTML += `<p><strong>Sponsor: </strong> ${event.Sponsor}</p>`;
@@ -177,9 +182,6 @@
                     eventDetailsHTML += `<p><strong>Division Elo Range:</strong> ${event['DivisionElo Range']}</p>`;
                 }
 
-                if (event.ELORange) {
-                    eventDetailsHTML += `<p><strong>ELORange:</strong> ${event.ELORange}</p>`;
-                }
 
                 eventDetailContainer.innerHTML = eventDetailsHTML;
             } else {
