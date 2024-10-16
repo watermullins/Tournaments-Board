@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"> 
 <url>
-  <loc>https://aoe2tournaments.com/index.html</loc>
+  <loc>https://aoe2tournaments.com</loc>
 </url>
 <url>
-  <loc>https://aoe2tournaments.com/images.html</loc>
+  <loc>https://aoe2tournaments.com/images</loc>
 </url>
 <url>
-  <loc>https://aoe2tournaments.com/links.html</loc>
+  <loc>https://aoe2tournaments.com/links</loc>
 </url>
 <url>
-  <loc>https://aoe2tournaments.com/about.html</loc>
+  <loc>https://aoe2tournaments.com/about</loc>
 </url>
 <url>
-  <loc>https://aoe2tournaments.com/archive.html</loc>
+  <loc>https://aoe2tournaments.com/archive</loc>
 </url>
 </urlset>
