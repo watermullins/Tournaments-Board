@@ -78,7 +78,7 @@
         }
 
         .alias {
-            background: url('https://ik.imagekit.io/aoe2tournaments/knit-seamless-pattern-knitted-ch%20(2).webp') no-repeat center center; /* Override for alias events */
+            background: url('https://ik.imagekit.io/aoe2tournaments/knit-seamless-pattern-knitted-ch%20(1)%20(1).webp') no-repeat center center; /* Override for alias events */
             background-size: cover;
             min-height: 250px;
         }
@@ -176,6 +176,7 @@
                 const ca = event['CA'];
                 const cb = event['CB'];
                 const cc = event['CC'];
+                const insights = event['Insights'];
 
                 const image = event['Image'];
                 const type = event['Type'] ? event['Type'].toLowerCase() : '';
@@ -189,7 +190,10 @@
 
                 let eventHTML = '';
                 if (image) {
-                    eventHTML += `<a><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
+                    if(type === 'player')
+                        eventHTML += `<a href="${insights}"><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
+                    else
+                        eventHTML += `<a><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
                 }
                 if (name) {
                     eventHTML += `<h2>${name}</h2>`;
