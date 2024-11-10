@@ -1,5 +1,4 @@
 
-
 body {
     font-family: "Eczar", serif;
     margin: 0;
@@ -18,7 +17,7 @@ h1 {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
-    margin-top: 15px;
+    margin-top: 50px;
     color: white;
 }
 
@@ -36,13 +35,12 @@ p a {
 }
 
 .event-container {
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 15px;
     width: 100%;
     max-width: 1500px;
-	min-height: 400px;
+    min-height: 400px;
 }
 
 .event {
@@ -97,7 +95,7 @@ p a {
     .topnav a {
         color: #f2f2f2;
         text-align: center;
-        padding: 14px 16px;
+        padding: 14px 12px;
         text-decoration: none;
         font-size: 17px;
     }
@@ -114,24 +112,24 @@ p a {
             color: white;
         }
 
-.navcontainer{
-		display: flex;
+.navcontainer {
+    display: flex;
     gap: 20px;
     justify-content: center;
     width: 100%;
     max-width: 1500px;
-		}
+}
 
 /* phone bp */
 @media (max-width: 480px) {
 
 
-.event-container{
+    .event-container {
+        grid-template-columns: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
 
-    grid-template-columns: 100%;
-    width: 100%;
-    margin: 0 auto;
-}
     .event {
         display: block;
         margin-left: auto;

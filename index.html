@@ -31,12 +31,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <style>
 
+        .main-container {
+            display: flex;
+            margin-top: 50px;
+            margin-right: 100px;
+        }
+
         .filter-container {
-            padding: 25px;
-            width: 250px;
+            padding: 0px;
+            width: 170px;
             color: white;
             flex-shrink: 0;
             align-self: flex-start;
+            flex: 1;
+        
         }
 
             .filter-container label {
@@ -64,8 +72,67 @@
             margin-right: 5px;
         }
 
+
+
         img {
         }
+        @media (max-width: 480px) {
+            .main-container {
+                flex-direction: column; /* Make the main container a column layout */
+                width: 100%; /* Ensure it takes the full width */
+                margin-right: 0px;
+            }
+
+            .filter-container {
+                padding: 25px;
+                width: 100%; /* Make sure the filter container takes the full width */
+                color: white;
+                flex-shrink: 0;
+                align-self: flex-start;
+                flex: 0;
+            }
+
+            .event-sections {
+                margin-top: 20px; /* Add some space between the filter and the events */
+            }
+
+            .event-container {
+                grid-template-columns: 100%; /* Ensure events take full width */
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .event {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 70%;
+                padding: 15px;
+                color: black;
+            }
+
+            .topnav a {
+                font-size: 1rem;
+                display: inline-block;
+            }
+        }
+        @media (min-width: 481px) and  (max-width: 1919px) {
+            .main-container {
+                flex-direction: column; /* Make the main container a column layout */
+                width: 100%; /* Ensure it takes the full width */
+                margin-right: 0px;
+            }
+            .filter-container {
+                padding: 25px;
+                width: 100%; /* Make sure the filter container takes the full width */
+                color: white;
+                flex-shrink: 0;
+                align-self: flex-start;
+                flex: 0;
+            }
+        }
+      
+
     </style>
 </head>
 <body>
@@ -81,182 +148,183 @@
             </nav>
         </div>
     </div>
-    <!--Filter-->
-    <div class="filter-container">
-        <label>Filter by ELO:</label>
-        <label>
-            <input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800
-        </label>
-        <label>
-            <input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000
-        </label>
-        <label>
-            <input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200
-        </label>
-        <label>
-            <input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800
-        </label>
-        <label>
-            <input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+
-        </label>
-        <label>
-            <input type="checkbox" value="Multidivisional" data-color="white"> <span class="color-box" style="background-color: white;"></span>Multidivisional
-        </label>
-        <label>
-            <input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only
-        </label>
-    </div>
-    <!-- Events -->
-    <div class="event-sections">
+    <div class="main-container">
+        <!--Filter-->
+        <div class="filter-container">
+            <label>Filter by ELO:</label>
+            <label>
+                <input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box" style="background-color: #56F000;"></span> 0-800
+            </label>
+            <label>
+                <input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box" style="background-color: #caf022;"></span> 800-1000
+            </label>
+            <label>
+                <input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box" style="background-color: #FCE83A;"></span> 1000-1200
+            </label>
+            <label>
+                <input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box" style="background-color: #FFB302;"></span> 1200-1800
+            </label>
+            <label>
+                <input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box" style="background-color: #FF3838;"></span> 1800+
+            </label>
+            <label>
+                <input type="checkbox" value="Multidivisional" data-color="white"> <span class="color-box" style="background-color: white;"></span>Multidivisional
+            </label>
+            <label>
+                <input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only
+            </label>
+        </div>
+        <!-- Events -->
+        <div class="event-sections">
 
-        <h1>Upcoming AOEII Tournaments</h1>
-        <div id="upcoming-events" class="event-container"></div>
-        <h1>Ongoing AOEII Tournaments</h1>
-        <div id="current-events" class="event-container"></div>
-    </div>
+            <h1>Upcoming AOEII Tournaments</h1>
+            <div id="upcoming-events" class="event-container"></div>
+            <h1>Ongoing AOEII Tournaments</h1>
+            <div id="current-events" class="event-container"></div>
+        </div>
+        </div>
+
+            <p>
+                <a href="about.html" style="color:white; text-decoration: underline;">About the Site</a>
+            </p>
+            <p>
+                <a href="archive.html" style="color:white; text-decoration: underline;">View Archived Age of Empires Tournaments</a>
+            </p>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+            <script>
+                //date formatting function
+                function formatDateToMonthDay(dateString) {
+                    const dateParts = dateString.split('/');
+                    const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+                    const options = { month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString('en-US', options);
+                }
+                const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+                async function fetchEvents() {
+                    const response = await fetch(eventsURL);
+                    const data = await response.text();
+
+                    const parsed = Papa.parse(data, {
+                        header: true,
+                        skipEmptyLines: true
+                    });
+
+                    const events = parsed.data;
+                    const ongoingContainer = document.getElementById('current-events');
+                    const upcomingContainer = document.getElementById('upcoming-events');
+
+                    ongoingContainer.innerHTML = '';
+                    upcomingContainer.innerHTML = '';
+
+                    const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
+                        .map(checkbox => checkbox.value);
+
+                    //event sorting
+                    const sortedEvents = events.sort((a, b) => {
+                        const dateA = a.SignupDeadline || a.StartDate || '';
+                        const dateB = b.SignupDeadline || b.StartDate || '';
+
+                        if (!dateA && !dateB) return 0;
+                        if (!dateA) return 1;
+                        if (!dateB) return -1;
+
+                        const formattedDateA = new Date(dateA);
+                        const formattedDateB = new Date(dateB);
+
+                        return formattedDateA - formattedDateB;
+                    });
+
+                    sortedEvents.forEach(event => {
+                        const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
+                        const status = event['Status'] ? event['Status'].trim() : '';
+                        const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.every(selectedElo => eventEloRanges.includes(selectedElo));
+
+                        if (!eloMatch) {
+                            return;
+                        }
+
+                        const eventDiv = document.createElement('div');
+                        eventDiv.classList.add('event');
+
+                        let eventHTML = '';
+
+                        const colors = eventEloRanges.map(range => {
+                            const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
+                            return checkbox ? checkbox.getAttribute('data-color') : null;
+                        }).filter(color => color);
+
+                        if (colors.length > 0) {
+                            eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
+                        }
+
+                        if (event['Image']) {
+                            eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
+                                    <img src="${event['Image']}?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
+                                  </a>`;
+                        } else {
+                            eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
+                                  <img src="https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
+                                </a>`
+                        }
 
 
-    <p>
-        <a href="about.html"style="color:white; text-decoration: underline;">About the Site</a>
-    </p>
-    <p>
-        <a href="archive.html" style="color:white; text-decoration: underline;">View Archived Age of Empires Tournaments</a>
-    </p>
+                        if (event.Name) {
+                            eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}">${event.Name}</a></h2>`;
+                        }
+                        if (event.Description) {
+                            eventHTML += `<p>${event.Description}</p>`;
+                        }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <script>
-        //date formatting function
-        function formatDateToMonthDay(dateString) {
-            const dateParts = dateString.split('/');
-            const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
-            const options = { month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
-        }
-        const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
-        async function fetchEvents() {
-            const response = await fetch(eventsURL);
-            const data = await response.text();
+                        if (event.DiscordLink && event.Discord) {
+                            eventHTML += `<div><p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                                <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+                                </svg>
+                                <a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
+                        }
 
-            const parsed = Papa.parse(data, {
-                header: true,
-                skipEmptyLines: true
-            });
+                        if (event.SignupDeadline && status === 'Upcoming') {
+                            const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
+                            eventHTML += `<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                </svg> Signup Deadline:  ${formattedDeadline}</p>`;
+                        } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only') && (status === 'Upcoming')) {
+                            eventHTML += `<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                </svg> Signup Deadline: TBA</p>`;
+                        }
 
-            const events = parsed.data;
-            const ongoingContainer = document.getElementById('current-events');
-            const upcomingContainer = document.getElementById('upcoming-events');
+                        if (event.StartDate) {
+                            const formattedStart = formatDateToMonthDay(event.StartDate);
+                            eventHTML += `<p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                        </svg> Begins: ${formattedStart}</p>`;
+                        } else {
+                            eventHTML += `<p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                    </svg> Begins: TBA</p>`;
+                        }
 
-            ongoingContainer.innerHTML = '';
-            upcomingContainer.innerHTML = '';
+                        eventDiv.innerHTML = eventHTML;
 
-            const selectedEloRanges = Array.from(document.querySelectorAll('.filter-container input[type="checkbox"]:checked'))
-                .map(checkbox => checkbox.value);
-
-            //event sorting
-            const sortedEvents = events.sort((a, b) => {
-                const dateA = a.SignupDeadline || a.StartDate || '';
-                const dateB = b.SignupDeadline || b.StartDate || '';
-
-                if (!dateA && !dateB) return 0;
-                if (!dateA) return 1;
-                if (!dateB) return -1;
-
-                const formattedDateA = new Date(dateA);
-                const formattedDateB = new Date(dateB);
-
-                return formattedDateA - formattedDateB;
-            });
-
-            sortedEvents.forEach(event => {
-                const eventEloRanges = event['ELO'] ? event['ELO'].split(',').map(range => range.trim()) : [];
-                const status = event['Status'] ? event['Status'].trim() : '';
-                const eloMatch = selectedEloRanges.length === 0 || selectedEloRanges.every(selectedElo => eventEloRanges.includes(selectedElo));
-
-                if (!eloMatch) {
-                    return;
+                        if (status === 'Ongoing') {
+                            ongoingContainer.appendChild(eventDiv);
+                        } else if (status === 'Upcoming') {
+                            upcomingContainer.appendChild(eventDiv);
+                        }
+                    });
                 }
 
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-
-                let eventHTML = '';
-
-                const colors = eventEloRanges.map(range => {
-                    const checkbox = document.querySelector(`.filter-container input[type="checkbox"][value="${range}"]`);
-                    return checkbox ? checkbox.getAttribute('data-color') : null;
-                }).filter(color => color);
-
-                if (colors.length > 0) {
-                    eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
-                }
-
-                if (event['Image']) {
-                    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
-                        <img src="${event['Image']}?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
-                      </a>`;
-                } else {
-                    eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
-                      <img src="https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
-                    </a>`
-                }
 
 
-                if (event.Name) {
-                    eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}">${event.Name}</a></h2>`;
-                }
-                if (event.Description) {
-                    eventHTML += `<p>${event.Description}</p>`;
-                }
+                document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', fetchEvents);
+                });
 
-                if (event.DiscordLink && event.Discord) {
-                    eventHTML += `<div><p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
-                    <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
-                    </svg>
-                    <a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
-                }
-
-                if (event.SignupDeadline && status === 'Upcoming') {
-                    const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
-                    eventHTML += `<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                    </svg> Signup Deadline:  ${formattedDeadline}</p>`;
-                } else if (event['ELO'] && !event['ELO'].toLowerCase().includes('invite only') && (status === 'Upcoming')) {
-                    eventHTML += `<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                    </svg> Signup Deadline: TBA</p>`;
-                }
-
-                if (event.StartDate) {
-                    const formattedStart = formatDateToMonthDay(event.StartDate);
-                    eventHTML += `<p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                            </svg> Begins: ${formattedStart}</p>`;
-                } else {
-                    eventHTML += `<p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                        </svg> Begins: TBA</p>`;
-                }
-
-                eventDiv.innerHTML = eventHTML;
-
-                if (status === 'Ongoing') {
-                    ongoingContainer.appendChild(eventDiv);
-                } else if (status === 'Upcoming') {
-                    upcomingContainer.appendChild(eventDiv);
-                }
-            });
-        }
-
-
-
-        document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', fetchEvents);
-        });
-
-        fetchEvents();
-    </script>
+                fetchEvents();
+            </script>
 </body>
 </html>
