@@ -176,6 +176,12 @@
                 if (event.Players) {
                     eventDetailsHTML += `<p><strong>Players:</strong> <a href="${event.Players}" target="_blank">Link</a></p>`;
                 }
+                if (event.L1) {
+                    eventDetailsHTML += `<p><a href="${event.LL1}" target="_blank">${event.L1}</a></p>`;
+                }
+                if (event.L2) {
+                    eventDetailsHTML += `<p><a href="${event.LL2}" target="_blank">${event.L2}</a></p>`;
+                }
                 eventDetailsHTML += `</div>`;
 
                 if (event['DivisionElo Range']) {
