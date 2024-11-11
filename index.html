@@ -258,19 +258,23 @@
                             eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
                         }
 
-                        if (event['Image']) {
-                            eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
-                                    <img src="${event['Image']}?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
-                                  </a>`;
-                        } else {
-                            eventHTML += `<a href="event.html?event=${encodeURIComponent(event.Name)}">
-                                  <img src="https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
-                                </a>`
+                        let eventLink = `event.html?event=${encodeURIComponent(event.Name)}`;
+                        if (event.EventLink) {
+                            eventLink = event.EventLink;
                         }
+
+                        if (event['Image']) {
+                            eventHTML += `<a href="${eventLink}">
+                            <img src="${event['Image']}?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high"></a>`;
+                        } else {
+                            eventHTML += `<a href="${eventLink}">
+                            <img src="https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high">
+                            </a>`;
+                            }
 
 
                         if (event.Name) {
-                            eventHTML += `<h2><a href="event.html?event=${encodeURIComponent(event.Name)}">${event.Name}</a></h2>`;
+                            eventHTML += `<h2><a href="${eventLink}">${event.Name}</a></h2>`;
                         }
                         if (event.Description) {
                             eventHTML += `<p>${event.Description}</p>`;

@@ -89,12 +89,12 @@
         async function fetchEventDetails() {
             const response = await fetch(eventsURL);
             const data = await response.text();
-            console.log(data);
+            
             const rows = data.split('\n').map(row => {
-                console.log(row);
+                
                 return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
             });
-            console.log("row");
+            
             const headers = rows[0];
 
             const events = rows.slice(1).map(row => {
@@ -109,7 +109,7 @@
             const event = events.find(e => e.Name === eventName);
 
             if (event) {
-                console.log("here");
+               
                 let eventDetailsHTML = `
                 <img src="${event.Image ? event.Image : 'https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp'}" alt="${event.Name}">
                 <h2>${event.Name}</h2>`;
