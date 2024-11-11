@@ -7,6 +7,7 @@
     <title>Hidden Christmas Cup</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css">
     <style>
         body {
             font-family: "Mountains of Christmas", serif;
@@ -175,6 +176,7 @@
                 const cb = event['CB'];
                 const cc = event['CC'];
                 const insights = event['Insights'];
+                const nation = event['Nation'];
 
                 const image = event['Image'];
                 const type = event['Type'] ? event['Type'].toLowerCase() : '';
@@ -194,10 +196,10 @@
                         eventHTML += `<a><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
                 }
                 if (name) {
-                    eventHTML += `<h2>${name}</h2>`;
+                    eventHTML += `<h2>${name} <i class="flag flag-${nation}"></i></h2>`;
                 }
                 if (type === 'player') {
-
+                  
                     if (curelo) {
                         eventHTML += `<p>${curelo}/${highelo}</p>`;
                     }
