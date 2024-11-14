@@ -7,6 +7,7 @@
     <title>Hidden Christmas Cup</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css">
     <style>
         body {
@@ -28,6 +29,8 @@
             margin-top: 50px;
             color: white;
             font-weight: 700;
+            z-index: 1;
+            text-shadow: 4px 1px 1px black;
         }
 
         h2 {
@@ -36,25 +39,40 @@
             margin-bottom: 20px;
             margin-top: 50px;
             color: white;
+            text-shadow: 2px 1px 1px black;
         }
 
         h3 {
-            font-size: 2em;
-            font-family: Roboto, Arial, sans-serif;
+            font-family: "Courier Prime", monospace;
+            text-shadow: 2px 1px 1px black;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            white-space: nowrap
         }
 
-            h3 a {
+        h3 a {
                 text-decoration: none;
                 color: white;
+                
             }
 
-                h3 a:visited {
+
+         h3 a:visited {
                     color: white;
                 }
 
         p a {
             font-size: 2em;
+            text-align: right;
+            border: 3px;
+            text-shadow: 1px 1px 1px black;
+            text-decoration: underline;
         }
+
+     
+
 
         .main-content {
             width: 100%;
@@ -76,7 +94,7 @@
         .event {
             background: url('https://ik.imagekit.io/aoe2tournaments/cc973196174201f4cd05e70de85b450d.webp') no-repeat center center;
             background-size: cover;
-            border-radius: 5px;
+            border-radius: 15px;
             padding: 30px;
             max-width: 300px;
             min-height: 100%;
@@ -100,16 +118,8 @@
             padding-top: 50px;
         }
 
-    
-
-        .event h3 {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-size: 1.5em;
-        }
-
         .event p {
-            font-family: Roboto, Arial, sans-serif;
+            font-family: Roboto, sans-serif;
             margin: 5px;
             margin-left: 20px;
             margin-right: 20px;
@@ -132,14 +142,33 @@
 
             .links-container a {
                 color: white;
-                text-decoration: underline;
+                
                 margin: 0 10px;
             }
+        .corner-images img {
+            position: absolute;
+            top: 0;
+            width: 10rem;
+            height: auto;
+            z-index: 0;
+        }
+
+        .corner-left {
+            left: 0;
+        }
+
+        .corner-right {
+            right: 0;
+        }
 
         
     </style>
 </head>
 <body>
+    <div class="corner-images">
+        <img src="https://ik.imagekit.io/aoe2tournaments/hcc%20thumb.webp?updatedAt=1729388226769" class="corner-left" alt="Left Corner Image">
+        <img src="https://ik.imagekit.io/aoe2tournaments/hcc%20thumb.webp?updatedAt=1729388226769" class="corner-right" alt="Right Corner Image">
+    </div>
     <div class="main-content">
         <h1>Hidden Christmas Cup</h1>
         <div class="links-container">
@@ -206,16 +235,16 @@
 
                 let eventHTML = '';
                 if (image) {
-                    if(type === 'player')
+                    if (type === 'player')
                         eventHTML += `<a href="${insights}"><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
                     else
                         eventHTML += `<a><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
                 }
                 if (name) {
-                    eventHTML += `<h3 style="margin-left: 30px">${name} <i class="flag flag-${nation}"></i></h3>`;
+                    eventHTML += `<h3>${name}<i class="flag flag-${nation}"></i></h3>`;
                 }
                 if (type === 'player') {
-                  
+
                     if (curelo) {
                         eventHTML += `<p>${curelo}/${highelo}</p>`;
                     }
