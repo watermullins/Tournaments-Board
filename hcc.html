@@ -133,6 +133,7 @@
             max-width: 50%;
             border-radius: 5px;
             aspect-ratio: 1/1;
+            margin-top: 5px;
         }
 
         .links-container {
@@ -257,7 +258,7 @@
                         eventHTML += `<p><strong>•</strong> ${cc}</p>`;
                     }
                     if (civ) {
-                        const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 20px; height: 20px; margin-right: 5px;">`);
+                        const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 23px; height: 23px; margin-right: 3px;">`);
                         eventHTML += `<p><strong>Civilisations: </strong>${civImages.join('')}</p>`;
                     }
                     if (bio) {
