@@ -258,7 +258,7 @@
                     }
                     if (civ) {
                         const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 20px; height: 20px; margin-right: 5px;">`);
-                        eventHTML += `<p><strong>Civilisations:</strong> ${civImages.join(' ')}</p>`;
+                        eventHTML += `<p><strong>Civilisations: </strong>${civImages.join('')}</p>`;
                     }
                     if (bio) {
                         eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
