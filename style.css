@@ -11,22 +11,27 @@ body {
     margin-bottom: 75px;
 }
 
-
-
 h1 {
     text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    margin-top: 75px;
+    font-size: 3em;
+    margin-top: 50px;
     color: white;
 }
 
-h2 a {
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    color: white;
+}
+
+h3 a {
     text-decoration: none;
     color: black;
 }
 
-    h2 a:visited {
+    h3 a:visited {
         color: black;
     }
 
@@ -37,6 +42,7 @@ p a {
 .event-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-bottom: 150px;
     gap: 15px;
     width: 100%;
     max-width: 1500px;
@@ -53,7 +59,7 @@ p a {
     color: black;
 }
 
-    .event h2 {
+    .event h3 {
         margin-top: 10px;
         margin-bottom: 5px;
         font-size: 1.5em;
