@@ -23,7 +23,6 @@
             flex-direction: column;
         }
 
-
         h1 {
             text-align: center;
             font-size: 6em;
@@ -54,16 +53,6 @@
             white-space: nowrap
         }
 
-            h3 a {
-                text-decoration: none;
-                color: white;
-            }
-
-
-                h3 a:visited {
-                    color: white;
-                }
-
         p a {
             font-size: 2em;
             text-align: right;
@@ -71,9 +60,6 @@
             text-shadow: 1px 1px 1px black;
             text-decoration: underline;
         }
-
-
-
 
         .main-content {
             width: 100%;
@@ -113,7 +99,7 @@
         }
 
         .alias {
-            background: url('https://ik.imagekit.io/aoe2tournaments/knit-seamless-pattern-knitted-ch%20(1)%20(1).webp') no-repeat center center; /* Override for alias events */
+            background: url('https://ik.imagekit.io/aoe2tournaments/knit-seamless-pattern-knitted-ch%20(1)%20(1).jpg') no-repeat center center;
             background-size: cover;
             min-height: 250px;
             padding-top: 50px;
@@ -172,7 +158,7 @@
         <h1>Hidden Christmas Cup</h1>
         <div class="links-container">
             <p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeUzqTiQsCaL1PkpLocuJIj7C3nIoif0_iFdh0RebOSIuyvBA/viewform" target="_blank">Submit a Guess!</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzlhzq8tzQaso2NStrfg3QKfO8xMy7y3pgtAA7gE0vXP4PA/viewform?usp=sf_link" target="_blank">Submit a Guess!</a>
             </p>
         </div>
         <h2>The Players</h2>
@@ -187,97 +173,149 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        const eventsURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=766240151';
+       const eventsURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=766240151';
+const guessesURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRG3dIq41ZWON5Trzv5eKfXFYAgwBeOkn8gZKWkXZQojYbqnAENvzXNpxJAOYbqIvcnjWe5O2x-uwgL/pub?gid=1494354425&single=true&output=csv';
 
-        async function fetchEvents() {
-            const response = await fetch(eventsURL);
-            if (!response.ok) {
-                console.error('Failed to fetch data');
-                return;
+// Fetch guesses data
+async function fetchGuesses() {
+    const response = await fetch(guessesURL);
+    if (!response.ok) {
+        console.error('Failed to fetch guess data');
+        return [];
+    }
+    const data = await response.text();
+
+    // Parse the CSV data using PapaParse
+    const parsed = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    });
+
+    return parsed.data;
+}
+
+// Fetch events data
+async function fetchEvents() {
+    const response = await fetch(eventsURL);
+    if (!response.ok) {
+        console.error('Failed to fetch event data');
+        return [];
+    }
+    const data = await response.text();
+
+    // Parse the CSV data using PapaParse
+    const parsed = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    });
+
+    return parsed.data;
+}
+
+// Main function to fetch both events and guesses
+async function fetchEventsAndGuesses() {
+    const [events, guesses] = await Promise.all([fetchEvents(), fetchGuesses()]);
+
+    const playerContainer = document.getElementById('player-events');
+    const aliasContainer = document.getElementById('alias-events');
+
+    playerContainer.innerHTML = '';
+    aliasContainer.innerHTML = '';
+
+    // Create a mapping of aliases to guesses
+    const aliasGuessesMap = {};
+
+    guesses.forEach(guess => {
+        Object.entries(guess).forEach(([alias, player]) => {
+            if (alias !== 'Time' && alias !== 'Discord' && player) {
+                if (!aliasGuessesMap[alias]) {
+                    aliasGuessesMap[alias] = {};
+                }
+                aliasGuessesMap[alias][player] = (aliasGuessesMap[alias][player] || 0) + 1;
             }
-            const data = await response.text();
+        });
+    });
 
-            // Parse the CSV data using PapaParse
-            const parsed = Papa.parse(data, {
-                header: true,
-                skipEmptyLines: true
-            });
+    events.forEach(event => {
+        const name = event['Name'];
+        const bio = event['Bio'];
+        const civ = event['Civ'];
+        const curelo = event['CurELO'];
+        const highelo = event['HighELO'];
+        const ca = event['CA'];
+        const cb = event['CB'];
+        const cc = event['CC'];
+        const insights = event['Insights'];
+        const nation = event['Nation'];
+        const image = event['Image'];
+        const type = event['Type'] ? event['Type'].toLowerCase() : '';
 
-            const events = parsed.data;
-            const playerContainer = document.getElementById('player-events');
-            const aliasContainer = document.getElementById('alias-events');
+        const eventDiv = document.createElement('div');
+        eventDiv.classList.add('event');
 
-            playerContainer.innerHTML = '';
-            aliasContainer.innerHTML = '';
-
-            events.forEach(event => {
-                const name = event['Name'];
-                const bio = event['Bio'];
-                const civ = event['Civ'];
-                const curelo = event['CurELO'];
-                const highelo = event['HighELO'];
-                const ca = event['CA'];
-                const cb = event['CB'];
-                const cc = event['CC'];
-                const insights = event['Insights'];
-                const nation = event['Nation'];
-
-                const image = event['Image'];
-                const type = event['Type'] ? event['Type'].toLowerCase() : '';
-
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-
-                if (type === 'alias') {
-                    eventDiv.classList.add('alias');
-                }
-
-                let eventHTML = '';
-                if (image) {
-                    if (type === 'player')
-                        eventHTML += `<a href="${insights}"><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
-                    else
-                        eventHTML += `<a><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
-                }
-                if (name) {
-                    eventHTML += `<h3>${name}<i class="flag flag-${nation}"></i></h3>`;
-                }
-                if (type === 'player') {
-
-                    if (curelo) {
-                        eventHTML += `<p>${curelo}/${highelo}</p>`;
-                    }
-                    eventHTML += `<div class ="details">`;
-                    if (ca) {
-                        eventHTML += `<p><strong>•</strong> ${ca}</p>`;
-                    }
-                    if (cb) {
-                        eventHTML += `<p><strong>•</strong> ${cb}</p>`;
-                    }
-                    if (cc) {
-                        eventHTML += `<p><strong>•</strong> ${cc}</p>`;
-                    }
-                    if (civ) {
-                        const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 23px; height: 23px; margin-right: 3px;">`);
-                        eventHTML += `<p><strong>Civilisations: </strong>${civImages.join('')}</p>`;
-                    }
-                    if (bio) {
-                        eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
-                    }
-                    eventHTML += `</div>`;
-                }
-
-                eventDiv.innerHTML = eventHTML;
-
-                if (type === 'player') {
-                    playerContainer.appendChild(eventDiv);
-                } else if (type === 'alias') {
-                    aliasContainer.appendChild(eventDiv);
-                }
-            });
+        let eventHTML = '';
+        if (image) {
+            eventHTML += `<a href="${insights ? insights : '#'}"><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
         }
 
-        fetchEvents();
+        if (name) {
+            eventHTML += `<h3>${name}<i class="flag flag-${nation}"></i></h3>`;
+        }
+
+        // Display event details based on type
+        if (type === 'player') {
+            if (curelo) {
+                eventHTML += `<p>${curelo}/${highelo}</p>`;
+            }
+            eventHTML += `<div class="details">`;
+            if (ca) eventHTML += `<p><strong>•</strong> ${ca}</p>`;
+            if (cb) eventHTML += `<p><strong>•</strong> ${cb}</p>`;
+            if (cc) eventHTML += `<p><strong>•</strong> ${cc}</p>`;
+            if (civ) {
+                const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 23px; height: 23px; margin-right: 3px;">`);
+                eventHTML += `<p><strong>Civilisations: </strong>${civImages.join('')}</p>`;
+            }
+            if (bio) {
+                eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
+            }
+            eventHTML += `</div>`;
+        } else if (type === 'alias') {
+            eventDiv.classList.add('alias');
+
+            // Add top guesses for alias events
+const aliasGuesses = aliasGuessesMap[name] || {};
+const totalGuesses = Object.values(aliasGuesses).reduce((sum, count) => sum + count, 0);
+
+const topGuesses = Object.entries(aliasGuesses)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+topGuesses.forEach(([player, count]) => {
+    const percentage = totalGuesses > 0 ? ((count / totalGuesses) * 100).toFixed(1) : 0;
+    eventHTML += `<p>${player} (${percentage}%)</p>`;
+});
+
+if (topGuesses.length === 0) {
+    eventHTML += `<p><em>No guesses yet.</em></p>`;
+}
+
+            eventHTML += `</ul>`;
+            }
+eventDiv.innerHTML = eventHTML;
+            if (type === 'player') {
+            playerContainer.appendChild(eventDiv);
+        } else if (type === 'alias') {
+            aliasContainer.appendChild(eventDiv);
+        }
+        
+
+        
+    });
+}
+
+// Call the function to fetch events and guesses
+fetchEventsAndGuesses();
+
     </script>
 </body>
 </html>
