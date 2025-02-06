@@ -1,1 +1,1 @@
-# blank file allows all
+# all allowed
