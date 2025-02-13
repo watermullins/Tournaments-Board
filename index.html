@@ -42,8 +42,7 @@
             color: white;
             flex-shrink: 0;
             align-self: flex-start;
-            flex: 1;
-        
+            flex: 1;     
         }
 
             .filter-container label {
@@ -73,14 +72,14 @@
 
         @media (max-width: 480px) {
             .main-container {
-                flex-direction: column; /* Make the main container a column layout */
-                width: 100%; /* Ensure it takes the full width */
+                flex-direction: column;
+                width: 100%;
                 margin-right: 0px;
             }
 
             .filter-container {
                 padding: 25px;
-                width: 100%; /* Make sure the filter container takes the full width */
+                width: 100%;
                 color: white;
                 flex-shrink: 0;
                 align-self: flex-start;
@@ -88,11 +87,11 @@
             }
 
             .event-sections {
-                margin-top: 20px; /* Add some space between the filter and the events */
+                margin-top: 20px;
             }
 
             .event-container {
-                grid-template-columns: 100%; /* Ensure events take full width */
+                grid-template-columns: 100%;
                 width: 100%;
                 margin: 0 auto;
             }
@@ -113,18 +112,28 @@
         }
         @media (min-width: 481px) and  (max-width: 1919px) {
             .main-container {
-                flex-direction: column; /* Make the main container a column layout */
-                width: 100%; /* Ensure it takes the full width */
-                margin-right: 0px;
+                display: flex;
+                width: 100%;
+                margin-right: 70px;
             }
             .filter-container {
-                padding: 25px;
-                width: 100%; /* Make sure the filter container takes the full width */
-                color: white;
-                flex-shrink: 0;
-                align-self: flex-start;
-                flex: 0;
+            padding: 25px;
+            color: white;
+            margin-left: 25px;   
+        }
+            .event-sections {
+                max-width: 1000px;
             }
+            .event-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    margin-bottom: 150px;
+    gap: 15px;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+}
+                 
         }
       
 
