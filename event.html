@@ -34,6 +34,7 @@
             border-radius: 5px;
             padding: 15px;
             margin-top: 0px;
+            margin-left: 50px;
             max-width: 30%;
         }
 
@@ -58,7 +59,7 @@
 
         p {
 		
-            margin-left: 20px;
+            margin-left: 70px;
         }
 		
     </style>
@@ -107,7 +108,8 @@
 
             const eventDetailContainer = document.getElementById('event-detail-box');
             const event = events.find(e => e.Name === eventName);
-
+            let importantLinksHTML = ``;
+            let links = false;
             if (event) {
                
                 let eventDetailsHTML = `
@@ -119,7 +121,20 @@
                 }
                 if (event.StartDate) {
                     const formattedStart = formatDateToMonthDay(event.StartDate);
-                    eventDetailsHTML += `<p><strong>Start Date:</strong> <i class="bi bi-calendar fs-5"></i> ${formattedStart}</p>`;
+                    eventDetailsHTML += `<p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                            </svg> Begins: ${formattedStart}`
+                    if(event.EndDate){
+                        const formattedEnd = formatDateToMonthDay(event.EndDate);
+                        eventDetailsHTML += ` ~ ${formattedEnd}`;
+                    }
+                    eventDetailsHTML += `<p>`;
+                } else {
+                    eventDetailsHTML += `<p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                        </svg> Begins: TBA</p>`;
                 }
 
                 if (event.DiscordLink) {
@@ -152,27 +167,34 @@
 				if (event.Admins) {
                     eventDetailsHTML += `<p><strong>Admins:</strong> ${event.Admins}</p>`;
                 }
-                eventDetailsHTML += `<div class="important-links"><h3>Important Links</h3>`;
+                importantLinksHTML += `<div class="important-links"><h3>Important Links</h3>`;
                 if (event['GroupMap']) {
-                    eventDetailsHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
+                    links = true;
                 }
 
                 if (event['GroupCiv']) {
-                    eventDetailsHTML += `<div class="important-link"><a href="${event['GroupCiv']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['GroupCiv']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
+                    links = true;
                 }
 
                 if (event['KO Map Draft Link']) {
-                    eventDetailsHTML += `<div class="important-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
+                    links = true;
                 }
 
                 if (event['KO Civ Draft Link']) {
-                    eventDetailsHTML += `<div class="important-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
+                    links = true;
                 }
 
                 if (event.Handbook) {
-                    eventDetailsHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
+                    links = true;
                 }
-
+                if(links)
+                    eventDetailsHTML += importantLinksHTML;
+                  
                 if (event.Players) {
                     eventDetailsHTML += `<p><strong>Players:</strong> <a href="${event.Players}" target="_blank">Link</a></p>`;
                 }
