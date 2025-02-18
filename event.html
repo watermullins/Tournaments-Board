@@ -109,7 +109,6 @@
             const eventDetailContainer = document.getElementById('event-detail-box');
             const event = events.find(e => e.Name === eventName);
             let importantLinksHTML = ``;
-            let links = false;
             if (event) {
                
                 let eventDetailsHTML = `
@@ -168,33 +167,29 @@
                     eventDetailsHTML += `<p><strong>Admins:</strong> ${event.Admins}</p>`;
                 }
                 importantLinksHTML += `<div class="important-links"><h3>Important Links</h3>`;
+                let linkStringStart = importantLinksHTML; //to compare later
                 if (event['GroupMap']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
-                    links = true;
                 }
 
                 if (event['GroupCiv']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['GroupCiv']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
-                    links = true;
                 }
 
                 if (event['KO Map Draft Link']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
-                    links = true;
                 }
 
                 if (event['KO Civ Draft Link']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
-                    links = true;
                 }
 
                 if (event.Handbook) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
-                    links = true;
                 }
-                if(links)
+                if(importantLinksHTML != linkStringStart){
                     eventDetailsHTML += importantLinksHTML;
-                  
+                }
                 if (event.Players) {
                     eventDetailsHTML += `<p><strong>Players:</strong> <a href="${event.Players}" target="_blank">Link</a></p>`;
                 }
