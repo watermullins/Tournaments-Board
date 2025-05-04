@@ -108,14 +108,14 @@ p a {
 
 
         .topnav a:hover {
-            background-color: #ddd;
+            background-color: rgba(100, 45, 22,0.5);
             color: black;
         }
 
 
         .topnav a.active {
-            background-color: #04AA6D;
-            color: white;
+            background: url('https://ik.imagekit.io/aoe2tournaments/depositphotos_26345769-stock-photo-old-weathered-wood-sign-isolated.png?updatedAt=1746329886344') no-repeat center center;
+            color: rgb(58, 34, 23);
         }
 
 .navcontainer {
