@@ -14,7 +14,7 @@ body {
 h1 {
     text-align: center;
     font-size: 3em;
-    margin-top: 50px;
+    margin-top: 100px;
     color: white;
 }
 
@@ -81,50 +81,73 @@ p a {
         border-radius: 5px;
     }
 
-.navalign {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    max-width: 1500px;
-}
-
 .topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     width: 100%;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    overflow: visible;
 }
 
     .topnav a {
+        background: url('https://ik.imagekit.io/aoe2tournaments/select%20sign.png') no-repeat center center;
+        background-size: 100% auto;
         color: #f2f2f2;
         text-align: center;
-        padding: 14px 12px;
+        padding: 14px 50px;
+        margin-right: 50px;
         text-decoration: none;
         font-size: 17px;
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-decoration: none;
+        z-index: 1;
+        display: flex;              /* use flex */
+        align-items: center;        /* vertically center text */
+        justify-content: center;    /* horizontally center text */
     }
 
+    .topnav a::before,
+.topnav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px; /* Thickness of the metal strip */
+    background: url('https://ik.imagekit.io/aoe2tournaments/metal%20strip.png?updatedAt=1746374542469') repeat-x;
+    z-index: -1;
+}
+
+.topnav a::before {
+    top: 0; /* Metal strip on top */
+}
+
+.topnav a::after {
+    bottom: 0; /* Metal strip on bottom */
+}
 
         .topnav a:hover {
-            background-color: rgba(100, 45, 22,0.5);
-            color: black;
+            opacity: .9;
         }
-
 
         .topnav a.active {
-            background: url('https://ik.imagekit.io/aoe2tournaments/depositphotos_26345769-stock-photo-old-weathered-wood-sign-isolated.png?updatedAt=1746329886344') no-repeat center center;
-            color: rgb(58, 34, 23);
+            background: url('https://ik.imagekit.io/aoe2tournaments/sign%202.png?updatedAt=1746369913935') no-repeat center center;
+            background-size: 100% auto;
+            color: rgb(255, 255, 255);
+            padding: 14px 50px;
+            display: flex;              /* use flex */
+            align-items: center;        /* vertically center text */
+            justify-content: center;    /* horizontally center text */
+            text-align: center;
         }
+        
 
-.navcontainer {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    max-width: 1500px;
-}
+
 
 /* phone bp */
 @media (max-width: 480px) {
