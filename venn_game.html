@@ -11,15 +11,20 @@
     }
 
     #toolbox {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      border: 2px dashed #848484;
-      padding: 10px;
-      width: 100px;
-      height: 400px;
-      overflow-y: auto;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 12px;
+  border: 2px dashed #848484;
+  padding: 16px;
+  width: fit-content;
+  max-width: 200px;
+  max-height: 400px;
+  overflow: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+
 
     #toolbox img {
       width: 48px;
@@ -89,7 +94,7 @@
   </div>
 
   <script>
-    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Ethiopians.webp','CivIcon-Gurjaras.webp','CivIcon-Goths.webp','CivIcon-Huns.webp'];
+    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Bulgarians.webp','CivIcon-Cumans.webp', 'CivIcon-Ethiopians.webp','CivIcon-Gurjaras.webp','CivIcon-Goths.webp','CivIcon-Huns.webp','CivIcon-Hindustanis.webp','CivIcon-Mongols.webp'];
     const toolbox = document.getElementById('toolbox');
     const container = document.getElementById('container');
     const scoreEl = document.getElementById('score');
@@ -98,11 +103,16 @@
     const targetZones = [
       { name: 'CivIcon-Armenians.webp', x: 370, y: 320, width: 60, height: 60 },
       { name: 'CivIcon-Aztecs.webp', x: 435, y: 420, width: 60, height: 60 },
-      { name: 'CivIcon-Ethiopians.webp', x: 375, y: 175, width: 60, height: 60 },
+      { name: 'CivIcon-Bulgarians.webp', x: 295, y: 250, width: 60, height: 60 },
+      { name: 'CivIcon-Cumans.webp', x: 440, y: 250, width: 60, height: 60 },
+      { name: 'CivIcon-Ethiopians.webp', x: 370, y: 175, width: 60, height: 60 },
       { name: 'CivIcon-Goths.webp', x: 550, y: 200, width: 60, height: 60 },
-      { name: 'CivIcon-Gurjaras.webp', x: 280, y: 130, width: 60, height: 60 },
-      { name: 'CivIcon-Gurjaras.webp', x: 680, y: 95, width: 60, height: 60 },
+      { name: 'CivIcon-Gurjaras.webp', x: 280, y: 130, width: 60, height: 60 }, //plate
+      { name: 'CivIcon-Gurjaras.webp', x: 50, y: 450, width: 60, height: 60 }, //blast
+      { name: 'CivIcon-Gurjaras.webp', x: 680, y: 95, width: 60, height: 60 }, //squires
+      { name: 'CivIcon-Hindustanis.webp', x: 575, y: 370, width: 60, height: 60 },
       { name: 'CivIcon-Huns.webp', x: 500, y: 130, width: 60, height: 60 },
+      { name: 'CivIcon-Mongols.webp', x: 500, y: 370, width: 60, height: 60 },
     ];
 
     totalEl.textContent = targetZones.length;
