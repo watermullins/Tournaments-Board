@@ -180,8 +180,43 @@ html {
         margin-top: 0px;
     }
 
-        .topnav a {
-            font-size: 1rem;
-            display: inline-block;
-        }
+    .topnav a {
+        background: black;
+        background-size: 100% auto;
+        color: #f2f2f2;
+        padding: 14px 30px;
+        margin-right: 0px;
+        margin-left: 0px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 15px;
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-decoration: none;
+        z-index: 1;
+        display: flex;              /* use flex */
+        align-items: center;        /* vertically center text */
+        justify-content: center;    /* horizontally center text */
+    }
+    .topnav a::before,
+    .topnav a::after {
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 0px; /* Thickness of the metal strip */
+        background: none;
+        z-index: -1;
+    }
+    
+            .topnav a.active {
+                background: black;
+                background-size: 100% auto;
+                color: rgb(255, 255, 255);
+                display: flex;              /* use flex */
+                align-items: center;        /* vertically center text */
+                justify-content: center;    /* horizontally center text */
+                text-align: center;
+            }
+    
 }
