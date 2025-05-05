@@ -2,19 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css">
   <title>Image Quiz</title>
   <style>
     body {
-      display: flex;
-      gap: 20px;
-      font-family: sans-serif;
-    }
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  margin-top: 100px;
+  gap: 20px;
+  padding: 20px;
+}
+
 
     #toolbox {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   gap: 12px;
-  border: 2px dashed #848484;
+  border: 2px solid #848484;
   padding: 16px;
   width: fit-content;
   max-width: 200px;
@@ -65,7 +76,7 @@
 
     .zone {
       position: absolute;
-      border: 2px dashed white;
+      border: 1px dashed white;
       pointer-events: none;
     }
 
@@ -82,16 +93,26 @@
   </style>
 </head>
 <body>
-
-  <div id="toolbox"></div>
-
-  <div id="container">
-    <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
-    <div id="scoreboard">
-      <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
-      <button onclick="checkScore()">Check Score</button>
+  <div class = "navcontainer">
+    <nav class="topnav">
+    <a href="index.html">Tournaments</a>
+    <a href="images.html">Images</a>
+    <a href="links.html">Resources</a>
+    <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
+</nav>
+</div>
+<div>
+  <div class="main-content">
+    <div id="toolbox"></div>
+    <div id="container">
+      <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
+      <div id="scoreboard">
+        <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
+        <button onclick="checkScore()">Check Score</button>
+      </div>
     </div>
   </div>
+  
 
   <script>
     const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Bengalis.webp','CivIcon-Bulgarians.webp','CivIcon-Cumans.webp', 'CivIcon-Ethiopians.webp','CivIcon-Gurjaras.webp','CivIcon-Goths.webp','CivIcon-Huns.webp','CivIcon-Hindustanis.webp','CivIcon-Mongols.webp'];
