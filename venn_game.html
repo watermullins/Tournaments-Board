@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Icon Quiz</title>
+  <style>
+    body {
+      display: flex;
+      gap: 20px;
+      font-family: sans-serif;
+    }
+
+    #toolbox {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 2px dashed #848484;
+      padding: 10px;
+      width: 100px;
+      height: 400px;
+      overflow-y: auto;
+    }
+
+    #toolbox img {
+      width: 48px;
+      height: 48px;
+      cursor: grab;
+    }
+
+    #container {
+      position: relative;
+      display: inline-block;
+    }
+
+    #mainImage {
+      display: block;
+      max-width: 800px;
+    }
+
+    .dropped-icon {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      cursor: grab;
+      pointer-events: auto;
+    }
+
+    #scoreboard {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    .zone {
+      position: absolute;
+      border: 2px dashed white;
+      pointer-events: none;
+    }
+
+    .zone-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      background-color: blue;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toolbox"></div>
+
+  <div id="container">
+    <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
+    <div id="scoreboard">
+      <div>Score: <span id="score">0</span> / 2</div>
+      <button onclick="checkScore()">Check Score</button>
+    </div>
+  </div>
+
+  <script>
+    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp'];
+    const toolbox = document.getElementById('toolbox');
+    const container = document.getElementById('container');
+    const scoreEl = document.getElementById('score');
+
+    const targetZones = [
+      { name: 'CivIcon-Armenians.webp', x: 360, y: 320, width: 60, height: 60 },
+      { name: 'CivIcon-Aztecs.webp', x: 430, y: 420, width: 60, height: 60 }
+    ];
+
+    let placedIcons = [];
+
+    icons.forEach(name => {
+      const icon = document.createElement('img');
+      icon.src = `icons/${name}`;
+      icon.draggable = true;
+      icon.dataset.icon = name;
+      toolbox.appendChild(icon);
+    });
+
+    targetZones.forEach(zone => {
+      const div = document.createElement('div');
+      div.className = 'zone';
+      div.style.left = `${zone.x}px`;
+      div.style.top = `${zone.y}px`;
+      div.style.width = `${zone.width}px`;
+      div.style.height = `${zone.height}px`;
+
+      const dot = document.createElement('div');
+      dot.className = 'zone-dot';
+      div.appendChild(dot);
+
+      container.appendChild(div);
+    });
+
+    toolbox.addEventListener('dragstart', e => {
+      if (e.target.tagName === 'IMG') {
+        e.dataTransfer.setData('icon', e.target.dataset.icon);
+      }
+    });
+
+    container.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+
+    container.addEventListener('drop', e => {
+      e.preventDefault();
+      const iconName = e.dataTransfer.getData('icon');
+      if (!iconName) return;
+
+      const rect = container.getBoundingClientRect();
+      const dropX = e.clientX - rect.left;
+      const dropY = e.clientY - rect.top;
+
+      let snappedZone = null;
+
+      for (const zone of targetZones) {
+        if (
+          dropX >= zone.x &&
+          dropX <= zone.x + zone.width &&
+          dropY >= zone.y &&
+          dropY <= zone.y + zone.height
+        ) {
+          snappedZone = zone;
+          break;
+        }
+      }
+
+      if (snappedZone) {
+        const img = document.createElement('img');
+        img.src = `icons/${iconName}`;
+        img.className = 'dropped-icon';
+        img.dataset.icon = iconName;
+        img.dataset.snappedZone = snappedZone.name;
+
+        img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
+        img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
+
+        container.appendChild(img);
+        placedIcons.push(img);
+      }
+    });
+
+    function checkScore() {
+      let correct = 0;
+
+      placedIcons.forEach(img => {
+        const expectedZone = targetZones.find(z => z.name === img.dataset.icon);
+        const actualZone = img.dataset.snappedZone;
+
+        if (expectedZone && actualZone === expectedZone.name) {
+          img.style.border = '2px solid green';
+          correct++;
+        } else {
+          img.style.border = '2px solid red';
+        }
+      });
+
+      scoreEl.textContent = correct;
+    }
+  </script>
+
+</body>
+</html>
