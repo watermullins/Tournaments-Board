@@ -8,33 +8,30 @@
   <title>Image Quiz</title>
   <style>
     body {
-  display: flex;
-  flex-direction: column;
-}
+      display: flex;
+      flex-direction: column;
+    }
 
-.main-content {
-  display: flex;
-  margin-top: 100px;
-  gap: 20px;
-  padding: 20px;
-}
-
+    .main-content {
+      display: flex;
+      margin-top: 100px;
+      gap: 20px;
+      padding: 20px;
+    }
 
     #toolbox {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-  gap: 12px;
-  border: 2px solid #848484;
-  padding: 16px;
-  width: fit-content;
-  max-width: 200px;
-  max-height: 400px;
-  overflow: auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 12px;
+      border: 2px solid #848484;
+      padding: 16px;
+      width: fit-content;
+      max-width: 200px;
+      max-height: 400px;
+      overflow: auto;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
 
     #toolbox img {
       width: 48px;
@@ -56,7 +53,7 @@
       position: absolute;
       width: 48px;
       height: 48px;
-      cursor: pointer;
+      cursor: grab;
       pointer-events: auto;
     }
 
@@ -92,179 +89,196 @@
   </style>
 </head>
 <body>
-  <div class = "navcontainer">
+  <div class="navcontainer">
     <nav class="topnav">
-    <a href="index.html">Tournaments</a>
-    <a href="images.html">Images</a>
-    <a href="links.html">Resources</a>
-    <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
-</nav>
-</div>
-<div>
-  <div class="main-content">
-    <div id="toolbox"></div>
-    <div id="container">
-      <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
-      <div id="scoreboard">
-        <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
-        <button onclick="checkScore()">Check Score</button>
+      <a href="index.html">Tournaments</a>
+      <a href="images.html">Images</a>
+      <a href="links.html">Resources</a>
+      <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
+    </nav>
+  </div>
+  <div>
+    <div class="main-content">
+      <div id="toolbox"></div>
+      <div id="container">
+        <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
+        <div id="scoreboard">
+          <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
+          <button onclick="checkScore()">Check Score</button>
+        </div>
       </div>
     </div>
-  </div>
-  
 
-  <script>
-    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Bengalis.webp','CivIcon-Bulgarians.webp','CivIcon-Cumans.webp', 'CivIcon-Ethiopians.webp','CivIcon-Gurjaras.webp','CivIcon-Goths.webp','CivIcon-Huns.webp','CivIcon-Hindustanis.webp','CivIcon-Mongols.webp'];
-    const toolbox = document.getElementById('toolbox');
-    const container = document.getElementById('container');
-    const scoreEl = document.getElementById('score');
-    const totalEl = document.getElementById('total');
+    <script>
+      const icons = [
+        'CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Bengalis.webp',
+        'CivIcon-Bulgarians.webp', 'CivIcon-Cumans.webp', 'CivIcon-Ethiopians.webp',
+        'CivIcon-Gurjaras.webp', 'CivIcon-Goths.webp', 'CivIcon-Huns.webp',
+        'CivIcon-Hindustanis.webp', 'CivIcon-Mongols.webp'
+      ];
 
-    const targetZones = [
-      { name: 'CivIcon-Armenians.webp', x: 370, y: 320, width: 60, height: 60 },
-      { name: 'CivIcon-Aztecs.webp', x: 435, y: 420, width: 60, height: 60 },
-      { name: 'CivIcon-Bengalis.webp', x: 295, y: 420, width: 60, height: 60 },
-      { name: 'CivIcon-Bulgarians.webp', x: 295, y: 250, width: 60, height: 60 },
-      { name: 'CivIcon-Cumans.webp', x: 440, y: 250, width: 60, height: 60 },
-      { name: 'CivIcon-Ethiopians.webp', x: 370, y: 175, width: 60, height: 60 },
-      { name: 'CivIcon-Goths.webp', x: 550, y: 200, width: 60, height: 60 },
-      { name: 'CivIcon-Gurjaras.webp', x: 280, y: 130, width: 60, height: 60 }, //plate
-      { name: 'CivIcon-Gurjaras.webp', x: 50, y: 450, width: 60, height: 60 }, //blast
-      { name: 'CivIcon-Gurjaras.webp', x: 680, y: 95, width: 60, height: 60 }, //squires
-      { name: 'CivIcon-Hindustanis.webp', x: 575, y: 370, width: 60, height: 60 },
-      { name: 'CivIcon-Huns.webp', x: 500, y: 130, width: 60, height: 60 },
-      { name: 'CivIcon-Mongols.webp', x: 500, y: 370, width: 60, height: 60 },
-    ];
+      const toolbox = document.getElementById('toolbox');
+      const container = document.getElementById('container');
+      const scoreEl = document.getElementById('score');
+      const totalEl = document.getElementById('total');
 
-    totalEl.textContent = targetZones.length;
+      const targetZones = [
+        { name: 'CivIcon-Armenians.webp', x: 370, y: 320, width: 60, height: 60 },
+        { name: 'CivIcon-Aztecs.webp', x: 435, y: 420, width: 60, height: 60 },
+        { name: 'CivIcon-Bengalis.webp', x: 295, y: 420, width: 60, height: 60 },
+        { name: 'CivIcon-Bulgarians.webp', x: 295, y: 250, width: 60, height: 60 },
+        { name: 'CivIcon-Cumans.webp', x: 440, y: 250, width: 60, height: 60 },
+        { name: 'CivIcon-Ethiopians.webp', x: 370, y: 175, width: 60, height: 60 },
+        { name: 'CivIcon-Goths.webp', x: 550, y: 200, width: 60, height: 60 },
+        { name: 'CivIcon-Gurjaras.webp', x: 280, y: 130, width: 60, height: 60 },
+        { name: 'CivIcon-Gurjaras.webp', x: 50, y: 450, width: 60, height: 60 },
+        { name: 'CivIcon-Gurjaras.webp', x: 680, y: 95, width: 60, height: 60 },
+        { name: 'CivIcon-Hindustanis.webp', x: 575, y: 370, width: 60, height: 60 },
+        { name: 'CivIcon-Huns.webp', x: 500, y: 130, width: 60, height: 60 },
+        { name: 'CivIcon-Mongols.webp', x: 500, y: 370, width: 60, height: 60 }
+      ];
 
-    let placedIcons = [];
+      totalEl.textContent = targetZones.length;
+      let placedIcons = [];
 
-    icons.forEach(name => {
-      const icon = document.createElement('img');
-      icon.src = `icons/${name}`;
-      icon.draggable = true;
-      icon.dataset.icon = name;
-      toolbox.appendChild(icon);
-    });
+      icons.forEach(name => {
+        const icon = document.createElement('img');
+        icon.src = `icons/${name}`;
+        icon.draggable = true;
+        icon.dataset.icon = name;
+        toolbox.appendChild(icon);
+      });
 
-    targetZones.forEach(zone => {
-      const div = document.createElement('div');
-      div.className = 'zone';
-      div.style.left = `${zone.x}px`;
-      div.style.top = `${zone.y}px`;
-      div.style.width = `${zone.width}px`;
-      div.style.height = `${zone.height}px`;
+      targetZones.forEach(zone => {
+        const div = document.createElement('div');
+        div.className = 'zone';
+        div.style.left = `${zone.x}px`;
+        div.style.top = `${zone.y}px`;
+        div.style.width = `${zone.width}px`;
+        div.style.height = `${zone.height}px`;
 
-      const dot = document.createElement('div');
-      dot.className = 'zone-dot';
-      div.appendChild(dot);
+        const dot = document.createElement('div');
+        dot.className = 'zone-dot';
+        div.appendChild(dot);
+        container.appendChild(div);
+      });
 
-      container.appendChild(div);
-    });
-
-    toolbox.addEventListener('dragstart', e => {
-      if (e.target.tagName === 'IMG') {
-        e.dataTransfer.setData('icon', e.target.dataset.icon);
-      }
-    });
-
-    container.addEventListener('dragover', e => {
-      e.preventDefault();
-    });
-
-    container.addEventListener('drop', e => {
-      e.preventDefault();
-      const iconName = e.dataTransfer.getData('icon');
-      if (!iconName) return;
-
-      const rect = container.getBoundingClientRect();
-      const dropX = e.clientX - rect.left;
-      const dropY = e.clientY - rect.top;
-
-      dropInZone = false;
-
-      let snappedZone = null;
-
-      for (const zone of targetZones) {
-        if (
-          dropX >= zone.x &&
-          dropX <= zone.x + zone.width &&
-          dropY >= zone.y &&
-          dropY <= zone.y + zone.height
-        ) {
-          snappedZone = zone;
-          break;
-        }
-      }
-
-      if (snappedZone) {
-        // Remove any icon already placed in this zone
-        placedIcons = placedIcons.filter(existing => {
-          if (
-            existing.dataset.snappedX === String(snappedZone.x) &&
-            existing.dataset.snappedY === String(snappedZone.y)
-          ) {
-            container.removeChild(existing);
-            return false;
-          }
-          return true;
-        });
-
-        const img = document.createElement('img');
-        img.src = `icons/${iconName}`;
-        img.className = 'dropped-icon';
-        img.dataset.icon = iconName;
-        img.dataset.snappedX = snappedZone.x;
-        img.dataset.snappedY = snappedZone.y;
-
-        img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
-        img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
-
-        // Allow clicking to remove icon
-        img.addEventListener('click', () => {
-          container.removeChild(img);
-          placedIcons = placedIcons.filter(i => i !== img);
-        });
-
-        container.appendChild(img);
-        placedIcons.push(img);
-      }
-    });
-
-    container.addEventListener('dragend', e => {
-  // If user dragged something from the container, but dropped it outside a zone
-  if (!dropInZone && e.target.classList.contains('dropped-icon')) {
-    container.removeChild(e.target);
-    placedIcons = placedIcons.filter(img => img !== e.target);
-  }
-});
-
-
-    function checkScore() {
-      let correct = 0;
-
-      placedIcons.forEach(img => {
-        const snappedX = Number(img.dataset.snappedX);
-        const snappedY = Number(img.dataset.snappedY);
-
-        const matched = targetZones.some(z =>
-          z.name === img.dataset.icon &&
-          z.x === snappedX &&
-          z.y === snappedY
-        );
-
-        if (matched) {
-          img.style.border = '2px solid green';
-          correct++;
-        } else {
-          img.style.border = '2px solid red';
+      toolbox.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'IMG') {
+          e.dataTransfer.setData('icon', e.target.dataset.icon);
         }
       });
 
-      scoreEl.textContent = correct;
-    }
-  </script>
+      container.addEventListener('dragover', e => {
+        e.preventDefault();
+      });
 
+      container.addEventListener('drop', e => {
+        e.preventDefault();
+        const iconName = e.dataTransfer.getData('icon');
+        const oldX = e.dataTransfer.getData('snappedX');
+        const oldY = e.dataTransfer.getData('snappedY');
+        if (!iconName) return;
+
+        const rect = container.getBoundingClientRect();
+        const dropX = e.clientX - rect.left;
+        const dropY = e.clientY - rect.top;
+
+        let snappedZone = null;
+        for (const zone of targetZones) {
+          if (
+            dropX >= zone.x &&
+            dropX <= zone.x + zone.width &&
+            dropY >= zone.y &&
+            dropY <= zone.y + zone.height
+          ) {
+            snappedZone = zone;
+            break;
+          }
+        }
+
+        if (snappedZone) {
+          placedIcons = placedIcons.filter(existing => {
+            if (
+              existing.dataset.snappedX === String(snappedZone.x) &&
+              existing.dataset.snappedY === String(snappedZone.y)
+            ) {
+              container.removeChild(existing);
+              return false;
+            }
+            return true;
+          });
+
+          if (oldX && oldY) {
+            placedIcons = placedIcons.filter(existing => {
+              if (
+                existing.dataset.snappedX === oldX &&
+                existing.dataset.snappedY === oldY &&
+                existing.dataset.icon === iconName
+              ) {
+                container.removeChild(existing);
+                return false;
+              }
+              return true;
+            });
+          }
+
+          const img = document.createElement('img');
+          img.src = `icons/${iconName}`;
+          img.className = 'dropped-icon';
+          img.dataset.icon = iconName;
+          img.dataset.snappedX = snappedZone.x;
+          img.dataset.snappedY = snappedZone.y;
+          img.draggable = true;
+          img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
+          img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
+
+          img.addEventListener('click', () => {
+            container.removeChild(img);
+            placedIcons = placedIcons.filter(i => i !== img);
+          });
+
+          img.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('icon', img.dataset.icon);
+            e.dataTransfer.setData('snappedX', img.dataset.snappedX);
+            e.dataTransfer.setData('snappedY', img.dataset.snappedY);
+          });
+
+          container.appendChild(img);
+          placedIcons.push(img);
+        }
+      });
+
+      container.addEventListener('dragend', e => {
+        if (!e.dataTransfer.dropEffect && e.target.classList.contains('dropped-icon')) {
+          container.removeChild(e.target);
+          placedIcons = placedIcons.filter(img => img !== e.target);
+        }
+      });
+
+      function checkScore() {
+        let correct = 0;
+
+        placedIcons.forEach(img => {
+          const snappedX = Number(img.dataset.snappedX);
+          const snappedY = Number(img.dataset.snappedY);
+
+          const matched = targetZones.some(z =>
+            z.name === img.dataset.icon &&
+            z.x === snappedX &&
+            z.y === snappedY
+          );
+
+          if (matched) {
+            img.style.border = '2px solid green';
+            correct++;
+          } else {
+            img.style.border = '2px solid red';
+          }
+        });
+
+        scoreEl.textContent = correct;
+      }
+    </script>
 </body>
 </html>
