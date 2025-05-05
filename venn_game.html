@@ -41,7 +41,7 @@
       position: absolute;
       width: 48px;
       height: 48px;
-      cursor: grab;
+      cursor: pointer;
       pointer-events: auto;
     }
 
@@ -151,6 +151,8 @@
       const dropX = e.clientX - rect.left;
       const dropY = e.clientY - rect.top;
 
+      dropInZone = false;
+
       let snappedZone = null;
 
       for (const zone of targetZones) {
@@ -188,10 +190,25 @@
         img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
         img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
 
+        // Allow clicking to remove icon
+        img.addEventListener('click', () => {
+          container.removeChild(img);
+          placedIcons = placedIcons.filter(i => i !== img);
+        });
+
         container.appendChild(img);
         placedIcons.push(img);
       }
     });
+
+    container.addEventListener('dragend', e => {
+  // If user dragged something from the container, but dropped it outside a zone
+  if (!dropInZone && e.target.classList.contains('dropped-icon')) {
+    container.removeChild(e.target);
+    placedIcons = placedIcons.filter(img => img !== e.target);
+  }
+});
+
 
     function checkScore() {
       let correct = 0;
