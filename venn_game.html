@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Image Icon Quiz</title>
+  <title>Image Quiz</title>
   <style>
     body {
       display: flex;
@@ -47,7 +47,7 @@
 
     #scoreboard {
       position: absolute;
-      top: 10px;
+      bottom: 10px;
       right: 10px;
       background: white;
       padding: 10px;
@@ -83,21 +83,29 @@
   <div id="container">
     <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
     <div id="scoreboard">
-      <div>Score: <span id="score">0</span> / 2</div>
+      <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
       <button onclick="checkScore()">Check Score</button>
     </div>
   </div>
 
   <script>
-    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp'];
+    const icons = ['CivIcon-Armenians.webp', 'CivIcon-Aztecs.webp', 'CivIcon-Ethiopians.webp','CivIcon-Gurjaras.webp','CivIcon-Goths.webp','CivIcon-Huns.webp'];
     const toolbox = document.getElementById('toolbox');
     const container = document.getElementById('container');
     const scoreEl = document.getElementById('score');
+    const totalEl = document.getElementById('total');
 
     const targetZones = [
-      { name: 'CivIcon-Armenians.webp', x: 360, y: 320, width: 60, height: 60 },
-      { name: 'CivIcon-Aztecs.webp', x: 430, y: 420, width: 60, height: 60 }
+      { name: 'CivIcon-Armenians.webp', x: 370, y: 320, width: 60, height: 60 },
+      { name: 'CivIcon-Aztecs.webp', x: 435, y: 420, width: 60, height: 60 },
+      { name: 'CivIcon-Ethiopians.webp', x: 375, y: 175, width: 60, height: 60 },
+      { name: 'CivIcon-Goths.webp', x: 550, y: 200, width: 60, height: 60 },
+      { name: 'CivIcon-Gurjaras.webp', x: 280, y: 130, width: 60, height: 60 },
+      { name: 'CivIcon-Gurjaras.webp', x: 680, y: 95, width: 60, height: 60 },
+      { name: 'CivIcon-Huns.webp', x: 500, y: 130, width: 60, height: 60 },
     ];
+
+    totalEl.textContent = targetZones.length;
 
     let placedIcons = [];
 
@@ -158,11 +166,24 @@
       }
 
       if (snappedZone) {
+        // Remove any icon already placed in this zone
+        placedIcons = placedIcons.filter(existing => {
+          if (
+            existing.dataset.snappedX === String(snappedZone.x) &&
+            existing.dataset.snappedY === String(snappedZone.y)
+          ) {
+            container.removeChild(existing);
+            return false;
+          }
+          return true;
+        });
+
         const img = document.createElement('img');
         img.src = `icons/${iconName}`;
         img.className = 'dropped-icon';
         img.dataset.icon = iconName;
-        img.dataset.snappedZone = snappedZone.name;
+        img.dataset.snappedX = snappedZone.x;
+        img.dataset.snappedY = snappedZone.y;
 
         img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
         img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
@@ -176,10 +197,16 @@
       let correct = 0;
 
       placedIcons.forEach(img => {
-        const expectedZone = targetZones.find(z => z.name === img.dataset.icon);
-        const actualZone = img.dataset.snappedZone;
+        const snappedX = Number(img.dataset.snappedX);
+        const snappedY = Number(img.dataset.snappedY);
 
-        if (expectedZone && actualZone === expectedZone.name) {
+        const matched = targetZones.some(z =>
+          z.name === img.dataset.icon &&
+          z.x === snappedX &&
+          z.y === snappedY
+        );
+
+        if (matched) {
           img.style.border = '2px solid green';
           correct++;
         } else {
