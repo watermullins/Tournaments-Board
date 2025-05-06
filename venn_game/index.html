@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=infantry.html" />
-</head>
-<style>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../style.css">
+  <title>Choose a Game</title>
+  <style>
     body {
-        background: #000000 url('https://ik.imagekit.io/aoe2tournaments/Caspar_David_Friedrich_-_Two_Men.webp?updatedAt=1746392775387') no-repeat center center fixed;
-        background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      gap: 1rem;
+      background: #000 url('https://ik.imagekit.io/aoe2tournaments/venice-1.webp?ik-obj-version=lo7vE3JHr_XfitX01Fr_3GxgXmnnkIxR&updatedAt=1746559609508') no-repeat center center fixed;
+      background-size: cover;
+      transition: background-image 0.5s ease-in-out;
     }
-    </style>
+
+    h1{
+      color: rgb(50, 29, 2);
+    }
+  </style>
+    <script>
+      const highResImage = new Image();
+      highResImage.src = 'https://upload.wikimedia.org/wikipedia/commons/9/90/Canaletto_-_The_Entrance_to_the_Grand_Canal%2C_Venice_-_Google_Art_Project.jpg';
+      highResImage.onload = () => {
+        document.body.style.backgroundImage = `url('${highResImage.src}')`;
+      };
+    </script>
+</head>
 <body>
-  <p>If you are not redirected, <a href="infantry.html">click here</a>.</p>
+  <h1>Choose a Venn Game</h1>
+  <a class="button" href="infantry.html">Infantry</a>
+  <!-- <a class="button" href="cavalry.html">Cavalry</a> -->
+  <a class="button" href="archers.html">Archers</a>
 </body>
 </html>
