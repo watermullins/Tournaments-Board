@@ -4,92 +4,10 @@
   <meta charset="UTF-8" />
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="game_style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
   <title>Image Quiz</title>
-  <style>
-    
-    body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .main-content {
-      display: flex;
-      margin-top: 100px;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    #toolbox {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-      gap: 12px;
-      border: 2px solid #848484;
-      padding: 16px;
-      width: fit-content;
-      max-width: 200px;
-      max-height: 400px;
-      overflow: auto;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-    }
-
-    #toolbox img {
-      width: 48px;
-      height: 48px;
-      cursor: grab;
-    }
-
-    #container {
-      position: relative;
-      display: inline-block;
-    }
-
-    #mainImage {
-      display: block;
-      max-width: 800px;
-    }
-
-    .dropped-icon {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      cursor: grab;
-      pointer-events: auto;
-    }
-
-    #scoreboard {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: white;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      margin-top: 10px;
-    }
-
-    .zone {
-      position: absolute;
-      border: .5px dashed rgb(0, 0, 0);
-      background-color: rgba(255, 255, 255, 0.10);
-      pointer-events: none;
-    }
-
-    .zone-dot {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 6px;
-      height: 6px;
-      background-color: blue;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
 </head>
 <body>
   <div class="navcontainer">
