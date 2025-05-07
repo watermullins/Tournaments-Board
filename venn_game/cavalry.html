@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="game_style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+  <title>Image Quiz</title>
+</head>
+<body>
+  <div class="navcontainer">
+    <nav class="topnav">
+      <a href="../index.html">Tournaments</a>
+      <a href="../images.html">Images</a>
+      <a href="../links.html">Resources</a>
+      <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
+    </nav>
+  </div>
+  <div>
+    <div class="main-content">
+      <div>
+        <div id="toolbox"></div>
+        <p style="margin-top: 10px; font-size: 10px; color: #ffffff; max-width: 200px;">
+          <i class="bi bi-info-circle"></i> Icons are reusable for outter circles
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <div id="container" style="position: relative;">
+          <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/cavalry.jpg?updatedAt=1746625848505" alt="Main" />
+          <div id="scoreboard">
+            <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
+            <button onclick="checkScore()">Check Score</button>
+          </div>
+        </div>
+        <a class="button" href="/venn_game">More Games</a>
+      </div>
+      
+      
+
+    <script>
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/gviz/tq?tqx=out:csv&gid=462747075';
+
+Papa.parse(sheetUrl, {
+  download: true,
+  header: true,
+  complete: function(results) {
+    console.log("Parsed rows:");
+    results.data.forEach((row, index) => {
+      console.log(`Row ${index + 1}:`, row);
+    });
+  },
+  error: function(err) {
+    console.error("Error loading sheet:", err);
+  }
+});
+
+      const toolbox = document.getElementById('toolbox');
+      const container = document.getElementById('container');
+      const scoreEl = document.getElementById('score');
+      const totalEl = document.getElementById('total');
+
+      const targetZones = [
+        { name: 'CivIcon-Huns.webp', x: 370, y: 320, width: 60, height: 60 }, //center
+        { name: 'CivIcon-Franks.webp', x: 370, y: 500, width: 60, height: 60 }, //center bot
+        { name: 'CivIcon-Teutons.webp', x: 435, y: 420, width: 60, height: 60 }, // bot right 3
+        { name: 'CivIcon-Byzantines.webp', x: 295, y: 420, width: 60, height: 60 }, //yellow green
+        { name: 'CivIcon-Bulgarians.webp', x: 295, y: 250, width: 60, height: 60 }, //top left 3
+        { name: 'CivIcon-Mongols.webp', x: 370, y: 175, width: 60, height: 60 },
+        { name: 'CivIcon-Celts.webp', x: 530, y: 200, width: 60, height: 60 },
+        { name: 'CivIcon-Celts.webp', x: 220, y: 200, width: 60, height: 60 },
+        { name: 'CivIcon-Armenians.webp', x: 280, y: 130, width: 60, height: 60 },
+        { name: 'CivIcon-Byzantines.webp', x: 55, y: 450, width: 60, height: 60 }, //bot left
+        { name: 'CivIcon-Dravidians.webp', x: 55, y: 120, width: 60, height: 60 }, //top left
+        { name: 'CivIcon-Teutons.webp', x: 690, y: 120, width: 60, height: 60 }, //top right
+        { name: 'CivIcon-Ethiopians.webp', x: 500, y: 130, width: 60, height: 60 },
+        { name: 'CivIcon-Khitans.webp', x: 234, y: 370, width: 60, height: 60 },
+        { name: 'CivIcon-Britons.webp', x: 160, y: 370, width: 60, height: 60 }, //only green
+      ];
+
+      totalEl.textContent = targetZones.length;
+      let placedIcons = [];
+      const icons = [...new Set(targetZones.map(z => z.name))];
+      icons.forEach(name => {
+        const icon = document.createElement('img');
+        icon.src = `../icons/${name}`;
+        icon.draggable = true;
+        icon.dataset.icon = name;
+        toolbox.appendChild(icon);
+      });
+
+      targetZones.forEach(zone => {
+        const div = document.createElement('div');
+        div.className = 'zone';
+        div.style.left = `${zone.x}px`;
+        div.style.top = `${zone.y}px`;
+        div.style.width = `${zone.width}px`;
+        div.style.height = `${zone.height}px`;
+
+        const dot = document.createElement('div');
+        dot.className = 'zone-dot';
+        div.appendChild(dot);
+        container.appendChild(div);
+      });
+
+      toolbox.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'IMG') {
+          e.dataTransfer.setData('icon', e.target.dataset.icon);
+        }
+      });
+
+      container.addEventListener('dragover', e => {
+        e.preventDefault();
+      });
+
+      container.addEventListener('drop', e => {
+        e.preventDefault();
+        const iconName = e.dataTransfer.getData('icon');
+        const oldX = e.dataTransfer.getData('snappedX');
+        const oldY = e.dataTransfer.getData('snappedY');
+        if (!iconName) return;
+
+        const rect = container.getBoundingClientRect();
+        const dropX = e.clientX - rect.left;
+        const dropY = e.clientY - rect.top;
+
+        let snappedZone = null;
+        for (const zone of targetZones) {
+          if (
+            dropX >= zone.x &&
+            dropX <= zone.x + zone.width &&
+            dropY >= zone.y &&
+            dropY <= zone.y + zone.height
+          ) {
+            snappedZone = zone;
+            break;
+          }
+        }
+
+        if (snappedZone) {
+          placedIcons = placedIcons.filter(existing => {
+            if (
+              existing.dataset.snappedX === String(snappedZone.x) &&
+              existing.dataset.snappedY === String(snappedZone.y)
+            ) {
+              container.removeChild(existing);
+              return false;
+            }
+            return true;
+          });
+
+          if (oldX && oldY) {
+            placedIcons = placedIcons.filter(existing => {
+              if (
+                existing.dataset.snappedX === oldX &&
+                existing.dataset.snappedY === oldY &&
+                existing.dataset.icon === iconName
+              ) {
+                container.removeChild(existing);
+                return false;
+              }
+              return true;
+            });
+          }
+
+          const img = document.createElement('img');
+          img.src = `../icons/${iconName}`;
+          img.className = 'dropped-icon';
+          img.dataset.icon = iconName;
+          img.dataset.snappedX = snappedZone.x;
+          img.dataset.snappedY = snappedZone.y;
+          img.draggable = true;
+          img.style.left = `${snappedZone.x + snappedZone.width / 2 - 24}px`;
+          img.style.top = `${snappedZone.y + snappedZone.height / 2 - 24}px`;
+
+          img.addEventListener('click', () => {
+            container.removeChild(img);
+            placedIcons = placedIcons.filter(i => i !== img);
+          });
+
+          img.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('icon', img.dataset.icon);
+            e.dataTransfer.setData('snappedX', img.dataset.snappedX);
+            e.dataTransfer.setData('snappedY', img.dataset.snappedY);
+          });
+
+          container.appendChild(img);
+          placedIcons.push(img);
+        }
+      });
+
+      container.addEventListener('dragend', e => {
+        if (!e.dataTransfer.dropEffect && e.target.classList.contains('dropped-icon')) {
+          container.removeChild(e.target);
+          placedIcons = placedIcons.filter(img => img !== e.target);
+        }
+      });
+
+      function checkScore() {
+        let correct = 0;
+
+        placedIcons.forEach(img => {
+          const snappedX = Number(img.dataset.snappedX);
+          const snappedY = Number(img.dataset.snappedY);
+
+          const matched = targetZones.some(z =>
+            z.name === img.dataset.icon &&
+            z.x === snappedX &&
+            z.y === snappedY
+          );
+
+          if (matched) {
+            img.style.border = '2px solid green';
+            correct++;
+          } else {
+            img.style.border = '2px solid red';
+          }
+        });
+
+        scoreEl.textContent = correct;
+      }
+    </script>
+</body>
+</html>
