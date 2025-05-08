@@ -236,7 +236,7 @@ Papa.parse(sheetUrl, {
   else if (percent >= 0.5) grade = "D";
   else grade = "F";
 
-  const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\naoe2tournaments.com/games/monks`;
+  const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/monks`;
 
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('shareBtn');
