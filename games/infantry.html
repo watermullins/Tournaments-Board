@@ -31,11 +31,17 @@
           <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Infantry.jpg" alt="Main" />
           <div id="scoreboard">
             <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
-            <button onclick="checkScore()">Check Score</button>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px;">
+            </div>
           </div>
         </div>
-        <a class="button" href="/games">More Games</a>
+        <div style="margin-top: 12px;">
+          <button onclick="checkScore()">Check Score</button>
+          <button id="shareBtn" onclick="shareResults()">Share Results</button>
+          <button onclick="window.location.href='/games'">More Games</button>
+        </div>
       </div>
+    </div>
       
       
 
@@ -249,7 +255,7 @@ Papa.parse(sheetUrl, {
   else if (percent >= 0.5) grade = "D";
   else grade = "F";
 
-  const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/monks`;
+  const text = `Infantry Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/infantry`;
 
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('shareBtn');
