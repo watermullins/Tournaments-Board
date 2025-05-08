@@ -86,12 +86,30 @@ Papa.parse(sheetUrl, {
       let placedIcons = [];
       const icons = [...new Set(targetZones.map(z => z.name))];
       icons.forEach(name => {
+        const civContainer = document.createElement('div');
+        civContainer.style.display = 'flex';
+        civContainer.style.flexDirection = 'column';
+        civContainer.style.alignItems = 'center';
+        civContainer.style.margin = '4px';
+
         const icon = document.createElement('img');
         icon.src = `../icons/${name}`;
         icon.draggable = true;
         icon.dataset.icon = name;
-        toolbox.appendChild(icon);
+        icon.style.width = '48px';
+        icon.style.height = '48px';
+
+        const label = document.createElement('div');
+        label.textContent = name.replace('CivIcon-', '').replace('.webp', '');
+        label.style.fontSize = '10px';
+        label.style.color = '#000';
+        label.style.textAlign = 'center';
+
+        civContainer.appendChild(icon);
+        civContainer.appendChild(label);
+        toolbox.appendChild(civContainer);
       });
+
 
       targetZones.forEach(zone => {
         const div = document.createElement('div');
@@ -236,7 +254,7 @@ Papa.parse(sheetUrl, {
   else if (percent >= 0.5) grade = "D";
   else grade = "F";
 
-  const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/monks`;
+  const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\naoe2tournaments.com/games/monks`;
 
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('shareBtn');

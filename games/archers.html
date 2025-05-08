@@ -25,16 +25,22 @@
         <p style="margin-top: 10px; font-size: 10px; color: #ffffff; max-width: 200px;">
           <i class="bi bi-info-circle"></i> Icons are reusable for outter circles
         </p>
+        
       </div>
       <div style="display: flex; flex-direction: column; align-items: center;">
         <div id="container" style="position: relative;">
           <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/Archer.jpg" alt="Main" />
           <div id="scoreboard">
             <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
-            <button onclick="checkScore()">Check Score</button>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px;">
+            </div>
           </div>
         </div>
-        <a class="button" href="/games">More Games</a>
+        <div style="margin-top: 12px;">
+          <button onclick="checkScore()">Check Score</button>
+          <button id="shareBtn" onclick="shareResults()">Share Results</button>
+          <button onclick="window.location.href='/games'">More Games</button>
+        </div>
       </div>
     </div>
 
@@ -79,11 +85,28 @@ Papa.parse(sheetUrl, {
       let placedIcons = [];
       const icons = [...new Set(targetZones.map(z => z.name))];
       icons.forEach(name => {
+        const civContainer = document.createElement('div');
+        civContainer.style.display = 'flex';
+        civContainer.style.flexDirection = 'column';
+        civContainer.style.alignItems = 'center';
+        civContainer.style.margin = '4px';
+
         const icon = document.createElement('img');
         icon.src = `../icons/${name}`;
         icon.draggable = true;
         icon.dataset.icon = name;
-        toolbox.appendChild(icon);
+        icon.style.width = '48px';
+        icon.style.height = '48px';
+
+        const label = document.createElement('div');
+        label.textContent = name.replace('CivIcon-', '').replace('.webp', '');
+        label.style.fontSize = '10px';
+        label.style.color = '#000';
+        label.style.textAlign = 'center';
+
+        civContainer.appendChild(icon);
+        civContainer.appendChild(label);
+        toolbox.appendChild(civContainer);
       });
 
       targetZones.forEach(zone => {
@@ -216,6 +239,35 @@ Papa.parse(sheetUrl, {
 
         scoreEl.textContent = correct;
       }
+  function shareResults() {
+    const score = Number(scoreEl.textContent);
+    const total = Number(totalEl.textContent);
+    const percent = score / total;
+
+    let grade;
+    if (percent === 1) grade = "S";
+    else if (percent >= 0.9) grade = "A";
+    else if (percent >= 0.8) grade = "B";
+    else if (percent >= 0.7) grade = "C";
+    else if (percent >= 0.5) grade = "D";
+    else grade = "F";
+
+    const text = `Archer Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\naoe2tournaments.com/games/archers`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('shareBtn');
+      const original = btn.textContent;
+      btn.textContent = "Copied!";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.disabled = false;
+      }, 2000);
+    }).catch(err => {
+      console.error("Clipboard error:", err);
+    });
+}
     </script>
 </body>
 </html>
