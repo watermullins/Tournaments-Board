@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta property="og:title" content="Monk Techtree Challenge" />
+  <meta property="og:description" content="Test your knowledge of the Monk's techtree in Age of Empires II!" />
+  <meta property="og:image" content="https://ik.imagekit.io/aoe2tournaments/Monk.jpg?updatedAt=1746710471724" />
+  <meta property="og:url" content="https://aoe2tournaments.com/games/monks" />
+  <meta property="og:type" content="website" />
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="game_style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+  <title>Siege Techtree Challenge</title>
+  <style>
+    .drop-zone {
+      position: absolute;
+      top: 0;
+      height: 75%;
+      width: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      overflow: auto;
+      pointer-events: all;
+    }
+
+      #toolbox {
+    width: auto;
+    max-width: 400px;
+  }
+
+    #has-zone {
+      left: 0;
+    }
+
+    #has-not-zone {
+      right: 0;
+    }
+
+    .dropped-icon {
+      width: 48px;
+      height: 48px;
+      position: relative;
+      cursor: move;
+      margin-left: 15px;
+    }
+
+    .toolbox-icon {
+      width: 48px;
+      height: 48px;
+      cursor: move;
+    }
+
+    .main-content {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    #container-wrapper {
+      transform: scale(1);
+      transform-origin: top left;
+      position: relative;
+    }
+
+    #container {
+      position: relative;
+      display: flex;
+    }
+
+    #mainImage {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .zone-label {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="navcontainer">
+    <nav class="topnav">
+      <a href="../index.html">Tournaments</a>
+      <a href="../images.html">Images</a>
+      <a href="../links.html">Resources</a>
+      <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
+    </nav>
+  </div>
+  <div class="main-content">
+    <div>
+      <div id="toolbox" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+      <p style="margin-top: 10px; font-size: 10px; color: #ffffff;">
+        <i class="bi bi-info-circle"></i> Drag icons to either side of the image
+      </p>
+    </div>
+    <div>
+      <div id="container-wrapper">
+        <div id="container">
+          <img id="mainImage" src="https://ik.imagekit.io/aoe2tournaments/SE.jpg?updatedAt=1746739037875" alt="Main" />
+          <div id="has-zone" class="drop-zone">
+            <div class="zone-label"></div>
+          </div>
+          <div id="has-not-zone" class="drop-zone">
+            <div class="zone-label"></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <button onclick="checkScore()">Check Score</button>
+        <button id="shareBtn" onclick="shareResults()">Share Results</button>
+        <button onclick="window.location.href='/games'">More Games</button>
+        <div style="margin-top: 8px; color: white;">Score: <span id="score">0</span> / <span id="total">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toolbox = document.getElementById('toolbox');
+    const hasZone = document.getElementById('has-zone');
+    const hasNotZone = document.getElementById('has-not-zone');
+    const scoreEl = document.getElementById('score');
+    const totalEl = document.getElementById('total');
+
+    const noSiegeEngineers = [
+      'Armenians', 'Burgundians', 'Byzantines', 'Chinese', 'Cumans', 'Dravidians',
+      'Goths', 'Gurjaras', 'Huns', 'Italians', 'Lithuanians', 'Malians', 'Mayans',
+      'Persians', 'Spanish', 'Turks', 'Wei', 'Wu'
+    ];
+
+    const siegeEngineers = [
+      'Aztecs', 'Bengalis', 'Berbers', 'Bohemians', 'Britons', 'Bulgarians', 'Burmese',
+      'Celts', 'Ethiopians', 'Franks', 'Georgians', 'Hindustanis', 'Incas', 'Japanese',
+      'Jurchens', 'Khitans', 'Khmer', 'Koreans', 'Magyars', 'Malay', 'Mongols', 'Poles',
+      'Portuguese', 'Romans', 'Saracens', 'Shu', 'Sicilians', 'Slavs', 'Tatars', 'Teutons',
+      'Vietnamese', 'Vikings'
+    ];
+
+    const icons = [...new Set(noSiegeEngineers.concat(siegeEngineers))];
+    totalEl.textContent = icons.length;
+
+    icons.forEach(name => {
+      const icon = document.createElement('img');
+      icon.src = `../icons/CivIcon-${name}.webp`;
+      icon.className = 'toolbox-icon';
+      icon.draggable = true;
+      icon.dataset.icon = name;
+
+      icon.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('icon', name);
+      });
+
+      toolbox.appendChild(icon);
+    });
+
+    function createDroppedIcon(name) {
+      const img = document.createElement('img');
+      img.src = `../icons/CivIcon-${name}.webp`;
+      img.className = 'dropped-icon';
+      img.dataset.icon = name;
+      img.draggable = true;
+
+      img.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('icon', name);
+      });
+
+      img.addEventListener('click', () => img.remove());
+
+      return img;
+    }
+
+[hasZone, hasNotZone].forEach(zone => {
+  zone.addEventListener('dragover', e => e.preventDefault());
+
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    const iconName = e.dataTransfer.getData('icon');
+    if (!iconName) return;
+
+    // Check if the icon already exists in a drop zone
+    const existing = document.querySelector(`.dropped-icon[data-icon="${iconName}"]`);
+    if (existing) {
+      existing.remove(); // Move instead of duplicating
+    } else {
+      // Remove from toolbox on first drop
+      const toolboxIcon = toolbox.querySelector(`img[data-icon="${iconName}"]`);
+      if (toolboxIcon) toolboxIcon.remove();
+    }
+
+    const img = document.createElement('img');
+    img.src = `../icons/CivIcon-${iconName}.webp`;
+    img.className = 'dropped-icon';
+    img.dataset.icon = iconName;
+    img.draggable = true;
+
+    img.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('icon', iconName);
+    });
+
+    img.addEventListener('click', () => {
+      img.remove();
+    });
+
+    zone.appendChild(img);
+  });
+});
+
+
+    function checkScore() {
+      const droppedInHasZone = hasZone.querySelectorAll('.dropped-icon');
+      const droppedInHasNotZone = hasNotZone.querySelectorAll('.dropped-icon');
+      let correct = 0;
+
+      droppedInHasZone.forEach(img => {
+        const name = img.dataset.icon;
+        if (noSiegeEngineers.includes(name)) {
+          img.style.border = '5px solid green';
+          correct++;
+        } else {
+          img.style.border = '5px solid red';
+        }
+      });
+
+      droppedInHasNotZone.forEach(img => {
+        const name = img.dataset.icon;
+        if (siegeEngineers.includes(name)) {
+          img.style.border = '5px solid green';
+          correct++;
+        } else {
+          img.style.border = '5px solid red';
+        }
+      });
+
+      scoreEl.textContent = correct;
+    }
+
+    function shareResults() {
+      const score = Number(scoreEl.textContent);
+      const total = Number(totalEl.textContent);
+      const percent = score / total;
+
+      let grade;
+      if (percent === 1) grade = "S";
+      else if (percent >= 0.9) grade = "A";
+      else if (percent >= 0.8) grade = "B";
+      else if (percent >= 0.7) grade = "C";
+      else if (percent >= 0.5) grade = "D";
+      else grade = "F";
+
+      const text = `Monk Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/monks`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('shareBtn');
+        const original = btn.textContent;
+        btn.textContent = "Copied!";
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.disabled = false;
+        }, 2000);
+      }).catch(err => {
+        console.error("Clipboard error:", err);
+      });
+    }
+  </script>
+</body>
+</html>

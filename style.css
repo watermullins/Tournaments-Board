@@ -112,9 +112,9 @@ html {
         background-position: center;
         text-decoration: none;
         z-index: 1;
-        display: flex;              /* use flex */
-        align-items: center;        /* vertically center text */
-        justify-content: center;    /* horizontally center text */
+        display: flex; 
+        align-items: center;
+        justify-content: center;
     }
 
     .topnav a::before,
