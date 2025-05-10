@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,134 +16,133 @@
   <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
   <title>Siege Engineers Techtree Challenge</title>
   <style>
-  .drop-zone {
-    position: absolute;
-    top: 100;
-    height: 75%;
-    width: 45%;
-    margin-top: 0px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 48px);
-    gap: 10px;
-    padding: 8px;
-    align-content: flex-start;
-    overflow: auto;
-    pointer-events: all;
-  }
-
-  #toolbox {
-    width: auto;
-    max-width: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  #has-zone {
-    left: 0;
-  }
-
-  #has-not-zone {
-    right: 0;
-  }
-
-  .dropped-icon {
-    width: 48px;
-    height: 48px;
-    position: relative;
-    cursor: move;
-    margin-left: 0px;
-    margin-bottom: 5px;
-  }
-
-  .toolbox-icon {
-    width: 48px;
-    height: 48px;
-    cursor: move;
-  }
-
-  .main-content {
-    user-select: none;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 20px;
-  }
-
-  #container-wrapper {
-    user-select: none;
-    transform: scale(1);
-    transform-origin: top left;
-    position: relative;
-  }
-
-  #container {
-    user-select: none;
-    position: relative;
-    display: flex;
-  }
-
-  #mainImage {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .zone-label {
-    position: absolute;
-    color: white;
-    font-weight: bold;
-    padding: 4px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 4px;
-  }
-  
-  /* Mobile styles */
-  @media screen and (max-width: 768px) {
-    .main-content {
-      flex-direction: column;
-    }
-    
-    #toolbox {
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 10px;
-    }
-    
-    .icon-selected {
-      box-shadow: 0 0 0 3px gold;
-    }
-    
-    .instructions {
-      display: block;
-      margin-bottom: 10px;
-      color: white;
-    }
-    
-    #container-wrapper {
-      width: 100%;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
     .drop-zone {
-      width: 44%;
-      grid-template-columns: repeat(auto-fill, 42px);
+      position: absolute;
+      top: 100;
+      height: 75%;
+      width: 45%;
+      margin-top: 0px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 48px);
+      gap: 10px;
+      padding: 8px;
+      align-content: flex-start;
+      overflow: auto;
+      pointer-events: all;
+    }
+
+    #toolbox {
+      max-width: 400px;
+      display: flex;
+      flex-wrap: wrap;
       gap: 6px;
     }
-    
+
+    #has-zone {
+      left: 0;
+    }
+
+    #has-not-zone {
+      right: 0;
+    }
+
     .dropped-icon {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
+      position: relative;
+      cursor: move;
+      margin-left: 0px;
+      margin-bottom: 5px;
     }
-    
+
     .toolbox-icon {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
+      cursor: move;
     }
-  }
+
+    .main-content {
+      user-select: none;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    #container-wrapper {
+      user-select: none;
+      transform: scale(1);
+      transform-origin: top left;
+      position: relative;
+    }
+
+    #container {
+      user-select: none;
+      position: relative;
+      display: flex;
+    }
+
+    #mainImage {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .zone-label {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      padding: 4px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+      }
+
+      #toolbox {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .icon-selected {
+        box-shadow: 0 0 0 3px gold;
+      }
+
+      .instructions {
+        display: block;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      #container-wrapper {
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .drop-zone {
+        width: 44%;
+        grid-template-columns: repeat(auto-fill, 42px);
+        gap: 6px;
+      }
+
+      .dropped-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .toolbox-icon {
+        width: 42px;
+        height: 42px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="navcontainer">
     <nav class="topnav">
@@ -156,7 +156,8 @@
     <div>
       <div id="toolbox"></div>
       <p class="instructions" style="margin-top: 10px; font-size: 12px; color: #ffffff; user-select: none;">
-        <i class="bi bi-info-circle"></i> <span class="desktop-instruction">Drag icons to either side of the image</span>
+        <i class="bi bi-info-circle"></i> <span class="desktop-instruction">Drag icons to either side of the
+          image</span>
         <span class="mobile-instruction" style="display: none;">Tap an icon to select, then tap a zone to place</span>
       </p>
     </div>
@@ -172,11 +173,11 @@
         <button onclick="checkScore()">Check Score</button>
         <button id="shareBtn" onclick="shareResults()">Share Results</button>
         <button onclick="window.location.href='/games'">More Games</button>
-        <div style="margin-top: 8px; color: white; user-select: none;">Score: <span id="score">0</span> / <span id="total">0</span></div>
+        <div style="margin-top: 8px; color: white; user-select: none;">Score: <span id="score">0</span> / <span
+            id="total">0</span></div>
       </div>
     </div>
   </div>
-
   <script>
     const toolbox = document.getElementById('toolbox');
     const hasZone = document.getElementById('has-zone');
@@ -184,10 +185,10 @@
     const scoreEl = document.getElementById('score');
     const totalEl = document.getElementById('total');
     const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    
+
     document.querySelector('.desktop-instruction').style.display = isMobile ? 'none' : 'inline';
     document.querySelector('.mobile-instruction').style.display = isMobile ? 'inline' : 'none';
-    
+
     let selectedIcon = null;
 
     const noSiegeEngineers = [
@@ -207,19 +208,11 @@
     const icons = [...new Set(noSiegeEngineers.concat(siegeEngineers))].sort();
     totalEl.textContent = icons.length;
 
-    icons.forEach(name => {
-      const icon = document.createElement('img');
-      icon.src = `../icons/CivIcon-${name}.webp`;
-      icon.className = 'toolbox-icon';
-      icon.draggable = true;
-      icon.dataset.icon = name;
-
+    function setupIcon(icon) {
+      const name = icon.dataset.icon;
       if (isMobile) {
         icon.addEventListener('click', () => {
-          if (selectedIcon) {
-            selectedIcon.classList.remove('icon-selected');
-          }
-          
+          if (selectedIcon) selectedIcon.classList.remove('icon-selected');
           if (selectedIcon === icon) {
             selectedIcon = null;
           } else {
@@ -228,99 +221,74 @@
           }
         });
       } else {
+        icon.draggable = true;
         icon.addEventListener('dragstart', e => {
           e.dataTransfer.setData('icon', name);
         });
       }
+    }
 
+    icons.forEach(name => {
+      const icon = document.createElement('img');
+      icon.src = `../icons/CivIcon-${name}.webp`;
+      icon.className = 'toolbox-icon';
+      icon.dataset.icon = name;
+      setupIcon(icon);
       toolbox.appendChild(icon);
     });
-
     function createDroppedIcon(name) {
       const img = document.createElement('img');
       img.src = `../icons/CivIcon-${name}.webp`;
       img.className = 'dropped-icon';
       img.dataset.icon = name;
-      
       if (isMobile) {
         img.addEventListener('click', () => {
-          img.remove();
-          const toolboxIcon = document.createElement('img');
-          toolboxIcon.src = `../icons/CivIcon-${name}.webp`;
-          toolboxIcon.className = 'toolbox-icon';
-          toolboxIcon.dataset.icon = name;
-          
-          toolboxIcon.addEventListener('click', () => {
-            if (selectedIcon) {
-              selectedIcon.classList.remove('icon-selected');
-            }
-            
-            if (selectedIcon === toolboxIcon) {
-              selectedIcon = null;
-            } else {
-              toolboxIcon.classList.add('icon-selected');
-              selectedIcon = toolboxIcon;
-            }
-          });
-          
-          toolbox.appendChild(toolboxIcon);
+          const iconToRemove = toolbox.querySelector(`img[data-icon="${name}"]`);
+          if (iconToRemove) iconToRemove.remove();
+          const iconInZone = document.createElement('img');
+          iconInZone.src = img.src;
+          iconInZone.className = 'dropped-icon';
+          iconInZone.dataset.icon = name;
+          selectedZone.appendChild(iconInZone);
         });
       } else {
         img.draggable = true;
-        img.addEventListener('dragstart', e => {
+        img.addEventListener('dragstart', (e) => {
           e.dataTransfer.setData('icon', name);
-        });
-        
-        img.addEventListener('click', () => {
-          img.remove();
-          const toolboxIcon = document.createElement('img');
-          toolboxIcon.src = `../icons/CivIcon-${name}.webp`;
-          toolboxIcon.className = 'toolbox-icon';
-          toolboxIcon.dataset.icon = name;
-          toolboxIcon.draggable = true;
-          
-          toolboxIcon.addEventListener('dragstart', e => {
-            e.dataTransfer.setData('icon', name);
-          });
-          
-          toolbox.appendChild(toolboxIcon);
         });
       }
 
       return img;
     }
 
-    [hasZone, hasNotZone].forEach(zone => {
-      zone.addEventListener('dragover', e => e.preventDefault());
-
-      zone.addEventListener('drop', e => {
+    [hasZone, hasNotZone].forEach((zone) => {
+      zone.addEventListener('dragover', (e) => e.preventDefault());
+      zone.addEventListener('drop', (e) => {
         e.preventDefault();
         const iconName = e.dataTransfer.getData('icon');
         if (!iconName) return;
+        const existingIcon = zone.querySelector(`img[data-icon="${iconName}"]`);
+        if (!existingIcon) {
+          const iconToRemove = toolbox.querySelector(`img[data-icon="${iconName}"]`);
+          if (iconToRemove) iconToRemove.remove();
 
-        
-        const existing = document.querySelector(`.dropped-icon[data-icon="${iconName}"]`);
-        if (existing) {
-          existing.remove();
+          const img = createDroppedIcon(iconName);
+          zone.appendChild(img);
         }
-        const toolboxIcon = toolbox.querySelector(`img[data-icon="${iconName}"]`);
-        if (toolboxIcon) toolboxIcon.remove();
-
-        const img = createDroppedIcon(iconName);
-        zone.appendChild(img);
       });
-      
+
       if (isMobile) {
         zone.addEventListener('click', () => {
           if (selectedIcon) {
             const name = selectedIcon.dataset.icon;
-            
-            selectedIcon.remove();
+            const existingImg = zone.querySelector(`img[data-icon="${name}"]`);
+            if (!existingImg) {
+              const iconToRemove = toolbox.querySelector(`img[data-icon="${name}"]`);
+              if (iconToRemove) iconToRemove.remove();
+              const img = createDroppedIcon(name);
+              zone.appendChild(img);
+            }
             selectedIcon.classList.remove('icon-selected');
-
-            const img = createDroppedIcon(name);
-            zone.appendChild(img);
-            
             selectedIcon = null;
           }
         });
@@ -331,11 +299,9 @@
       document.querySelectorAll('.dropped-icon').forEach(img => {
         img.style.border = 'none';
       });
-      
       const droppedInHasZone = hasZone.querySelectorAll('.dropped-icon');
       const droppedInHasNotZone = hasNotZone.querySelectorAll('.dropped-icon');
       let correct = 0;
-
       droppedInHasZone.forEach(img => {
         const name = img.dataset.icon;
         if (noSiegeEngineers.includes(name)) {
@@ -345,7 +311,6 @@
           img.style.border = '3px solid red';
         }
       });
-
       droppedInHasNotZone.forEach(img => {
         const name = img.dataset.icon;
         if (siegeEngineers.includes(name)) {
@@ -355,7 +320,6 @@
           img.style.border = '3px solid red';
         }
       });
-
       scoreEl.textContent = correct;
     }
 
@@ -363,7 +327,6 @@
       const score = Number(scoreEl.textContent);
       const total = Number(totalEl.textContent);
       const percent = score / total;
-
       let grade;
       if (percent === 1) grade = "S";
       else if (percent >= 0.9) grade = "A";
@@ -371,9 +334,7 @@
       else if (percent >= 0.7) grade = "C";
       else if (percent >= 0.5) grade = "D";
       else grade = "F";
-
       const text = `Siege Engineers Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/SE`;
-
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('shareBtn');
         const original = btn.textContent;
@@ -390,4 +351,5 @@
     }
   </script>
 </body>
+
 </html>
