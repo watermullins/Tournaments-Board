@@ -39,6 +39,7 @@ body {
   #mainImage {
     display: block;
     max-width: 800px;
+    user-select: none;
   }
 
   .dropped-icon {
