@@ -122,17 +122,17 @@ html {
     content: '';
     position: absolute;
     width: 100%;
-    height: 6px; /* Thickness of the metal strip */
+    height: 6px;
     background: url('https://ik.imagekit.io/aoe2tournaments/metal%20strip.png?updatedAt=1746374542469') repeat-x;
     z-index: -1;
 }
 
 .topnav a::before {
-    top: 0; /* Metal strip on top */
+    top: 0;
 }
 
 .topnav a::after {
-    bottom: 0; /* Metal strip on bottom */
+    bottom: 0;
 }
 
         .topnav a:hover {
@@ -144,9 +144,9 @@ html {
             background-size: 100% auto;
             color: rgb(255, 255, 255);
             padding: 14px 50px;
-            display: flex;              /* use flex */
-            align-items: center;        /* vertically center text */
-            justify-content: center;    /* horizontally center text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
 
@@ -194,16 +194,16 @@ html {
         background-position: center;
         text-decoration: none;
         z-index: 1;
-        display: flex;              /* use flex */
-        align-items: center;        /* vertically center text */
-        justify-content: center;    /* horizontally center text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .topnav a::before,
     .topnav a::after {
         content: '';
         position: absolute;
         width: 0px;
-        height: 0px; /* Thickness of the metal strip */
+        height: 0px;
         background: none;
         z-index: -1;
     }
@@ -212,9 +212,9 @@ html {
                 background: black;
                 background-size: 100% auto;
                 color: rgb(255, 255, 255);
-                display: flex;              /* use flex */
-                align-items: center;        /* vertically center text */
-                justify-content: center;    /* horizontally center text */
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 text-align: center;
             }
     

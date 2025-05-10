@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="game_style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+  <title>Image Quiz</title>
+  <style>
+    #scoreboard {
+      background: white;
+      padding: 8px 0;
+      text-align: center;
+      z-index: 999;
+      max-height: 2rem;
+    }
+
+    #toolbox {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+      gap: 12px;
+      padding: 12px;
+      border: 2px solid #848484;
+      max-width: 60rem;
+      max-height: 60vh;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    #toolbox img {
+      width: 100%;
+      max-width: 10rem;
+      height: auto;
+      object-fit: contain;
+    }
+
+    @media (max-width: 767px) {
+      #scoreboard {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 8px 0;
+        text-align: center;
+        z-index: 999;
+        max-height: 2rem;
+      }
+
+      #toolbox {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+        gap: 12px;
+        padding: 12px;
+        border: 2px solid #848484;
+        max-width: 25rem;
+        max-height: 60vh;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+
+      #toolbox img {
+        width: 100%;
+        max-width: 10rem;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .navcontainer {
+        display: none;
+      }
+
+      .topnav {
+        display: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #scoreboard,
+      #container,
+      #toolbox,
+      .buttons {
+        margin-top: 12px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navcontainer">
+    <nav class="topnav">
+      <a href="../index.html">Tournaments</a>
+      <a href="../images.html">Images</a>
+      <a href="../links.html">Resources</a>
+      <a href="https://forms.gle/yHM5ecGqhnZP33KF8">Create Event</a>
+    </nav>
+  </div>
+  <div>
+    <div class="main-content">
+      <div id="toolbox"></div>
+      <div id="scoreboard">
+        <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px;"></div>
+      </div>
+      <div class="buttons">
+        <button onclick="checkScore()">Check Score</button>
+        <button id="shareBtn" onclick="shareResults()">Share Results</button>
+        <button onclick="window.location.href='/games'">More Games</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/gviz/tq?tqx=out:csv&gid=462747075';
+    Papa.parse(sheetUrl, {
+      download: true,
+      header: true,
+      complete: function (results) {
+        console.log("Parsed rows:");
+        results.data.forEach((row, index) => {
+          console.log(`Row ${index + 1}:`, row);
+        });
+      },
+      error: function (err) {
+        console.error("Error loading sheet:", err);
+      }
+    });
+
+    const toolbox = document.getElementById('toolbox');
+    const container = document.getElementById('container');
+    const scoreEl = document.getElementById('score');
+    const totalEl = document.getElementById('total');
+
+    const noSiegeEngineers = [
+      'CivIcon-Armenians.webp', 'CivIcon-Burgundians.webp', 'CivIcon-Byzantines.webp',
+      'CivIcon-Chinese.webp', 'CivIcon-Cumans.webp', 'CivIcon-Dravidians.webp',
+      'CivIcon-Goths.webp', 'CivIcon-Gurjaras.webp', 'CivIcon-Huns.webp',
+      'CivIcon-Italians.webp', 'CivIcon-Lithuanians.webp', 'CivIcon-Malians.webp',
+      'CivIcon-Mayans.webp', 'CivIcon-Persians.webp', 'CivIcon-Spanish.webp',
+      'CivIcon-Turks.webp', 'CivIcon-Wei.webp', 'CivIcon-Wu.webp'
+    ];
+
+    const siegeEngineers = [
+      'CivIcon-Aztecs.webp', 'CivIcon-Bengalis.webp', 'CivIcon-Berbers.webp',
+      'CivIcon-Bohemians.webp', 'CivIcon-Britons.webp', 'CivIcon-Bulgarians.webp',
+      'CivIcon-Burmese.webp', 'CivIcon-Celts.webp', 'CivIcon-Ethiopians.webp',
+      'CivIcon-Franks.webp', 'CivIcon-Georgians.webp', 'CivIcon-Hindustanis.webp',
+      'CivIcon-Incas.webp', 'CivIcon-Japanese.webp', 'CivIcon-Jurchens.webp',
+      'CivIcon-Khitans.webp', 'CivIcon-Khmer.webp', 'CivIcon-Koreans.webp',
+      'CivIcon-Magyars.webp', 'CivIcon-Malay.webp', 'CivIcon-Mongols.webp',
+      'CivIcon-Poles.webp', 'CivIcon-Portuguese.webp', 'CivIcon-Romans.webp',
+      'CivIcon-Saracens.webp', 'CivIcon-Shu.webp', 'CivIcon-Sicilians.webp',
+      'CivIcon-Slavs.webp', 'CivIcon-Tatars.webp', 'CivIcon-Teutons.webp',
+      'CivIcon-Vietnamese.webp', 'CivIcon-Vikings.webp'
+    ];
+
+    totalEl.textContent = noSiegeEngineers.length + siegeEngineers.length;
+    let icons = [...new Set([...noSiegeEngineers, ...siegeEngineers])].sort();
+
+    icons.forEach(name => {
+      const civContainer = document.createElement('div');
+      civContainer.style.display = 'flex';
+      civContainer.style.flexDirection = 'column';
+      civContainer.style.alignItems = 'center';
+      civContainer.style.margin = '4px';
+
+      const icon = document.createElement('img');
+      icon.src = `../icons/${name}`;
+      icon.draggable = true;
+      icon.dataset.icon = name;
+      icon.style.opacity = 0.35;
+
+      const label = document.createElement('div');
+      label.textContent = name.replace('CivIcon-', '').replace('.webp', '');
+      label.style.fontSize = '10px';
+      label.style.color = '#000';
+      label.style.textAlign = 'center';
+
+      civContainer.appendChild(icon);
+      civContainer.appendChild(label);
+      toolbox.appendChild(civContainer);
+    });
+
+    toolbox.addEventListener('click', e => {
+      if (e.target.tagName === 'IMG') {
+        console.log("clicked");
+        if (e.target.style.opacity == 1)
+          e.target.style.opacity = .35;
+        else
+          e.target.style.opacity = 1;
+      }
+    });
+
+    function checkScore() {
+      const allIcons = toolbox.querySelectorAll('img');
+      let correct = 0;
+
+      allIcons.forEach(img => {
+        const name = img.dataset.icon;
+        const isSelected = parseFloat(img.style.opacity) === 1;
+        const notSelected = parseFloat(img.style.opacity) === .35;
+
+        const isSiege = siegeEngineers.includes(name);
+        const isNoSiege = noSiegeEngineers.includes(name);
+        img.style.border = 'none';
+
+        if ((isSiege && isSelected) || (isNoSiege && notSelected)) {
+          img.style.border = '3px solid lime';
+          correct++;
+        } else {
+          img.style.border = '3px solid red';
+        }
+      });
+
+      scoreEl.textContent = correct;
+    }
+function shareResults() {
+  const score = Number(scoreEl.textContent);
+  const total = Number(totalEl.textContent);
+  const percent = score / total;
+  let grade;
+  
+  if (percent === 1) grade = "S";
+  else if (percent >= 0.9) grade = "A";
+  else if (percent >= 0.8) grade = "B";
+  else if (percent >= 0.7) grade = "C";
+  else if (percent >= 0.5) grade = "D";
+  else grade = "F";
+  const text = `Siege Engineers Techtree Challenge\nScore: ${score}/${total}\nGrade: ${grade}\nhttps://aoe2tournaments.com/games/SE`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('shareBtn');
+    const original = btn.textContent;
+    btn.textContent = "Copied!";
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.disabled = false;
+    }, 2000);
+  }).catch(err => {
+    alert("Copy this text:\n\n" + text);
+    console.error("Clipboard error:", err);
+  });
+}
+
+  </script>
+</body>
+
+</html>
