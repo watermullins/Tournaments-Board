@@ -6,3 +6,6 @@ projectdb.pgml
 my-app/
 css/
 serers.html
+node_modules/
+package-lock.json
+package.json
