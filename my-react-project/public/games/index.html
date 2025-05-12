@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="game_style.css">
+  <title>Choose a Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 50vh;
+      gap: 0rem;
+      background: #000 url('https://ik.imagekit.io/aoe2tournaments/venice-1.webp?ik-obj-version=lo7vE3JHr_XfitX01Fr_3GxgXmnnkIxR&updatedAt=1746559609508') no-repeat center center fixed;
+      background-size: cover;
+      transition: background-image 0.5s ease-in-out;
+    }
+
+    h1{
+      color: rgb(9, 3, 61);
+    }
+  </style>
+    <script>
+      const highResImage = new Image();
+      highResImage.src = 'https://upload.wikimedia.org/wikipedia/commons/9/90/Canaletto_-_The_Entrance_to_the_Grand_Canal%2C_Venice_-_Google_Art_Project.jpg';
+      highResImage.onload = () => {
+        document.body.style.backgroundImage = `url('${highResImage.src}')`;
+      };
+    </script>
+</head>
+<body>
+  <h1>Choose a Game</h1>
+  <a class="button" href="infantry.html">Infantry Techtree</a>
+  <a class="button" href="archers.html">Archer Techtree</a>
+  <a class="button" href="cavalry.html">Cavalry Techtree</a>
+  <a class="button" href="monks.html">Monk Techtree</a>
+  <a class="button" href="siege.html">Siege Techtree</a>
+  <a class="button" href="SE.html">Siege Engineers</a>
+  <a class="button" href="naval.html">Naval Techtree</a>
+  <a class="button" href="https://aoe2grid.robomeow.org/">aoe2 grid by maxymczech</a>
+</body>
+</html>
