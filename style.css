@@ -19,7 +19,6 @@ h1 {
 }
 
 h2 {
-    text-align: center;
     font-size: 2em;
     margin-bottom: 1.25rem;
     margin-top: 1.5rem;
@@ -154,7 +153,10 @@ html {
 
 /* phone bp */
 @media (max-width: 480px) {
-
+    h2{
+        text-align: center;
+        margin: 1rem 2rem;
+    } 
 
     .event-container {
         grid-template-columns: 100%;
