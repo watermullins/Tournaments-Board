@@ -154,7 +154,9 @@ html {
 
 /* phone bp */
 @media (max-width: 480px) {
-
+.topnav a.active {
+            padding: 14px 10px;
+        }
 
     .event-container {
         grid-template-columns: 100%;
@@ -166,7 +168,7 @@ html {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 70%;
+        width: 100%;
         padding: 15px;
         color: black;
     }
@@ -176,16 +178,17 @@ html {
     }
 
     .topnav {
-        margin-top: 0px;
+        margin: 0px;
+        width: 100%;
+        background: black;
     }
 
     .topnav a {
-        background: black;
+        background: none;
         background-size: 100% auto;
-        color: #f2f2f2;
-        padding: 14px 30px;
-        margin-right: 0px;
-        margin-left: 0px;
+        color: #ffffff;
+        padding: 14px 10px;
+        margin: 0px;
         text-align: center;
         text-decoration: none;
         font-size: 15px;

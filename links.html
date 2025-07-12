@@ -48,27 +48,19 @@
 
                 let eventHTML = '';
 
-                // Add Image
-
                 if (event['Image']) {
                     eventHTML += `<a href="${event.Link}" target="_blank">
             <img src="${event['Image']}" alt="${event.Link}">
           </a>`;
                 }
-
-                // Add Event Title and Link
                 if (event.Title && event.Link) {
                     eventHTML += `<h3><a href="${event.Link}" target="_blank">${event.Title}</a></h3>`;
                 }
-
-                // Add Event Description
                 if (event.Description) {
                     eventHTML += `<p>${event.Description}</p>`;
                 } else {
                     eventHTML += `<p>Details to come</p>`;
                 }
-
-                // Add Category
                 if (event.Category) {
                     eventHTML += `<p><strong>Category:</strong> ${event.Category}</p>`;
                 }
