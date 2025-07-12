@@ -153,7 +153,10 @@ html {
 
 /* phone bp */
 @media (max-width: 480px) {
-.topnav a.active {
+    h2 {
+                text-align: center;
+            }
+    .topnav a.active {
             padding: 14px 10px;
         }
 

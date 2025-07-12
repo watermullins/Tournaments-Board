@@ -6,55 +6,39 @@
     <meta property="og:image" content="https://ik.imagekit.io/aoe2tournaments/2025-02-06%2013_46_04-Window.jpg">
     <meta property="og:url" content="https://aoe2tournaments.com//">
     <meta property="og:type" content="website">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name = "format-detection" content = "telephone=no">
-    <link rel="canonical" href="https://aoe2tournaments.com/">
-
-    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/aoe2tsilver.webp">
-    <title>Age of Empires 2 Tournaments</title>
     <meta name="author" content="watermullins" />
-    <meta name="description"
-          content="Find Age of Empires 2 tournaments of all shapes and sizes. 
-          Lots of options are always available for even low and mid ELO players seeking aoe2 tournaments." />
+    <meta name="description" content="Find Age of Empires 2 tournaments of all shapes and sizes. Lots of options are always available for even low and mid ELO players seeking aoe2 tournaments." />
+    <title>Age of Empires 2 Tournaments</title>
 
-
+    <link rel="canonical" href="https://aoe2tournaments.com/">
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/aoe2tsilver.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" as="style">
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     
     <style>
-
         .main-container {
-            display: flex;
-            margin-top: 50px;
-            margin-right: 100px;
-        }
-
-        .filter-container {
-            padding: 0px;
-            width: 170px;
-            color: white;
-            flex-shrink: 0;
-            align-self: flex-start;
-            flex: 1;     
-        }
-
-            .filter-container label {
+                display: flex;
+                margin-top: 50px;
+            }
+         .filter-container {
+                color: white;
+                flex-shrink: 0;
+                align-self: flex-start;
+            }
+        .filter-container label {
                 display: block;
                 margin-bottom: 0px;
             }
-
-            .filter-container input {
+        .filter-container input {
                 margin-right: 10px;
             }
-
         .color-box {
             display: inline-block;
             width: 15px;
@@ -62,7 +46,6 @@
             border-radius: 3px;
             margin-right: 5px;
         }
-
         .elo-box {
             width: 20px;
             height: 20px;
@@ -71,32 +54,26 @@
             margin-right: 5px;
         }
 
-        @media (max-width: 480px) {
+/* Mobile BP */
+    @media (max-width: 480px) {
             .main-container {
                 flex-direction: column;
                 width: 100%;
                 margin-right: 0px;
             }
-
             .filter-container {
                 padding: 25px;
                 width: 100%;
-                color: white;
-                flex-shrink: 0;
-                align-self: flex-start;
                 flex: 0;
             }
-
             .event-sections {
                 margin-top: 20px;
             }
-
             .event-container {
                 grid-template-columns: 100%;
                 width: 100%;
                 margin: 0 auto;
             }
-
             .event {
                 display: block;
                 margin-left: auto;
@@ -106,36 +83,23 @@
                 color: black;
             }
         }
-        @media (min-width: 481px) and  (max-width: 1919px) {
+
+/* Desktop BP */
+    @media (min-width: 481px) {
             .main-container {
-                display: flex;
-                width: 100%;
-                margin-right: 70px;
+                margin-right: 100px;
             }
             .filter-container {
-                padding: 25px;
-                color: white;
-                margin-left: 25px;   
-                position: fixed;
+                padding: 0px;
+                width: 170px;
+                flex: 1;     
             }
-            .event-sections {
-                max-width: 1000px;
-                margin-left: 250px;
-            }
-            .event-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                margin-bottom: 150px;
-                gap: 15px;
-                width: 100%;
-                max-width: 1000px;
-                min-height: 400px;
-            }
-}
+        }
     </style>
 </head>
 <body>
     <div class="navalign">
+
         <!--Topnav-->
         <div class="navcontainer">
             <nav class="topnav">
@@ -148,6 +112,7 @@
     </div> 
     <h1>Age of Empires 2 Tournaments</h1>
     <div class="main-container">
+
         <!--Filter-->
         <div class="filter-container">
             <label>Filter by ELO:</label>
@@ -173,22 +138,20 @@
                 <input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box" style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only
             </label>
         </div>
+
         <!-- Events -->
         <div class="event-sections">
-
             <h2>Upcoming AOEII Tournaments</h2>
             <div id="upcoming-events" class="event-container"></div>
             <h2>Ongoing AOEII Tournaments</h2>
             <div id="current-events" class="event-container"></div>
         </div>
     </div>
-
+    <p><a href="about.html" style="color:white; text-decoration: underline;">FAQ, About, and Contact</a></p>
     <p><a href="https://buymeacoffee.com/watermullins" target="_blank" style="color:white; text-decoration: underline;">Support the Site!</a></p>
-    <p><a href="about.html" style="color:white; text-decoration: underline;">About and Contact</a></p>
     <p><a href="https://discord.gg/HTXrxkaEWC" style="color:white; text-decoration: underline;">Join the Discord</a></p>
     <p><a href="archive.html" style="color:white; text-decoration: underline;">View Archived Age of Empires Tournaments</a></p>
     
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         //date formatting function
@@ -203,7 +166,6 @@
         async function fetchEvents() {
             const response = await fetch(eventsURL);
             const data = await response.text();
-
             const parsed = Papa.parse(data, {
                 header: true,
                 skipEmptyLines: true
@@ -256,12 +218,10 @@
                 if (colors.length > 0) {
                     eventHTML += `<div class="elo-boxes">${colors.map(color => `<span class="elo-box" style="background-color:${color};"></span>`).join('')}</div>`;
                 }
-
                 let eventLink = `event.html?event=${encodeURIComponent(event.Name)}`;
                 if (event.EventLink) {
                     eventLink = event.EventLink;
                 }
-
                 if (event['Image']) {
                     eventHTML += `<a href="${eventLink}">
                                 <img src="${event['Image']}?tr=w-auto,h-400" alt="aoe2 tournament ${event.Name}" fetchpriority="high"></a>`;
@@ -271,14 +231,12 @@
                                 </a>`;
                 }
 
-
                 if (event.Name) {
                     eventHTML += `<h3><a href="${eventLink}">${event.Name}</a></h3>`;
                 }
                 if (event.Description) {
                     eventHTML += `<p>${event.Description}</p>`;
                 }
-
                 if (event.DiscordLink && event.Discord) {
                     eventHTML += `<div><p>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
@@ -289,7 +247,6 @@
                                     </svg>
                                     <a href="${event.DiscordLink}" target="_blank"> ${event.Discord}</a></p></div>`;
                 }
-
                 if (event.SignupDeadline && status === 'Upcoming') {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
                     eventHTML += `<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
@@ -300,7 +257,6 @@
                                       <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                                     </svg> Signup Deadline: TBA</p>`;
                 }
-
                 if (event.StartDate) {
                     const formattedStart = formatDateToMonthDay(event.StartDate);
                     eventHTML += `<p>
@@ -329,7 +285,6 @@
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', fetchEvents);
         });
-
         fetchEvents();
     </script>
 </body>
