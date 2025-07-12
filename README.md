@@ -1,3 +1,4 @@
+![logo](https://ik.imagekit.io/aoe2tournaments/aoe2tsilver.webp?updatedAt=1748969130749)
 # Site Map
 
 ## Tournaments
