@@ -1,3 +1,4 @@
+![logo](https://ik.imagekit.io/aoe2tournaments/aoe2tsilver.webp?updatedAt=1748969130749)
 # Site Map
 
 ## Tournaments
@@ -21,4 +22,4 @@
 ### Information
 * site link: https://aoe2tournaments.com/
 * discord: watermullins
-* donations: https://buymeacoffee.com/watermullins
+* support: https://buymeacoffee.com/watermullins
