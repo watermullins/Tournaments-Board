@@ -21,4 +21,4 @@
 ### Information
 * site link: https://aoe2tournaments.com/
 * discord: watermullins
-* donations: https://buymeacoffee.com/watermullins
+* support: https://buymeacoffee.com/watermullins
