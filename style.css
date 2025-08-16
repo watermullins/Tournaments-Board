@@ -116,7 +116,7 @@ html {
         justify-content: center;
     }
 
-    .topnav a::before,
+.topnav a::before,
 .topnav a::after {
     content: '';
     position: absolute;
