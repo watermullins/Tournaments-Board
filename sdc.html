@@ -6,12 +6,13 @@
     <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/sdc.png?updatedAt=1755391322067">
     <title>Secret Desert Cup</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.cdnfonts.com/css/neuland" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css">
     <style>
         body {
-            font-family: "Papyrus", serif;
+            font-family: 'Neuland', sans-serif;
             margin: 0;
             padding: 20px;
             background: url('https://owlcation.com/.image/t_share/MTg5MTEwOTAxNTgzMjU5NDE2/deserts-of-the-world.jpg') no-repeat center center fixed;
@@ -258,7 +259,7 @@ async function fetchEventsAndGuesses() {
         }
 
         if (name) {
-            eventHTML += `<a href="${insights ? insights : '#'}"><h3>${name}<i class="flag flag-${nation}"></i></h3></a>`;
+            eventHTML += `<a href="${insights ? insights : '#'}"><h3>${name} <i class="flag flag-${nation}"></i></h3></a>`;
         }
 
         // Display event details based on type
