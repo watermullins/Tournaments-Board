@@ -258,7 +258,7 @@ async function fetchEventsAndGuesses() {
         }
 
         if (name) {
-            eventHTML += `<h3>${name}<i class="flag flag-${nation}"></i></h3>`;
+            eventHTML += `<a href="${insights ? insights : '#'}"><h3>${name}<i class="flag flag-${nation}"></i></h3></a>`;
         }
 
         // Display event details based on type
