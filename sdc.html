@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/aoe2tournaments/sdc.png?updatedAt=1755391322067">
+    <title>Secret Desert Cup</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css">
+    <style>
+        body {
+            font-family: "Papyrus", serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://owlcation.com/.image/t_share/MTg5MTEwOTAxNTgzMjU5NDE2/deserts-of-the-world.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 6em;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            color: white;
+            font-weight: 700;
+            z-index: 1;
+            text-shadow: 4px 1px 1px black;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            color: white;
+            text-shadow: 2px 1px 1px black;
+        }
+
+        h3 {
+            font-family: "Courier Prime", monospace;
+            text-shadow: 0px 0px 2px black, -2px -2px 2px black, 2px -2px 2px black, -2px 2px 2px black, 2px 2px 2px black;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            white-space: nowrap
+        }
+
+        p a {
+            font-size: 2em;
+            text-align: right;
+            border: 3px;
+            text-shadow: 1px 1px 1px black;
+            text-decoration: underline;
+        }
+
+        .main-content {
+            width: 100%;
+            max-width: 1500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .event {
+            background: url('https://i5.walmartimages.com/seo/Ottertex-60-100-Polyester-Canvas-Craft-Fabric-By-the-Yard-Army-Green_deda2462-370e-46e4-95e4-2a2a04f18ad0_1.8f2563b14a7d87c0f8af1fdc357c1776.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF') no-repeat center center;
+            background-size: cover;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 300px;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            flex: 1 1 20%;
+        }
+
+        .details {
+            text-align: left;
+            position: relative;
+            left: 8%;
+        }
+
+        .alias {
+            background: url('https://ik.imagekit.io/aoe2tournaments/knit-seamless-pattern-knitted-ch%20(1)%20(1).jpg') no-repeat center center;
+            background-size: cover;
+            min-height: 250px;
+            padding-top: 50px;
+        }
+
+        .event p {
+            font-family: "Alice", serif;
+            margin-left: 20px;
+            margin-right: 20px;
+            line-height: 1;
+        }
+
+        .event img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-width: 50%;
+            border-radius: 5px;
+            aspect-ratio: 1/1;
+            margin-top: 5px;
+        }
+
+        .links-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .links-container a {
+                color: white;
+                margin: 0 10px;
+            }
+
+        .corner-images img {
+            position: absolute;
+            top: 0;
+            width: 10rem;
+            height: auto;
+            z-index: 0;
+        }
+
+        .corner-left {
+            left: 0;
+        }
+
+        .corner-right {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="corner-images">
+        <img src="https://ik.imagekit.io/aoe2tournaments/sdc.png?updatedAt=1755391322067" class="corner-left" alt="Left Corner Image">
+        <img src="https://ik.imagekit.io/aoe2tournaments/sdc.png?updatedAt=1755391322067" class="corner-right" alt="Right Corner Image">
+    </div>
+    <div class="main-content">
+        <h1>Secret Desert Cup</h1>
+        <div class="links-container">
+            <p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzlhzq8tzQaso2NStrfg3QKfO8xMy7y3pgtAA7gE0vXP4PA/viewform?usp=sf_link" target="_blank">Submit a Guess!</a>
+            </p>
+        </div>
+        <h2>The Players</h2>
+        <div id="player-events" class="event-container"></div>
+        <h2>The Aliases</h2>
+        <div id="alias-events" class="event-container"></div>
+    </div>
+    <div class="links-container">
+        <p>
+            <a href="index.html" target="_blank">View Other Tournaments</a>
+        </p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+       const eventsURL = 'https://docs.google.com/spreadsheets/d/1yVp_GU1SvMkBlaf-G8tLWSoEJYd1amEGLEGYuRc41FI/export?format=csv&gid=335661691';
+const guessesURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRG3dIq41ZWON5Trzv5eKfXFYAgwBeOkn8gZKWkXZQojYbqnAENvzXNpxJAOYbqIvcnjWe5O2x-uwgL/pub?gid=1494354425&single=true&output=csv';
+
+// Fetch guesses data
+async function fetchGuesses() {
+    const response = await fetch(guessesURL);
+    if (!response.ok) {
+        console.error('Failed to fetch guess data');
+        return [];
+    }
+    const data = await response.text();
+
+    // Parse the CSV data using PapaParse
+    const parsed = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    });
+
+    return parsed.data;
+}
+
+// Fetch events data
+async function fetchEvents() {
+    const response = await fetch(eventsURL);
+    if (!response.ok) {
+        console.error('Failed to fetch event data');
+        return [];
+    }
+    const data = await response.text();
+
+    // Parse the CSV data using PapaParse
+    const parsed = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    });
+
+    return parsed.data;
+}
+
+// Main function to fetch both events and guesses
+async function fetchEventsAndGuesses() {
+    const [events, guesses] = await Promise.all([fetchEvents(), fetchGuesses()]);
+
+    const playerContainer = document.getElementById('player-events');
+    const aliasContainer = document.getElementById('alias-events');
+
+    playerContainer.innerHTML = '';
+    aliasContainer.innerHTML = '';
+
+    // Create a mapping of aliases to guesses
+    const aliasGuessesMap = {};
+
+    guesses.forEach(guess => {
+        Object.entries(guess).forEach(([alias, player]) => {
+            if (alias !== 'Time' && alias !== 'Discord' && player) {
+                if (!aliasGuessesMap[alias]) {
+                    aliasGuessesMap[alias] = {};
+                }
+                aliasGuessesMap[alias][player] = (aliasGuessesMap[alias][player] || 0) + 1;
+            }
+        });
+    });
+
+    events.forEach(event => {
+        const name = event['Name'];
+        const bio = event['Bio'];
+        const civ = event['Civ'];
+        const curelo = event['CurELO'];
+        const highelo = event['HighELO'];
+        const ca = event['CA'];
+        const cb = event['CB'];
+        const cc = event['CC'];
+        const insights = event['Insights'];
+        const nation = event['Nation'];
+        const image = event['Image'];
+        const type = event['Type'] ? event['Type'].toLowerCase() : '';
+
+        const eventDiv = document.createElement('div');
+        eventDiv.classList.add('event');
+
+        let eventHTML = '';
+        if (image) {
+            eventHTML += `<a href="${insights ? insights : '#'}"><img style="border-radius:45px; top-margin: 45px;" src="${image}" alt="${name}"></a>`;
+        }
+
+        if (name) {
+            eventHTML += `<h3>${name}<i class="flag flag-${nation}"></i></h3>`;
+        }
+
+        // Display event details based on type
+        if (type === 'player') {
+            if (curelo) {
+                eventHTML += `<p>${curelo}/${highelo}</p>`;
+            }
+            eventHTML += `<div class="details">`;
+            if (ca) eventHTML += `<p><strong>•</strong> ${ca}</p>`;
+            if (cb) eventHTML += `<p><strong>•</strong> ${cb}</p>`;
+            if (cc) eventHTML += `<p><strong>•</strong> ${cc}</p>`;
+            if (civ) {
+                const civImages = civ.split(' ').map(civURL => `<img src="${civURL}" alt="Civ Symbol" style="width: 23px; height: 23px; margin-right: 3px;">`);
+                eventHTML += `<p><strong>Civilisations: </strong>${civImages.join('')}</p>`;
+            }
+            if (bio) {
+                eventHTML += `<p><strong>Bio:</strong> ${bio}</p>`;
+            }
+            eventHTML += `</div>`;
+        } else if (type === 'alias') {
+            eventDiv.classList.add('alias');
+
+            // Add top guesses for alias events
+const aliasGuesses = aliasGuessesMap[name] || {};
+const totalGuesses = Object.values(aliasGuesses).reduce((sum, count) => sum + count, 0);
+
+const topGuesses = Object.entries(aliasGuesses)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+topGuesses.forEach(([player, count]) => {
+    const percentage = totalGuesses > 0 ? ((count / totalGuesses) * 100).toFixed(1) : 0;
+    eventHTML += `<p>${player} (${percentage}%)</p>`;
+});
+
+if (topGuesses.length === 0) {
+    eventHTML += `<p><em>No guesses yet.</em></p>`;
+}
+
+            eventHTML += `</ul>`;
+            }
+eventDiv.innerHTML = eventHTML;
+            if (type === 'player') {
+            playerContainer.appendChild(eventDiv);
+        } else if (type === 'alias') {
+            aliasContainer.appendChild(eventDiv);
+        }
+        
+
+        
+    });
+}
+
+// Call the function to fetch events and guesses
+fetchEventsAndGuesses();
+
+    </script>
+</body>
+</html>
