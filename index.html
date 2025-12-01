@@ -98,13 +98,19 @@
         /* Desktop BP */
         @media (min-width: 481px) {
             .main-container {
-                margin-right: 100px;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .filter-container {
-                padding: 0px;
+                padding: 0;
                 width: 170px;
-                flex: 1;
+                flex: 0 0 170px; 
+            }
+            .event-sections,
+            .event-container {
+                flex: 1 1 auto;
+                min-width: 0;
             }
         }
     </style>
@@ -130,24 +136,20 @@
         <div class="filter-container">
             <label>Filter by ELO:</label>
             <label>
-                <input type="checkbox" value="0-800" data-color="#56F000"> <span class="color-box"
-                    style="background-color: #56F000;"></span> 0-800
+                <input type="checkbox" value="Low" data-color="#56F000"> <span class="color-box"
+                    style="background-color: #56F000;"></span> Low
             </label>
             <label>
-                <input type="checkbox" value="800-1000" data-color="#caf022"> <span class="color-box"
-                    style="background-color: #caf022;"></span> 800-1000
+                <input type="checkbox" value="Medium" data-color="#FCE83A"> <span class="color-box"
+                    style="background-color: #FCE83A;"></span> Medium
             </label>
             <label>
-                <input type="checkbox" value="1000-1200" data-color="#FCE83A"> <span class="color-box"
-                    style="background-color: #FCE83A;"></span> 1000-1200
+                <input type="checkbox" value="High" data-color="#FFB302"> <span class="color-box"
+                    style="background-color: #FFB302;"></span> High
             </label>
             <label>
-                <input type="checkbox" value="1200-1800" data-color="#FFB302"> <span class="color-box"
-                    style="background-color: #FFB302;"></span> 1200-1800
-            </label>
-            <label>
-                <input type="checkbox" value="1800+" data-color="#FF3838"> <span class="color-box"
-                    style="background-color: #FF3838;"></span> 1800+
+                <input type="checkbox" value="Very High" data-color="#FF3838"> <span class="color-box"
+                    style="background-color: #FF3838;"></span> Very High
             </label>
             <label>
                 <input type="checkbox" value="Multidivisional" data-color="white"> <span class="color-box"
