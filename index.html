@@ -95,22 +95,40 @@
             }
         }
 
-        /* Desktop BP */
         @media (min-width: 481px) {
             .main-container {
                 width: 100%;
                 box-sizing: border-box;
+                max-width: 1500px;
+                margin: 0 auto;
+                padding: 0 16px;
             }
 
             .filter-container {
                 padding: 0;
                 width: 170px;
-                flex: 0 0 170px; 
+                flex: 0 0 170px;
             }
+
             .event-sections,
             .event-container {
                 flex: 1 1 auto;
                 min-width: 0;
+            }
+
+            .event-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+                gap: .9rem;
+                width: 100%;
+                max-width: 94rem;
+                min-height: 400px;
+            }
+        }
+
+        @media (min-width: 1450px) {
+            .event-container {
+                grid-template-columns: repeat(4, minmax(18.75rem, 1fr));
             }
         }
     </style>
