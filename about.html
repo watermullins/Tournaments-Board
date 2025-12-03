@@ -22,62 +22,77 @@
             margin: 20px auto;
             margin-top: 200px;
             padding: 30px;
-            background: url('https://img.freepik.com/premium-photo/luxury-simple-minimalist-red-background_525160-889.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
-            background-size: cover;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #d4c5a0 0%, #e8dcc0 50%, #d4c5a0 100%);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(139, 90, 43, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(101, 67, 33, 0.03) 0%, transparent 50%),
+                linear-gradient(135deg, #d4c5a0 0%, #e8dcc0 50%, #d4c5a0 100%);
+            border: 3px solid #8b5a2b;
+            border-radius: 2px;
+            box-shadow:
+                inset 0 0 10px rgba(0, 0, 0, 0.1),
+                0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         h2 {
             text-align: center;
-            margin-top: 50px;
-            color: white
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: #5c3d2e;
+            font-family: 'Eczar', serif;
+            font-size: 1.8em;
+            border-bottom: 2px solid #8b5a2b;
+            padding-bottom: 15px;
         }
 
         h3 {
-            color: white;
-            margin-top: 30px;
-            border-bottom: 2px solid #ddd;
+            color: #5c3d2e;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #8b5a2b;
             padding-bottom: 5px;
-        }
-
-        h4 {
-            color: white;
-
+            font-family: 'Eczar', serif;
         }
 
         p {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: white;
-            line-height: 1.6;
             margin: 15px 0;
-            font-size: 1.1em;
+            padding: 0;
+            color: #2c1810;
+            line-height: 1.6;
+            font-size: 1em;
         }
 
         .team-member {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 20px;
+            gap: 15px;
         }
 
         .team-member img {
             border-radius: 50%;
             width: 100px;
             height: 100px;
-            margin-right: 15px;
+            flex-shrink: 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border: 3px solid #8b5a2b;
         }
 
 
         a {
             text-decoration: none;
-            color: white;
+            color: #5c3d2e;
+            font-weight: 500;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        svg {
+            color: #5c3d2e;
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -108,30 +123,26 @@
                         class="bi bi-github" viewBox="0 0 16 16">
                         <path
                             d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
-                    </svg> <a href="https://github.com/watermullins/Tournaments-Board/" target="_blank"
-                        style="color:white; text-decoration: underline;">Github Repository</a></p>
+                    </svg> <a href="https://github.com/watermullins/Tournaments-Board/" target="_blank">Github Repository</a>
                 </p>
                 <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-discord" viewBox="0 0 16 16">
                         <path
                             d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612" />
-                    </svg> watermullins</p>
-                <p><a href="https://buymeacoffee.com/watermullins" target="_blank"
-                        style="color:white; text-decoration: underline;">Support the Site!</a></p>
+                    </svg> <a href="https://discord.gg/HTXrxkaEWC" target="_blank">Join the Discord</a>
                 </p>
-            </div>
-        </div>
-                <div class="team-member">
-            <div>
-                <h3>FAQ</h3>
-                <p><strong>How can I sign up for a tournament?</strong> <br>You can sign up for most tournaments through their linked Discord server, otherwise the sign up details can be found on the expanded details page.</p>
-				<p><strong>As a 1200 player will I face 1800 players?</strong><br> If the tournament is multidivisional you will typically face opponents within 100-200 ELO of you</p>
-            </div>
-        </div>
-    </div>
-    <script>
-        console.log("About page loaded.");
-    </script>
+                <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-cup-hot" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l1.652-7.434A.5.5 0 0 0 15.5 6H.5ZM3 8h10l-.175.986-.824 3.701a1.5 1.5 0 0 1-1.464 1.175H4.463a1.5 1.5 0 0 1-1.464-1.175l-.824-3.701L3 8Z"/>
+                        <path d="M12.5 0a.5.5 0 0 1 .5.5v.134a.905.905 0 0 1-1.083.894c-.481-.083-.64.054-.745.584.315.306.815.306.815.834 0 .464-.269.534-.556.534a.77.77 0 0 1-.046-1.533.5.5 0 0 1 .5-.5Z"/>iv>
+                    </svg> <a href="https://buymeacoffee.com/watermullins" target="_blank">Support the Site!</a>    <script>
+                </p> console.log("About page loaded.");
+
+
+
+
+
+</html></body>            </div>                </p>    </script>
 </body>
 
 </html>

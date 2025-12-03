@@ -61,20 +61,49 @@
             margin-right: 5px;
         }
 
+        .event h3 a {
+            color: black;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .event h3 a:hover {
+            color: #5c3d2e;
+            border-bottom: 2px solid #5c3d2e;
+        }
+
+        .event a img {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .event a img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
         .info-icon {
             cursor: pointer;
             display: inline-block;
             padding: 8px 12px;
-            background-color: white;
-            color: black;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #d4c5a0 0%, #e8dcc0 50%, #d4c5a0 100%);
+            color: #000000;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 2px;
             font-weight: bold;
             font-size: 12px;
-            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: 'Eczar', serif;
+            transition: all 0.2s ease;
         }
 
         .info-icon:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #c9bba0 0%, #ddd0b5 50%, #c9bba0 100%);
+            border-color: #5c3d2e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .modal {
@@ -89,18 +118,35 @@
         }
 
         .modal-content {
-            background-color: #2d2d2d;
+            background: linear-gradient(135deg, #d4c5a0 0%, #e8dcc0 50%, #d4c5a0 100%);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(139, 90, 43, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(101, 67, 33, 0.03) 0%, transparent 50%),
+                linear-gradient(135deg, #d4c5a0 0%, #e8dcc0 50%, #d4c5a0 100%);
             margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
+            padding: 30px;
+            border: 3px solid #8b5a2b;
+            border-radius: 2px;
+            box-shadow:
+                inset 0 0 10px rgba(0, 0, 0, 0.1),
+                0 10px 30px rgba(0, 0, 0, 0.5);
             width: 80%;
             max-width: 500px;
-            border-radius: 8px;
-            color: white;
+            color: #2c1810;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            color: #5c3d2e;
+            border-bottom: 2px solid #8b5a2b;
+            padding-bottom: 10px;
+            font-family: 'Eczar', serif;
         }
 
         .modal-close {
-            color: #aaa;
+            color: #8b5a2b;
             float: right;
             font-size: 28px;
             font-weight: bold;
@@ -108,7 +154,25 @@
         }
 
         .modal-close:hover {
-            color: white;
+            color: #5c3d2e;
+        }
+
+        .faq-section {
+            border-left: 4px solid #8b5a2b;
+            padding: 12px 15px;
+            margin: 15px 0;
+            background-color: rgba(139, 90, 43, 0.08);
+            border-radius: 2px;
+        }
+
+        .faq-section h3 {
+            margin-top: 0;
+            color: #5c3d2e;
+            font-family: 'Eczar', serif;
+        }
+
+        .faq-section p {
+            color: #2c1810;
         }
 
         /* Mobile BP */
@@ -233,16 +297,26 @@
             <div class="modal-content">
                 <span class="modal-close" id="closeModal">&times;</span>
                 <h2>Frequently Asked Questions</h2>
-                <h3>Filters</h3>
-                <p><strong>Team:</strong>Tournaments with 2v2, 3v3, and/or 4v4 matches</p>
-                <p><strong>1-v-1:</strong> Tournaments with single player teams</p>
-                <p><strong>Single-division:</strong>All players compete in the same division without ELO matching</p>
-                <p><strong>Multi-division:</strong>Players are matched according to ELO in different divisions</p>
-                <p><strong>Invite Only:</strong> Private tournaments by invitation</p>
 
-                <h3>Signing Up</h3>
-                <p>Most tournaments have a signup channel on their Discord server or a registration form.</p>
-                <p>To view more information about a tournament click on the tournament's card for usefull links</p>
+                <div class="faq-section">
+                    <h3>Filters</h3>
+                    <p><strong>Team:</strong> Tournaments with 2v2, 3v3, and/or 4v4 teams</p>
+                    <p><strong>1-v-1:</strong> Tournaments with single player teams</p>
+                    <p><strong>Single-division:</strong> All players compete in the same division without ELO matching</p>
+                    <p><strong>Multi-division:</strong> Players are matched according to ELO in different divisions</p>
+                    <p><strong>Invite Only:</strong> Private tournaments by invitation</p>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Signing Up</h3>
+                    <p>Most tournaments have a signup channel on their Discord server or a registration form.</p>
+                    <p>To view more information about a tournament click on the tournament's card for usefull links</p>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Contact</h3>
+                    <p>Methods to reach me can be found on the <a href="about.html" style="color: #5c3d2e; font-weight: bold;">About page</a>.</p>
+                </div>
             </div>
         </div>
 
@@ -254,10 +328,11 @@
             <div id="current-events" class="event-container"></div>
         </div>
     </div>
-    <p><a href="about.html" style="color:white; text-decoration: underline;">FAQ, About, and Contact</a></p>
+    <p><a href="about.html" style="color:white; text-decoration: underline;">About and Contact</a></p>
     <p><a href="https://buymeacoffee.com/watermullins" target="_blank"
             style="color:white; text-decoration: underline;">Support the Site!</a></p>
-    <p><a href="https://discord.gg/HTXrxkaEWC" style="color:white; text-decoration: underline;">Join the Discord</a></p>
+    <p><a href="https://discord.gg/HTXrxkaEWC" style="color:white; text-decoration: underline;">Join the Discord</a>
+    </p>
     <p><a href="archive.html" style="color:white; text-decoration: underline;">View Archived Age of Empires
             Tournaments</a></p>
 
