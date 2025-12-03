@@ -61,6 +61,56 @@
             margin-right: 5px;
         }
 
+        .info-icon {
+            cursor: pointer;
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: white;
+            color: black;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            border: none;
+        }
+
+        .info-icon:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #2d2d2d;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: white;
+        }
+
         /* Mobile BP */
         @media (max-width: 480px) {
             .main-container {
@@ -152,31 +202,48 @@
 
         <!--Filter-->
         <div class="filter-container">
-            <label>Filter by ELO:</label>
+            <label>Filter by Category:</label>
             <label>
-                <input type="checkbox" value="Low" data-color="#56F000"> <span class="color-box"
-                    style="background-color: #56F000;"></span> Low
+                <input type="checkbox" value="Team" data-color="#56F000"> <span class="color-box"
+                    style="background-color: #56F000;"></span> Team
             </label>
             <label>
-                <input type="checkbox" value="Medium" data-color="#FCE83A"> <span class="color-box"
-                    style="background-color: #FCE83A;"></span> Medium
+                <input type="checkbox" value="1-v-1" data-color="#FCE83A"> <span class="color-box"
+                    style="background-color: #FCE83A;"></span> 1-v-1
             </label>
             <label>
-                <input type="checkbox" value="High" data-color="#FFB302"> <span class="color-box"
-                    style="background-color: #FFB302;"></span> High
+                <input type="checkbox" value="Single-division" data-color="#FF3838"> <span class="color-box"
+                    style="background-color: #FF3838;"></span> Single-division
             </label>
             <label>
-                <input type="checkbox" value="Very High" data-color="#FF3838"> <span class="color-box"
-                    style="background-color: #FF3838;"></span> Very High
-            </label>
-            <label>
-                <input type="checkbox" value="Multidivisional" data-color="white"> <span class="color-box"
-                    style="background-color: white;"></span>Multidivisional
+                <input type="checkbox" value="Multi-division" data-color="white"> <span class="color-box"
+                    style="background-color: white;"></span> Multi-division
             </label>
             <label>
                 <input type="checkbox" value="Invite Only" data-color="#000000"> <span class="color-box"
                     style="background-color: #000000; box-shadow: 0px 0px 0px .5px #808080; "></span>Invite Only
             </label>
+            <div style="margin-top: 15px;">
+                <span class="info-icon" id="infoIcon">FAQ</span>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" id="closeModal">&times;</span>
+                <h2>Frequently Asked Questions</h2>
+                <h3>Filters</h3>
+                <p><strong>Team:</strong>Tournaments with 2v2, 3v3, and/or 4v4 matches</p>
+                <p><strong>1-v-1:</strong> Tournaments with single player teams</p>
+                <p><strong>Single-division:</strong>All players compete in the same division without ELO matching</p>
+                <p><strong>Multi-division:</strong>Players are matched according to ELO in different divisions</p>
+                <p><strong>Invite Only:</strong> Private tournaments by invitation</p>
+
+                <h3>Signing Up</h3>
+                <p>Most tournaments have a signup channel on their Discord server or a registration form.</p>
+                <p>To view more information about a tournament click on the tournament's card for usefull links</p>
+            </div>
         </div>
 
         <!-- Events -->
@@ -193,6 +260,21 @@
     <p><a href="https://discord.gg/HTXrxkaEWC" style="color:white; text-decoration: underline;">Join the Discord</a></p>
     <p><a href="archive.html" style="color:white; text-decoration: underline;">View Archived Age of Empires
             Tournaments</a></p>
+
+    <!-- Modal for ELO filter info -->
+    <div id="elo-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" data-modal="elo-info-modal">&times;</span>
+            <h2>ELO Filter Information</h2>
+            <p>The ELO filter allows you to customize the tournaments displayed based on your skill level and preferences.
+            </p>
+            <p><strong>Team:</strong> Tournaments played in teams.</p>
+            <p><strong>1-v-1:</strong> One versus one tournaments.</p>
+            <p><strong>Single-division:</strong> Tournaments within a single division.</p>
+            <p><strong>Multi-division:</strong> Tournaments across multiple divisions.</p>
+            <p><strong>Invite Only:</strong> Exclusive tournaments by invitation.</p>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
@@ -324,6 +406,25 @@
         document.querySelectorAll('.filter-container input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', fetchEvents);
         });
+        
+        const infoIcon = document.getElementById('infoIcon');
+        const infoModal = document.getElementById('infoModal');
+        const closeModal = document.getElementById('closeModal');
+
+        infoIcon.addEventListener('click', function() {
+            infoModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', function() {
+            infoModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+
         fetchEvents();
     </script>
 </body>
