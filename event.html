@@ -179,8 +179,9 @@
                 if (event.DiscordLink) {
                     eventDetailsHTML += `<p><strong><i class="bi bi-discord"></i></strong><a href="${event.DiscordLink}" target="_blank">${event.Discord} Discord</a></p>`;
                 }
-
-                if (event.Description) {
+                if(event.LongDescription){
+                    eventDetailsHTML += `<p>${event.LongDescription}</p>`;
+                }else if (event.Description) {
                     eventDetailsHTML += `<p>${event.Description}</p>`;
                 }
 
