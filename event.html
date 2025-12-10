@@ -111,73 +111,69 @@
     </style>
 </head>
 <body>
-            <nav class="topnav">
-                <a href="index.html">Tournaments</a>
-                <a href="images.html">Images</a>
-                <a href="links.html">Resources</a>
-                <a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank">Add Event</a>
-            </nav>
+    <nav class="topnav">
+        <a href="index.html">Tournaments</a>
+        <a href="images.html">Images</a>
+        <a href="links.html">Resources</a>
+        <a href="https://forms.gle/yHM5ecGqhnZP33KF8" target="_blank">Add Event</a>
+    </nav>
     <h1>Event Details</h1>
     <div class="event-detail-box" id="event-detail-box"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-
         const urlParams = new URLSearchParams(window.location.search);
         const eventName = urlParams.get('event');
 
         const eventsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3NVTnrKkbLNQAbEeH8-pVEYghucF8vqQ55eVt9P4vmnU67nbUvn9WTlTdyjHil_55sx2MCXmDfGrX/pub?output=csv';
+        
         function formatDateToMonthDay(dateString) {
             const dateParts = dateString.split('/');
             const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
             const options = { month: 'long', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
         }
+        
         async function fetchEventDetails() {
             const response = await fetch(eventsURL);
             const data = await response.text();
             
-            const rows = data.split('\n').map(row => {
-                
-                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+            const parsed = Papa.parse(data, {
+                header: true,
+                skipEmptyLines: true
             });
             
-            const headers = rows[0];
-
-            const events = rows.slice(1).map(row => {
-                let event = {};
-                headers.forEach((header, index) => {
-                    event[header.trim()] = row[index].trim().replace(/(^"|"$)/g, '');
-                });
-                return event;
-            });
-
+            const events = parsed.data;
             const eventDetailContainer = document.getElementById('event-detail-box');
             const event = events.find(e => e.Name === eventName);
-            let importantLinksHTML = ``;
+            
             if (event) {
-               
                 let eventDetailsHTML = `
                 <img src="${event.Image ? event.Image : 'https://ik.imagekit.io/aoe2tournaments/age-of-empires-2-definitive-edit.webp'}" alt="${event.Name}">
                 <h2>${event.Name}</h2>`;
+                
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
                     eventDetailsHTML += `<p><strong>Signup Deadline:</strong> <i class="bi bi-calendar fs-5"></i> ${formattedDeadline}</p>`;
                 }
+                
                 if (event.StartDate) {
                     const formattedStart = formatDateToMonthDay(event.StartDate);
                     eventDetailsHTML += `<p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                                              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                                            </svg> Begins: ${formattedStart}`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                        </svg> Begins: ${formattedStart}`;
+                    
                     if(event.EndDate){
                         const formattedEnd = formatDateToMonthDay(event.EndDate);
                         eventDetailsHTML += ` ~ ${formattedEnd}`;
                     }
-                    eventDetailsHTML += `<p>`;
+                    eventDetailsHTML += `</p>`;
                 } else {
                     eventDetailsHTML += `<p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                                        </svg> Begins: TBA</p>`;
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                        </svg> Begins: TBA</p>`;
                 }
 
                 if (event.DiscordLink) {
@@ -188,67 +184,83 @@
                     eventDetailsHTML += `<p>${event.Description}</p>`;
                 }
 
-				if (event.Liquid) {
+                if (event.Liquid) {
                     eventDetailsHTML += `<p><a href="${event.Liquid}" target="_blank">Liquidpedia Page</a></p>`;
                 }
 
                 if (event.Signup) {
                     eventDetailsHTML += `<p><a href="${event.Signup}" target="_blank">Sign up here</a></p>`;
                 }
-				if (event.Twitch) {
+                
+                if (event.Twitch) {
                     eventDetailsHTML += `<p><a href="${event.Twitch}" target="_blank">Watch the event here</a></p>`;
                 }
-				if (event.Sponsor) {
+
+                if (event.Players) {
+                    eventDetailsHTML += `<p><a href="${event.Players}" target="_blank">List of attending players</a></p>`;
+                }
+                
+                if (event.Sponsor) {
                     eventDetailsHTML += `<p><strong>Sponsor: </strong> ${event.Sponsor}</p>`;
                 }
+                
                 if (event.Prize) {
                     eventDetailsHTML += `<p><strong>Prize Pool:</strong> ${event.Prize}</p>`;
                 }
-				if (event.Host) {
+                
+                if (event.Host) {
                     eventDetailsHTML += `<p><strong>Host:</strong> ${event.Host}</p>`;
                 }
-				if (event.Admins) {
+                
+                if (event.Admins) {
                     eventDetailsHTML += `<p><strong>Admins:</strong> ${event.Admins}</p>`;
                 }
-                importantLinksHTML += `<div class="important-links"><h3>Important Links</h3>`;
-                let linkStringStart = importantLinksHTML; //to compare later
+                
+                let importantLinksHTML = `<div class="important-links"><h3>Important Links</h3>`;
+                let hasLinks = false;
+                
                 if (event['GroupMap']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['GroupMap']}" target="_blank"><strong>Group Stage Map Draft</strong></a></div>`;
+                    hasLinks = true;
                 }
 
                 if (event['GroupCiv']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['GroupCiv']}" target="_blank"><strong>Group Stage Civ Draft</strong></a></div>`;
+                    hasLinks = true;
                 }
 
                 if (event['KO Map Draft Link']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['KO Map Draft Link']}" target="_blank"><strong>KO Map Draft Link</strong></a></div>`;
+                    hasLinks = true;
                 }
 
                 if (event['KO Civ Draft Link']) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['KO Civ Draft Link']}" target="_blank"><strong>KO Civ Draft Link</strong></a></div>`;
+                    hasLinks = true;
                 }
 
                 if (event.Handbook) {
                     importantLinksHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
+                    hasLinks = true;
                 }
-                if(importantLinksHTML != linkStringStart){
+                
+                importantLinksHTML += `</div>`;
+                
+                if(hasLinks){
                     eventDetailsHTML += importantLinksHTML;
                 }
-                if (event.Players) {
-                    eventDetailsHTML += `<p><strong>Players:</strong> <a href="${event.Players}" target="_blank">Link</a></p>`;
-                }
+                
                 if (event.L1) {
                     eventDetailsHTML += `<p><a href="${event.LL1}" target="_blank">${event.L1}</a></p>`;
                 }
+                
                 if (event.L2) {
                     eventDetailsHTML += `<p><a href="${event.LL2}" target="_blank">${event.L2}</a></p>`;
                 }
-                eventDetailsHTML += `</div>`;
 
                 if (event['DivisionElo Range']) {
                     eventDetailsHTML += `<p><strong>Division Elo Range:</strong> ${event['DivisionElo Range']}</p>`;
                 }
-
 
                 eventDetailContainer.innerHTML = eventDetailsHTML;
             } else {
