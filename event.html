@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <style>
         h2 {
-            color: #5c3d2e;
+            color: #000000;
             text-align: center;
             font-size: 2em;
             font-family: 'Eczar', serif;
@@ -59,7 +59,7 @@
 
         .important-links h3 {
             margin-top: 0;
-            color: #3c2910;
+            color: #000000;
             font-family: 'Eczar', serif;
             border-bottom: 2px solid #8b5a2b;
             padding-bottom: 8px;
@@ -82,17 +82,17 @@
         }
 
         p {
-            color: #1a0f08;
+            color: #000000;
             font-size: 1.05em;
         }
 
         p strong {
-            color: #3c2910;
+            color: #000000;
             font-weight: 600;
         }
 
         svg {
-            color: #8b5a2b;
+            color: #000000;
             margin-right: 5px;
             vertical-align: middle;
         }
@@ -154,7 +154,7 @@
                 
                 if (event.SignupDeadline) {
                     const formattedDeadline = formatDateToMonthDay(event.SignupDeadline);
-                    eventDetailsHTML += `<p><strong>Signup Deadline:</strong> <i class="bi bi-calendar fs-5"></i> ${formattedDeadline}</p>`;
+                    eventDetailsHTML += `<p><i class="bi bi-calendar fs-5"></i> <strong>Signup Deadline:</strong> ${formattedDeadline}</p>`;
                 }
                 
                 if (event.StartDate) {
@@ -162,7 +162,7 @@
                     eventDetailsHTML += `<p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
                           <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                        </svg> Begins: ${formattedStart}`;
+                        </svg> <strong>Begins: </strong>${formattedStart}`;
                     
                     if(event.EndDate){
                         const formattedEnd = formatDateToMonthDay(event.EndDate);
@@ -177,7 +177,7 @@
                 }
 
                 if (event.DiscordLink) {
-                    eventDetailsHTML += `<p><strong><i class="bi bi-discord"></i></strong><a href="${event.DiscordLink}" target="_blank">${event.Discord} Discord</a></p>`;
+                    eventDetailsHTML += `<p><strong><i class="bi bi-discord"> </i></strong><a href="${event.DiscordLink}" target="_blank">${event.Discord} Discord</a></p>`;
                 }
                 if(event.LongDescription){
                     eventDetailsHTML += `<p>${event.LongDescription}</p>`;
@@ -241,7 +241,7 @@
                 }
 
                 if (event.Handbook) {
-                    importantLinksHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank"><strong>Handbook</strong></a></div>`;
+                    importantLinksHTML += `<div class="important-link"><a href="${event['Handbook']}" target="_blank">Handbook</a></div>`;
                     hasLinks = true;
                 }
                 
